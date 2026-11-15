@@ -1,10 +1,11 @@
 # Project overview: what CareTrack is
 
-This is the plain-language explanation of the project. It restates the
-[proposal](proposal/CareTrack_Project_Proposal.pdf) so that anyone on the team
-can explain the whole system, not only their own part. Where this file and the
-proposal disagree, the proposal wins until a change is recorded in
-[DECISIONS.md](DECISIONS.md).
+The plain-language explanation of what we build in one day. Everyone on the
+team should be able to explain all of it, not only their own part.
+
+This is a reduced version of the [original proposal](proposal/CareTrack_Project_Proposal.pdf).
+**There is no AI or machine learning in it.** Where this file and the proposal
+disagree, this file wins (see [DECISIONS.md](DECISIONS.md), D-006).
 
 ## 1. Who it is for
 
@@ -13,178 +14,145 @@ children live at the home and attend nearby schools.
 
 | User | Device | What they do in CareTrack | What they cannot see |
 |---|---|---|---|
-| **Manager (Admin)** | Laptop | Everything: dashboard, alerts, health, support network, forecasts, finance, reports | Nothing is hidden |
-| **Warden / Caregiver** | Mobile phone | Daily attendance, sick log, peer and activity logs, stock usage | The support-network graph, finances, full medical history |
+| **Manager** | Laptop | Everything: dashboard, alerts, health cases, students, stock | Nothing is hidden |
+| **Warden** | Mobile phone | Mark daily attendance with absence reasons; record stock in and out; view the student list | Alerts, health cases, the dashboard |
 
 ## 2. The problems we are solving
 
-1. **School attendance.** Staff cannot see which children miss school, how often, or why.
-2. **Health.** Repeated illness goes unnoticed, and yearly check-ups are not compared year to year. A child who misses school three times a month for asthma needs a doctor, but nobody connects the events.
-3. **Social wellbeing.** With dozens of children, caregivers cannot see who is isolated, who may be bullied, or which mentor bonds are weak.
-4. **Resources.** Donations arrive in bursts while needs are steady or seasonal, so stock runs out, cash runs short, medicines expire, and donors get no clear financial picture.
-5. **Scattered records.** Academics, scholarships and achievements live in different places.
+1. **Attendance.** Staff cannot see which children miss school, how often, or why.
+2. **Health.** Repeated illness goes unnoticed. A child who misses school three times a month for asthma needs a doctor, but nobody connects the events.
+3. **Stock.** Supplies and medicines run out or expire because nobody sees it coming.
 
-## 3. What the system does (objectives)
+The proposal also covers social wellbeing, donations and budget, academics and
+scholarships. Those are out of scope for the one-day build.
 
-1. Record daily attendance with the **reason** for every absence.
-2. **Automatically detect warning patterns** (repeated illness, low attendance, falling marks, low stock) and alert the manager.
-3. Digitise health care: a **yearly check-up** for every child, a **monthly doctor visit** for flagged children, follow-ups tracked until resolved.
-4. Map the children's **support network as a graph** and use a **Graph Neural Network** to surface children who may need support. A human reviews every signal.
-5. **Forecast consumption, donations and budget runway** to plan ahead for stock-outs and cash shortages.
-6. Keep **one complete profile per child**: health, academics, scholarships, achievements.
-7. **Protect** the children's personal, medical and relationship data.
+## 3. What we build
 
-## 4. The seven modules
+### Must have (the day is a failure without these)
 
-| # | Module | Purpose |
+| # | Feature | Who uses it |
 |---|---|---|
-| 1 | Student Records, Scholarships & Peer Logs | One profile per child; guardian consent; scholarship tracker; room, mentor, activity and friendship logs |
-| 2 | Attendance & Absence Reasons | Daily attendance on a phone, with reasons and the illness for medical absences |
-| 3 | Health & Medical Care | Yearly check-up, monthly doctor visit, vaccinations, growth charts, health cases board |
-| 4 | Academics & Achievements | Marks by term, trend graphs, extracurricular achievements |
-| 5 | Inventory, Donations & Expenses | Groceries, stationery, medicines, hygiene items, uniforms: stock in/out, first-expiry-first-out (FEFO), donor log, expenses |
-| 6 | **AI: Support Network Intelligence (GNN)** | Finds isolated children, recommends mentor and roommate pairings, flags clusters with many negative incidents |
-| 7 | **AI: Predictive Resource & Budget Forecasting** | Forecasts demand and donations, warns of runway and stock-outs, detects anomalies, plans scenarios |
+| 1 | **Login with two roles**, each seeing only their own screens | Both |
+| 2 | **Student list and basic profile** (name, age, class, room) | Both |
+| 3 | **Daily attendance on a phone:** everyone starts as present; tap the absent ones; pick a reason, and the illness if the reason is medical | Warden |
+| 4 | **Stock in / stock out** for items (food, medicine, hygiene, stationery), with expiry date and a minimum level | Warden |
+| 5 | **Three automatic rules** that raise alerts (section 5) | System |
+| 6 | **Alert centre:** list of alerts by severity; acknowledge and resolve | Manager |
+| 7 | **Health cases:** opened automatically by the illness rule; moved through Open → Scheduled → Under treatment → Resolved | Manager |
+| 8 | **Dashboard:** today's attendance, open alerts, open health cases, low-stock items, a 30-day attendance chart | Manager |
 
-## 5. How the pieces fit together
+### Stretch (only after Check 2, in this order)
+
+1. Absence-reason breakdown chart
+2. Marks entry and a "falling marks" rule
+3. Donations and expenses log
+4. Installable on the phone's home screen (PWA)
+5. Kannada labels on the warden screens
+6. PDF health card
+
+### Cut from the proposal
+
+Graph neural network and support-network module · Neo4j · resource and
+donation forecasting · anomaly detection · what-if planner · Python ML service
+· offline sync · scholarships · achievements · peer and activity logs · growth
+charts · yearly check-up workflow · design system with 30+ components ·
+usability testing at the trust · real data entry and staff training.
+
+## 4. How the pieces fit together
 
 ```
-        MANAGER (laptop, full access)        WARDEN (phone, daily entry)
-                      |                                 |
-        LOGIN + ROLE-BASED ACCESS + AUDIT LOG + CHILD DATA PRIVACY   (B1, D)
-                      |
-   +---------+-----------+---------+-----------+------------+
-   | Student | Attendance| Health  | Academics | Inventory, |
-   | records | & reasons | & care  | & achieve.| donations  |
-   | (F2,B1) | (F2,B1)   |(F1,F2,B1)| (F2,B1)  | (F2,B1)    |
-   +---------+-----------+---------+-----------+------------+
-                      |
-        +-------------+--------------+
-        |                            |
-  EARLY-WARNING RULES ENGINE    AI / ML SERVICE (Python, FastAPI)
-  (B2)                          - Support network GNN      (B2)
-                                - Resource forecasting     (B1)
-        +-------------+--------------+
-                      |
-                 ALERT CENTRE (F1, B2)
-                      |
-   +------------------+-------------------+
-   | Health check-ups | Support plans     | Procurement & budget |
-   | (F2, B1)         | (F1, B2)          | (F1, B1)             |
-   +------------------+-------------------+
-                      |
-        ADMIN DASHBOARD & REPORTS (F1)
-        KPIs, alerts, trends, graph explorer, forecast planner, PDFs
-
-  ===================================================================
-  PostgreSQL (Supabase): records, stock, donations, expenses
-  Neo4j graph DB: children, caregivers, mentors, relationships
-  Security rules, triggers, data pipelines, synthetic data        (D)
-  ===================================================================
+     MANAGER (laptop)                    WARDEN (phone)
+            |                                  |
+     LOGIN + ROLE CHECK ON EVERY REQUEST              (B1, D)
+            |                                  |
+   Dashboard, alerts,                 Attendance entry,
+   health cases (F1)                  stock entry, students (F2)
+            |                                  |
+            +---------------+------------------+
+                            |
+                  APIs with input checks                (B1)
+                            |
+        RULES run after each attendance or stock entry  (B2)
+        and write alerts and health cases
+                            |
+   ================================================================
+   PostgreSQL (Supabase): students, attendance, stock, alerts,
+   health cases. Access rules enforced inside the database.   (D)
+   ================================================================
 ```
 
-### Three flows to remember
+### The two flows we demo
 
-These are the stories we demo. If these three work end to end, the project works.
+If these two work end to end, the project works.
 
-1. **Health.** A child is marked absent for asthma for the 3rd time → critical alert → child added to the monthly doctor visit → findings recorded → follow-up until resolved → history compared at the yearly check-up.
-2. **Social.** Peer, room and activity logs → graph in Neo4j → the GNN gives a child a low support score → "support-needed" signal → the manager reviews it → the system suggests a mentor pairing.
-3. **Resources.** Daily stock use and donations → forecast shows "rice lasts 9 days, next confirmed donation in 20 days" → procurement list and budget runway on the dashboard.
+1. **Health.** The warden marks a child absent for asthma for the 3rd time in 30 days → a critical alert appears for the manager → a health case opens automatically → the manager moves it to Scheduled, then Under treatment, then Resolved.
+2. **Stock.** The warden records rice being used → the balance drops below the item's minimum level → a warning alert appears → the item shows on the dashboard's low-stock list.
 
-## 6. The two AI modules
+Plus one security check to show: logged in as the warden, the alert and health
+pages are refused, and so is a direct database query for them.
 
-### 6.1 Support network (GNN), owned by B2
+## 5. The rules
 
-- **Graph (Neo4j).** Nodes: children, caregivers, teachers, mentors, volunteers. Node features: age, school grade, attendance rate, health flags, activity participation, tenure at the home. Typed, weighted edges: shares room, sibling, same class, mentor-of, caregiver-assigned, peer interaction. Edge weight reflects how often and how recently the interaction happened.
-- **What it does.**
-  1. *Isolation detection:* baseline from centrality (degree, betweenness), then a richer score from GNN embeddings.
-  2. *Link prediction:* recommends mentor-child and roommate pairings.
-  3. *Community detection:* Louvain clusters; clusters with many negative incident reports are flagged as possible bullying groups.
-  4. *Node classification:* predicts "needs support" with GraphSAGE or GAT.
-- **Evaluation.** Feature-only model vs GNN (the gain from graph structure); precision and recall against caregiver labels; ablation removing one edge type at a time.
-- **Safeguards.** Real data is small, so a synthetic graph (stochastic block model with planted isolated children and bullying clusters) is used and clearly stated. Outputs are "support-needed" signals reviewed by a human. Only the manager sees interaction data, and every access is logged.
+Plain if-then checks on the data. No model, no training, no prediction.
 
-### 6.2 Resource and budget forecasting, owned by B1
+| Rule | Fires when | Severity | Action |
+|---|---|---|---|
+| Repeated medical absence | ≥3 absences for the same illness within 30 days | Critical | Alert + open a health case |
+| Low attendance | Below 85% over the last 30 days, or 3 or more absences in a row | Warning | Alert |
+| Low stock / expiring | Balance below the item's minimum level, or expiry within 30 days | Warning | Alert + show on low-stock list |
 
-- **Data streams.** Daily food use and inventory; medicine use and expiry; donations (cash and in-kind, with donor type); expenses by category; headcount.
-- **What it does.** Demand forecasting per item per week (with seasonality: June school reopening, festivals, monsoon illness); donation forecasting given as a **range**, not a single number; runway and stock-out alerts with an automatic procurement list; anomaly detection (Isolation Forest, residual z-scores); a what-if scenario planner; FEFO for medicines and food.
-- **Model ladder.** Each model must beat the one below it: (1) moving average and seasonal naive, (2) SARIMA or Prophet, (3) gradient boosting with calendar and headcount features, (4) optional LSTM, reported honestly if it loses.
-- **Evaluation.** Time-based split (never random); MAPE, MAE and RMSE per category; rolling-window backtests; how often the actual value falls inside the forecast range.
-- **Safeguards.** The trust's ledgers are used where available and topped up by a documented synthetic generator. Forecasts use weekly or monthly buckets because one-off gifts are noisy.
+Each rule must not raise the same alert twice for the same child or item while
+the first one is still open.
 
-## 7. Early-warning rules (B2)
+Alerts are prompts for the manager to look at a child or an item. They are
+never a judgement about a child.
 
-| Rule | Fires when | Action |
-|---|---|---|
-| Repeated medical absence | ≥3 absences for the same illness in 30 days | Critical → health case + monthly doctor visit |
-| Low attendance | < 85% over 30 days, or 3+ absences in a row | Warning |
-| Falling marks | Term average drops ≥10% | Warning |
-| Growth concern | BMI below the healthy range, or >5% weight loss | Critical → health case |
-| Check-up / vaccine overdue | More than 12 months since the last check-up, or a vaccine past its due date | Warning |
-| Scholarship deadline | Due within 14 days | Info |
-| Stock-out risk *(from forecasting)* | Runway < 7 days, or expiry < 30 days | Warning → procurement list |
-| Spending anomaly *(from forecasting)* | Anomaly score above the threshold | Warning → manager review |
-| Support-needed *(from GNN)* | High-risk score or isolation flag | Info → human review → support plan |
-
-## 8. Technology stack
+## 6. Technology
 
 | Layer | Technology |
 |---|---|
-| Frontend | Next.js (React) + TypeScript, Tailwind CSS + shadcn/ui, Recharts, Cytoscape.js / react-force-graph, PWA + IndexedDB (offline), English/Kannada |
-| Backend (web) | Next.js server APIs, Zod validation, scheduled jobs (Vercel Cron) |
-| Backend (AI) | Python, FastAPI, PyTorch Geometric, NetworkX, scikit-learn, Prophet, statsmodels (SARIMA), LightGBM |
-| Databases | PostgreSQL (Supabase) with Row Level Security; Neo4j AuraDB (graph) |
-| Testing | Vitest, Pytest, Playwright, Lighthouse |
-| Hosting | Vercel + Supabase + Neo4j AuraDB free tiers; ML service on a free container host (Render). No cost to the trust |
-| Teamwork | GitHub branches, cross-layer pull-request reviews, CI |
+| App | One Next.js (React) app in TypeScript, with a manager area and a warden area |
+| Styling | Tailwind CSS + shadcn/ui components; Recharts for the charts |
+| Backend | Next.js server routes; Zod for input checks |
+| Database and login | PostgreSQL on Supabase, Supabase Auth, Row Level Security |
+| Tests | Vitest for the rules; a manual checklist for the two flows |
+| Hosting | Vercel + Supabase free tiers |
 
-## 9. Data design
+## 7. Data
 
-**PostgreSQL (about 28 tables, 3NF):** students · guardians/consent · attendance ·
-conditions · medical_profile · sick_logs · vaccinations · growth_measurements ·
-annual_checkups · health_cases · doctor_visits · terms · marks · achievements ·
-scholarships · student_scholarships · inventory_items · stock_transactions ·
-donations · expenses · peer_interactions · incidents · room_assignments ·
-mentorships · alerts · support_scores · forecasts · audit_log
+Nine tables. D owns the exact definition ([CONTRACTS.md](CONTRACTS.md), C1).
 
-**Neo4j:** `(:Child)`, `(:Caregiver)`, `(:Teacher)`, `(:Mentor)`, `(:Volunteer)`
-linked by `SHARES_ROOM`, `SIBLING_OF`, `SAME_CLASS`, `MENTOR_OF`, `ASSIGNED_TO`,
-`INTERACTS_WITH {weight, last_seen}`
+| Table | Holds |
+|---|---|
+| `profiles` | One row per login, with the role (manager or warden) |
+| `students` | Name, date of birth, class, room |
+| `absence_reasons` | Medical, family, other... |
+| `illnesses` | Asthma, fever, stomach... |
+| `attendance` | One row per child per day: present or absent, reason, illness |
+| `inventory_items` | Name, category, unit, minimum level, current balance |
+| `stock_transactions` | In or out, quantity, date, expiry date, who entered it |
+| `alerts` | Rule, severity, child or item, status, created and resolved times |
+| `health_cases` | Child, illness, status, notes, linked alert |
 
-## 10. Privacy and ethics
+Constraints that matter: one attendance row per child per day; stock balance
+can never go below zero.
 
-- **No real children's data** is used in college demos or stored in the code repository. Demos use documented synthetic data, and this is stated clearly.
-- AI outputs are **support signals, never labels**. A human always reviews them before anything happens, and each one comes with an explanation. No child is ever labelled "problematic".
-- Relationship, incident and medical data are visible only to the manager. Access is enforced by the database and logged.
-- ML training uses **pseudonymised IDs**. Data is collected and kept according to the trust's consent and the **DPDP Act 2023**.
+## 8. Privacy
 
-## 11. How we will know it works
+- **No real children's data** in the repository, the demo or any AI tool. The seed data is invented.
+- The warden cannot read alerts or health cases. The database enforces this, not only the screens.
+- No secrets in git.
 
-**Software**
+## 9. How we will know it works
 
-1. Unit tests for every rule; planted patterns must trigger the right alerts.
-2. Security test: the warden is blocked from medical, graph and finance data at both the screen and the database level.
-3. Offline test in airplane mode, then sync.
-4. Usability test: the warden completes a class's attendance in under 60 seconds.
-5. End-to-end test: absence → alert → doctor visit → resolved → report.
+1. Both demo flows run end to end on the deployed app.
+2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts.
+3. A warden login is refused alerts and health cases at both the screen and the database.
+4. Attendance for a class of 30 takes under 60 seconds on a phone.
 
-**AI**
+## 10. What we hand in
 
-- GNN: gain over the feature-only baseline; precision/recall against caregiver labels; edge-type ablation table.
-- Forecasting: time-based split; MAPE/MAE/RMSE per category; rolling backtest; interval coverage; model-ladder comparison table.
-
-## 12. What we hand over (deliverables)
-
-1. Deployed web app + mobile PWA used by the trust.
-2. Python ML service with trained models, notebooks and evaluation reports.
-3. Source code on GitHub with a README, an admin guide and documentation for the synthetic data.
-4. Project report (one chapter per role) and a live demo (each member presents their part).
-5. Training session for the trust's warden and manager.
-
-## 13. Expected impact
-
-- Children with repeated illness get timely care, and every child is reviewed at least once a year.
-- Isolated or struggling children are noticed earlier and matched with mentors.
-- Fewer stock-outs, cash shortages and expired medicines.
-- Donors see clear, transparent reports.
-- The trust gets a free, working system with training and a user guide.
+1. The deployed app, with a manager login and a warden login, on seed data.
+2. The source code on GitHub with this documentation.
+3. Five worklogs, one per role, as the record of who did what.
+4. A live demo where each member presents their own part.

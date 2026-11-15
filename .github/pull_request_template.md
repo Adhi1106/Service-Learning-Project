@@ -1,5 +1,5 @@
 ## What this PR does
-<!-- One or two sentences. Link the module: Students / Attendance / Health / Academics / Inventory / AI-Support-Network / AI-Forecasting -->
+<!-- One or two sentences. Feature: Login / Students / Attendance / Stock / Rules and alerts / Health cases / Dashboard -->
 
 ## Role
 <!-- F1 / F2 / B1 / B2 / D -->
@@ -8,12 +8,11 @@
 <!-- Exact steps or commands a reviewer can follow -->
 
 ## Checklist
-- [ ] My worklog (`docs/worklogs/<ROLE>.md`) has an entry for this work, included in this PR
-- [ ] Tests added or updated, and passing locally
+- [ ] It runs locally and does not break `main`
+- [ ] Rules only: unit tests added and passing
 - [ ] No real children's data, secrets or `.env` files in this PR
-- [ ] If I changed a shared contract (DB schema, API contract, score/alert tables), I updated `docs/CONTRACTS.md` and told the affected roles
-- [ ] If I made a decision others must live with, I added it to `docs/DECISIONS.md`
-- [ ] Reviewer is from a different layer (see TEAM_RULES.md, rule 4)
+- [ ] If I changed a table, endpoint or alert shape, I told the team and updated `docs/CONTRACTS.md`
+- [ ] Tables or access rules touched: D is a reviewer. Login or role checks touched: B1 is a reviewer
 
 ## Screenshots / output
-<!-- UI screenshots, API responses, evaluation tables. Synthetic data only. -->
+<!-- Optional. Seed data only. -->

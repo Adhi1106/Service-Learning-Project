@@ -1,106 +1,88 @@
 # Team rules
 
-Ten rules for five people. They exist so that nobody is blocked, nobody's work
-is lost, and no child's data is ever exposed. If a rule is getting in the way,
-change it by agreement and record the change in
+Ten rules for five people and one day. They exist so that nobody is blocked,
+nobody's work is lost, and no child's data is ever exposed. If a rule is
+getting in the way, change it by agreement and record it in
 [docs/DECISIONS.md](docs/DECISIONS.md). Do not quietly ignore it.
 
 ## 1. Children's data is never in the repository
 
-This rule outranks every other rule and every deadline.
+This rule outranks every other rule and the deadline.
 
-- **No real data** about any child, guardian, donor or staff member goes into git, a pull request, an issue, a screenshot, a slide, a chat group, or a prompt to an AI tool. That includes names, photos, medical notes, incident reports and bills.
-- Development, tests and demos use **synthetic data** from D's documented generators.
-- Real data lives only in the production database, entered through the app, at the trust.
-- **Secrets** (database passwords, API keys, `.env` files) never go into git. Share them through the hosting dashboards.
-- Notes from visits to the trust describe *workflows*, never individual children.
-- If you see real data or a secret in the repo, tell the team immediately. Removing it and rotating the key comes before any other work.
+- **No real data** about any child, guardian or staff member goes into git, a pull request, a screenshot, a slide, a chat group, or a prompt to an AI tool.
+- We build, test and demo with **invented seed data** from D's seed script.
+- **Secrets** (database passwords, API keys, `.env` files) never go into git. Share them privately and set them in the Vercel and Supabase dashboards.
+- If you see real data or a secret in the repo, tell the team immediately. Removing it and changing the key comes before any other work.
 
-## 2. AI outputs are signals, never labels
+## 2. Alerts point at something to look at. They never judge a child
 
-- Every model output is worded as a **"support-needed" signal** for a human to review. No screen, log, variable name, commit message or document calls a child "problematic", "at risk" as a verdict, "bully" or similar.
-- Every signal carries an **explanation**, and nothing happens to a child because of a signal until the manager has reviewed it.
-- Relationship, incident and medical data are visible **only to the manager**. This is enforced in the database (Row Level Security), not only on the screen.
-- We report model results honestly, including when a complex model loses to a simple one, and we always say that the data is synthetic.
+- An alert says what happened ("absent for asthma 3 times in 30 days"), not what a child is. No screen, variable name, commit message or document calls a child a problem.
+- Nothing happens to a child because of an alert until the manager has looked at it.
+- The warden cannot read alerts or health cases. The database enforces this (Row Level Security), not only the screens.
+- There is no AI or machine learning in this product. Do not add any.
 
-## 3. Document what you do, when you do it
+## 3. Write down what you did at the end of every block
 
-- Each role has one worklog: `docs/worklogs/<ROLE>.md`. Add an entry for **every work session**, using [the template](docs/templates/worklog-entry.md).
-- The worklog entry is committed **in the same pull request as the work**. A PR without a worklog entry is not ready for review.
-- Write for a teammate who was not there: what you did, why, what you learned, what is blocked, what comes next.
-- A decision that others must live with (a library, a schema choice, a cut feature) goes in [docs/DECISIONS.md](docs/DECISIONS.md).
-- A change to something another role depends on (database schema, API shape, alert or score format) goes in [docs/CONTRACTS.md](docs/CONTRACTS.md) **before** it is merged.
-- Your worklog is the source for your chapter of the final report. Ten minutes a day now saves days at the end.
+- Each role has one worklog: `docs/worklogs/<ROLE>.md`. Add an entry at the **end of each block** (four in the day), using [the template](docs/templates/worklog-entry.md). Five minutes each.
+- Say what you built, what works, what does not, and what you need from someone.
+- A choice others must live with goes in [docs/DECISIONS.md](docs/DECISIONS.md). So does everything we cut.
+- The worklogs are the record of who did what. Without an entry, the work is not credited.
 
-## 4. Nothing reaches `main` without a pull request and a cross-layer review
+## 4. Small pull requests, fast reviews, `main` always runs
 
-- `main` always works. Nobody pushes to it directly.
-- Branch names: `<role>/<short-topic>`, for example `b1/auth-rbac`, `f2/attendance-offline`, `d/rls-policies`.
-- One PR does one thing. Aim for under about 400 changed lines; split bigger work.
-- Every PR needs **one approval from a different layer**, so that knowledge crosses the team:
+- Nobody pushes directly to `main`.
+- Branch names: `<role>/<short-topic>`, for example `b1/login`, `f2/attendance-screen`, `d/schema`.
+- Keep pull requests small and merge **at least once per block**. A branch that lives all day will not merge at the end.
+- One approval from any teammate, preferably the person whose work it touches. **Review within 15 minutes of being asked.** Check three things: it runs, it does not break `main`, it respects rules 1 and 2.
+- Anything touching tables or access rules needs **D**. Anything touching login or role checks needs **B1**.
+- If `main` breaks, whoever broke it fixes it before doing anything else.
 
-  | Author | Default reviewer | Why |
-  |---|---|---|
-  | F1 | B2 | B2 produces the alerts and scores F1 displays |
-  | F2 | B1 | B1 serves the endpoints F2 calls |
-  | B1 | D | D owns the tables B1 reads and writes |
-  | B2 | F1 | F1 consumes what B2 produces |
-  | D | B1 or B2 | They consume the schema and pipelines |
+## 5. Agree the shapes in the first hour, then do not change them silently
 
-  Anything that touches the schema, security rules or migrations also needs **D**. Anything that touches login or permissions also needs **B1**.
-- Review within **one working day**. If you cannot, say so and hand it to someone else.
-- The author merges after approval and green CI. Use squash merge. Delete the branch.
-- Reviewers check: does it work, is it tested, does it respect rules 1 and 2, is the worklog there.
+- Block 0 produces [docs/CONTRACTS.md](docs/CONTRACTS.md): the tables (D), the endpoints (B1), the alert format (B2), the fields each screen sends (F2), the shared components (F1).
+- After Block 0, a change to any of these is announced out loud to the team **before** it is merged.
+- If the other side is not ready, build against the agreed shape with placeholder data. Do not wait, and do not invent your own shape.
 
-## 5. Agree the contract before building on it
+## 6. Commit often
 
-- The interfaces between roles are written down in [docs/CONTRACTS.md](docs/CONTRACTS.md): the database schema (D), the API contract (B1), the alert and score formats (B2), the entry-screen data shapes (F2), the design system (F1).
-- The owner of a contract may change it, but only after telling every role that depends on it and updating the file.
-- If the other side is not ready, build against the contract with mock or synthetic data. Do not wait, and do not invent your own shape.
+- Commit message format: `<role>: <what changed>`, for example `d: add attendance table`.
+- Commit and push every working step. Nothing should exist only on your laptop for more than 30 minutes.
+- Never commit dependencies, build output or secrets (see `.gitignore`).
 
-## 6. Commit small, commit clearly
+## 7. Done means working on the deployed app
 
-- Commit message format: `<role>: <what changed>`, for example `d: add attendance table with one-per-day constraint`.
-- Commit working steps often. Push at least once per work session so nothing lives only on your laptop.
-- Never commit generated files, dependencies, trained model binaries or secrets (see `.gitignore`).
-- Do not rewrite history on a branch someone else is using.
+A piece of work is **done** only when:
 
-## 7. Tested means done
+- [ ] It works on the deployed app with the seed data, not only on your laptop
+- [ ] It is merged to `main`
+- [ ] The warden still cannot reach manager-only data
+- [ ] For rules: the unit tests pass
+- [ ] For warden screens: it works on a real phone
+- [ ] Your worklog says so
 
-A piece of work is **done** only when all of these are true:
+"Almost finished" means **not done**.
 
-- [ ] It does what the plan says, on synthetic data
-- [ ] It has automated tests (Vitest, Pytest or Playwright) and CI is green
-- [ ] It respects the access rules: the warden cannot reach manager-only data
-- [ ] It is merged to `main` through a reviewed PR
-- [ ] The worklog entry is written and the status table in your worklog is updated
-- [ ] For user-facing work: it works on a phone (F2) or a laptop (F1) and meets the accessibility target
-- [ ] For AI work: the evaluation numbers are recorded, with the baseline next to them
+## 8. Say it early
 
-"It works on my machine" and "it is almost finished" both mean **not done**.
+- **Stuck for more than 20 minutes? Ask.** On a one-day build, 20 minutes is a lot.
+- If you will not finish something another role is waiting for, say so the moment you know.
+- **Three checks in the day**, all five together, 30 minutes each (see [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md)). Stop what you are doing and attend.
+- Keep one chat thread for the day. Post there when you merge something others depend on.
 
-## 8. Talk early, especially about being stuck
+## 9. Decide in five minutes, write it down, move on
 
-- **Daily check-in**, 10 minutes, or three written lines in the team chat: what I finished, what I am doing next, what is blocking me.
-- **Stuck for more than 2 hours? Ask.** Being stuck quietly is the most expensive thing on a 3-week project.
-- If you will miss a date that another role depends on, say so **as soon as you know**, not on the day.
-- **Integration check at the end of every phase** (see [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md)): all five together, run the three main flows end to end, record what broke.
-- Keep technical discussion in GitHub (PRs, issues) so it is findable later. Chat is for coordination.
-
-## 9. Decide quickly, record it, move on
-
-- The **owner** of a piece decides inside that piece (see [docs/ROLES.md](docs/ROLES.md)).
-- A decision that crosses roles is made by the people affected, together. Aim to settle it the same day.
-- If it is still stuck after one discussion, the **coordinator** decides.
-- Once decided, it is written in [docs/DECISIONS.md](docs/DECISIONS.md) and everyone follows it. Reopen it only with new information.
-- **If time runs short, cut in this order** (from the proposal): the LSTM and the email digest first, then roommate link prediction (keep mentor pairing). Record every cut.
+- The **owner** of a piece decides inside that piece ([docs/ROLES.md](docs/ROLES.md)).
+- A decision across roles: the people affected talk for five minutes. Still stuck? The **coordinator** decides.
+- **Must-haves before stretch.** Nobody starts a stretch item until all eight must-haves pass Check 2.
+- **Feature freeze at Check 2.** After it, only bug fixes, testing and deployment.
+- **If the day runs late**, cut in this order: all stretch items; the 30-day chart; the stock table for the manager; the low-attendance rule. Never cut login and roles, attendance entry, the repeated-illness rule, the alert centre, or database-level access rules.
 
 ## 10. Respect the people
 
-- **The trust's staff are the reason this exists.** Be punctual and prepared at the trust, do not take photos of children, and do not promise features we may cut. Contact with the trust goes through the coordinator.
-- **Each other.** Criticise code, not people. Review kindly and specifically. Give credit in worklogs and in the report for help you received.
-- **Fair share.** Everyone presents their own part in the demo and writes their own chapter. If someone is overloaded or falling behind, raise it at the check-in so the team can rebalance, rather than covering for it silently.
-- **AI assistants** (Claude and others) are allowed for code and documentation. You remain responsible for what you commit: read it, test it, understand it well enough to explain it in the demo. Note in your worklog where an assistant did substantial work. Rule 1 applies to prompts.
+- **The trust and its children** are the reason this exists. Do not use their real names or details anywhere, and do not promise them features we have not built.
+- **Each other.** Criticise code, not people. Say thank you. Credit help in your worklog.
+- **Fair share.** Everyone presents their own part. If someone is overloaded, say so at a check so the team can rebalance.
+- **AI coding assistants** (Claude and others) may be used to write code and documents. The product itself contains no AI. You are responsible for what you commit: read it, run it, and be able to explain it in the demo. Rule 1 applies to prompts.
 
 ---
 
@@ -109,9 +91,8 @@ A piece of work is **done** only when all of these are true:
 | I want to... | Do this |
 |---|---|
 | Start a piece of work | Branch `<role>/<topic>` from an up-to-date `main` |
-| Finish a work session | Commit, push, add a worklog entry |
-| Get work merged | Open a PR with the template filled in, request the cross-layer reviewer |
-| Change the schema or an API | Tell the affected roles, update `docs/CONTRACTS.md`, then open the PR |
-| Record a decision | Add a row to `docs/DECISIONS.md` |
-| Report a problem | Tell the team in chat now, open a GitHub issue for the record |
-| Report a data or secret leak | Tell the whole team immediately. Everything else stops |
+| Get work merged | Open a small pull request, ask a teammate in the chat, they review within 15 minutes |
+| Change a table, endpoint or alert shape | Tell the team first, update `docs/CONTRACTS.md`, then merge |
+| Finish a block | Push, merge, write the worklog entry |
+| Record a decision or a cut | Add a row to `docs/DECISIONS.md` |
+| Report a data or secret leak | Tell everyone now. Everything else stops |

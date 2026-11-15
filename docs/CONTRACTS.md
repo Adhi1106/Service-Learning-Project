@@ -1,46 +1,74 @@
 # Contracts between roles
 
-A contract is something one role produces and another role builds on. Each has
-one owner. The owner may change it, but only after telling the roles that
-depend on it and updating this file in the same pull request
+A contract is something one role produces and another builds on. Each has one
+owner. All six are agreed in **Block 0** (the first hour). After that, the
+owner announces any change to the team before merging it
 ([TEAM_RULES.md](../TEAM_RULES.md), rule 5).
 
-This file is the index. Keep the detail next to the code (migrations, an
-OpenAPI file, a schema file) and link to it from here.
+Fill in the sections below during Block 0. Keep them short: this is the page
+everyone has open all day.
 
-| # | Contract | Owner | Used by | First version due | Status | Where the detail lives |
-|---|---|---|---|---|---|---|
-| C1 | PostgreSQL schema (tables, keys, constraints, views) | D | B1, B2, F1, F2 | Day 2 | Not started | _link_ |
-| C2 | Row Level Security: who can read and write what | D | B1, everyone | Days 3–7 | Not started | _link_ |
-| C3 | Neo4j schema (node labels, relationship types, properties) | D | B2, F1 | Day 2 | Not started | _link_ |
-| C4 | Web API contract (endpoints, request and response shapes, errors) | B1 | F1, F2 | Day 2 | Not started | _link_ |
-| C5 | Roles and permissions table (manager, warden) | B1 | Everyone | Day 2 | Not started | _link_ |
-| C6 | Alert format and lifecycle | B2 | F1, B1, D | Day 2 | Not started | _link_ |
-| C7 | Rule specifications (the nine early-warning rules) | B2 | D, B1, F1 | Day 2 | Not started | _link_ |
-| C8 | ML service API and write-back tables (`support_scores`, `forecasts`) | B2 (service), B1 (forecast part) | F1, D | Week 2 | Not started | _link_ |
-| C9 | Entry-screen data shapes, including offline record IDs and timestamps | F2 | B1, D | Day 2 | Not started | _link_ |
-| C10 | Peer, activity and incident log format | F2 | B2, D | Day 2 | Not started | _link_ |
-| C11 | Design system (tokens, shared components) | F1 | F2 | Day 3 | Not started | _link_ |
-| C12 | Synthetic data: what is generated, with which planted patterns | D | B1, B2, everyone | Day 2 (first cut) | Not started | _link_ |
+| # | Contract | Owner | Used by | Status |
+|---|---|---|---|---|
+| C1 | Database tables | D | Everyone | Not started |
+| C2 | Who can read and write what | D, B1 | Everyone | Not started |
+| C3 | API endpoints | B1 | F1, F2 | Not started |
+| C4 | Rules and alert format | B2 | B1, F1, D | Not started |
+| C5 | What each warden screen sends | F2 | B1, D | Not started |
+| C6 | Shared components and layout | F1 | F2 | Not started |
 
-Status values: Not started / Draft / Agreed / Changed (see log).
+Status values: Not started / Agreed / Changed (see log).
 
-## Fixed points from the proposal
+## Fixed points
 
-These are already decided and every contract must respect them.
+Already decided. Every contract must respect them.
 
-- **Two user roles.** Manager: everything. Warden: daily attendance, sick log, peer/activity logs, stock usage. The warden cannot view the support-network graph, finances or full medical history.
-- **One attendance record per child per day.** Stock can never go negative.
-- **Alert severities:** Critical, Warning, Info.
-- **Health case states:** Open → Scheduled → Under treatment → Resolved.
-- **AI results are written back to PostgreSQL** by a nightly batch, and the web app reads them from there.
-- **Forecasts are ranges**, not single numbers.
-- **GNN outputs are "support-needed" signals** with an explanation, reviewed by the manager.
+- **Two roles.** Manager: everything. Warden: read students; write attendance and stock. The warden cannot read alerts or health cases.
+- **One attendance row per child per day.** Saving again for the same day updates it.
+- **Stock balance can never go below zero.**
+- **Alert severities:** Critical, Warning. **Alert statuses:** Open, Acknowledged, Resolved.
+- **Health case statuses:** Open → Scheduled → Under treatment → Resolved.
+- **Rules run after each attendance or stock save**, inside the web app. There is no separate service and no AI.
+
+## C1: Database tables (D)
+
+_List each table with its columns, key and constraints, or link to the migration file._
+
+## C2: Access (D, B1)
+
+| Table | Manager | Warden |
+|---|---|---|
+| `profiles` | read | read own |
+| `students` | read, write | read |
+| `absence_reasons`, `illnesses` | read, write | read |
+| `attendance` | read, write | read, write |
+| `inventory_items` | read, write | read |
+| `stock_transactions` | read, write | read, write |
+| `alerts` | read, write | none |
+| `health_cases` | read, write | none |
+
+## C3: API endpoints (B1)
+
+_For each: method, path, who may call it, what it takes, what it returns._
+
+| Endpoint | Who | Purpose |
+|---|---|---|
+| | | |
+
+## C4: Rules and alert format (B2)
+
+_For each rule: the exact condition, the severity, what stops a duplicate, what clears it. Then the fields of an alert._
+
+## C5: What each warden screen sends (F2)
+
+_Attendance screen and stock entry screen: the fields, which are required, and the allowed values._
+
+## C6: Shared components and layout (F1)
+
+_Where the shared components live and which ones exist._
 
 ## Change log
 
-Add a row every time an agreed contract changes.
-
-| Date | Contract | What changed | Changed by | Roles told |
+| Time | Contract | What changed | Changed by | Team told |
 |---|---|---|---|---|
 | | | | | |

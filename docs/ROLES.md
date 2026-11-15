@@ -1,231 +1,218 @@
 # Roles: who owns what
 
-Five people, five roles. Every person owns at least one complex piece **that
-no one else builds**. "Owns" means: you design it, build it, test it, document
-it in your worklog, write its chapter in the report, and present it in the demo.
-It does not mean nobody else may touch it. It means nothing in it changes
+Five people, five roles, one day. "Owns" means: you build it, test it, write it
+up in your worklog, and present it in the demo. Nothing in your area changes
 without you knowing.
 
 | Role | Title | Member | Worklog |
 |---|---|---|---|
-| [F1](#f1) | Frontend Engineer: Admin, Analytics & Visualisation | ______ | [worklogs/F1.md](worklogs/F1.md) |
-| [F2](#f2) | Frontend Engineer: Mobile, Offline & Data Capture | ______ | [worklogs/F2.md](worklogs/F2.md) |
-| [B1](#b1) | Backend Engineer: Core Platform & Resource Forecasting (ML) | ______ | [worklogs/B1.md](worklogs/B1.md) |
-| [B2](#b2) | Backend Engineer: Intelligence Engine & Graph ML (GNN) | ______ | [worklogs/B2.md](worklogs/B2.md) |
-| [D](#d) | Database & Data Engineer: PostgreSQL, Neo4j & Data Pipelines | ______ | [worklogs/D.md](worklogs/D.md) |
+| [F1](#f1) | Frontend: Manager Dashboard & Alerts | ______ | [worklogs/F1.md](worklogs/F1.md) |
+| [F2](#f2) | Frontend: Warden Mobile Screens | ______ | [worklogs/F2.md](worklogs/F2.md) |
+| [B1](#b1) | Backend: Login, Permissions & APIs | ______ | [worklogs/B1.md](worklogs/B1.md) |
+| [B2](#b2) | Backend: Rules, Alerts & Testing | ______ | [worklogs/B2.md](worklogs/B2.md) |
+| [D](#d) | Database: Schema, Security & Seed Data | ______ | [worklogs/D.md](worklogs/D.md) |
 
 **In one line each**
 
-- **F1** makes the manager able to *see and act*: dashboard, graph explorer, forecast planner, alerts, PDFs.
-- **F2** makes the warden able to *enter data fast*: offline phone app, attendance, logs, bilingual.
-- **B1** makes it *secure and connected*: login, permissions, core APIs, and the forecasting AI.
-- **B2** makes it *intelligent*: rules engine, ML service, and the graph neural network.
-- **D** makes it *stored, private and learnable*: both databases, security inside the database, pipelines, synthetic data.
+- **F1** builds what the manager sees on the laptop.
+- **F2** builds what the warden taps on the phone.
+- **B1** builds login, permissions and the APIs both frontends call, and deploys the app.
+- **B2** builds the three rules that raise alerts, and leads testing.
+- **D** builds the database, its access rules and the made-up data everyone develops against.
+
+Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
 ---
 
 ## F1
 
-**Frontend Engineer: Admin, Analytics & Visualisation.** The manager's laptop experience.
+**Frontend: Manager Dashboard & Alerts.**
 
 ### Deliverables
 
-- [ ] **Design system** for the whole team: tokens, 30+ components, dark mode, accessibility to WCAG 2.1 AA
-- [ ] **Admin dashboard:** KPI cards; attendance trend and calendar heatmap; absence-reason and illness breakdowns; growth charts with healthy-range bands
-- [ ] **Support Network Explorer:** interactive force-directed graph (Cytoscape.js / react-force-graph); clusters coloured; node size set by support score; filters by relationship type; a "why was this child flagged?" panel showing the neighbours and features that mattered
-- [ ] **Forecast & Budget Planner:** forecast charts with confidence bands; runway gauges per item; anomaly markers on the expense timeline; what-if slider (e.g. +10 children); a model-comparison chart
-- [ ] **Alert Centre** and drag-and-drop **health cases board** (Open → Scheduled → Under treatment → Resolved)
-- [ ] **PDF reports** built as React components: Student Health Card, Doctor's Agenda, Monthly Trustee/Donor Report
-- [ ] Per-module screens: navigation and search (students); heatmap and trend charts (attendance); cases board and growth charts (health); trend charts and achievements wall (academics); inventory dashboard
+- [ ] App shell: layout, navigation, and the shared components both frontends use (buttons, cards, tables, forms, badges from shadcn/ui)
+- [ ] **Dashboard:** today's attendance count, open alerts, open health cases, low-stock items, 30-day attendance chart
+- [ ] **Alert centre:** alerts listed by severity, with acknowledge and resolve
+- [ ] **Health cases board:** four columns (Open, Scheduled, Under treatment, Resolved) with a button to move a case forward
+- [ ] Stock table for the manager, with low and expiring items marked
 
 ### Needs from others
 
 | From | What | By |
 |---|---|---|
-| B1 | API contract; dashboard, health and forecast endpoints | Day 2 (contract), Days 3–7 (endpoints) |
-| B2 | Alert shape and lifecycle; GNN scores and explanations | Day 2 (shape), Week 2 (scores) |
-| D | Cypher queries for the graph explorer; attendance % and trend views | Week 2 |
+| B1 | Running app with login; endpoints for dashboard numbers, alerts, health cases | Scaffold by 1:30, endpoints during Block 1 |
+| B2 | Alert shape and statuses | Block 0 |
+| D | Seed data to show on screen | 2:00 |
 
 ### Gives to others
 
 | To | What |
 |---|---|
-| F2 | The design system and shared components, usable from Day 3 |
-| Whole team | Figma wireframes for agreement on Day 2 |
+| F2 | Shared components and layout, by 2:00 |
 
-**Without F1:** the AI results and alerts exist but no one can see or act on them.
+**Without F1:** alerts are raised but the manager has nowhere to see or act on them.
 
 ---
 
 ## F2
 
-**Frontend Engineer: Mobile, Offline & Data Capture.** The warden's phone experience, and the source of all daily data.
+**Frontend: Warden Mobile Screens.**
 
 ### Deliverables
 
-- [ ] **Progressive Web App:** installs on the warden's phone; **offline-first** for attendance, sick log and stock entry. Entries queue on the phone, sync when the connection returns, and conflicts are resolved
-- [ ] **Bilingual English + Kannada** interface
-- [ ] **Attendance in under 60 s per class:** everyone starts as present; tap only the absent ones, then pick a reason (and the illness for medical absences)
-- [ ] **360° student profile**, scholarship pipeline, yearly check-up entry forms, marks and achievements entry
-- [ ] **Peer & activity logging** (the data for the GNN): room assignments and mentor sessions; activity participation; caregiver-reported friendships (quick picker); incident reports (restricted)
-- [ ] **Inventory, donation and expense entry**, with camera capture of bills
-- [ ] **Usability testing with the real warden** (tasks timed before and after changes); Lighthouse ≥ 90 on a budget phone
-- [ ] **Interview the warden at the trust** (Days 1–2) and write up the findings for the team
+- [ ] **Attendance screen:** pick a class; everyone starts as present; tap the absent ones; pick a reason, and the illness when the reason is medical; save. Under 60 seconds for 30 children
+- [ ] **Stock entry screen:** pick an item; stock in (with expiry date) or stock out; quantity; save
+- [ ] **Student list and profile** (used by both roles)
+- [ ] Everything works on a real phone screen with one thumb
+- [ ] Clear messages when a save fails or an entry already exists for today
 
 ### Needs from others
 
 | From | What | By |
 |---|---|---|
-| F1 | Design system and shared components | Day 3 |
-| B1 | API contract; attendance, student, inventory endpoints; upload endpoint for bills | Day 2 (contract), Days 3–7 (endpoints) |
-| D | Agreement on record IDs and timestamps so offline entries sync without duplicates | Day 2 |
+| F1 | Shared components and layout | 2:00 |
+| B1 | Endpoints for students, attendance, stock | Block 1 |
+| D | Lists of absence reasons, illnesses and items | 2:00 |
 
 ### Gives to others
 
 | To | What |
 |---|---|
-| B2, D | Peer/activity/incident data in the agreed shape (this is what the graph is built from) |
-| B1 | Stock, donation and expense entries (this is what the forecasts are built from) |
-| Whole team | Warden interview notes: what the warden actually does each day, on what phone, with what connectivity |
+| B1, D | The exact fields each screen sends, agreed in Block 0 |
+| B2 | Real entries flowing in, so the rules have something to check |
 
-**Without F2:** no daily data gets into the system, so the databases and both AI models have nothing to learn from.
+**Without F2:** no data gets into the system, so nothing can ever be flagged.
 
 ---
 
 ## B1
 
-**Backend Engineer: Core Platform & Resource Forecasting (ML).** The secure core, plus the forecasting AI.
+**Backend: Login, Permissions & APIs.**
 
 ### Deliverables
 
-- [ ] **Authentication and role-based authorisation:** every request is checked on the server; input validation (Zod); audit logging; secure uploads to private storage
-- [ ] **Core APIs:** students, attendance and academics; the **health check-up workflow** (yearly schedule, monthly visit agenda, follow-ups); the inventory ledger with FEFO
-- [ ] **API contract** published for F1 and F2 (Day 2) and kept up to date in [CONTRACTS.md](CONTRACTS.md)
-- [ ] **AI Module: Resource Forecasting:** the model ladder (baselines → Prophet/SARIMA → gradient boosting → optional LSTM); donation forecasting with intervals; runway and stock-out logic and the procurement list; anomaly detection (Isolation Forest); scenario-planner API
-- [ ] **Forecast evaluation:** time-based split, rolling backtests, MAPE/MAE/RMSE per category, interval coverage
-- [ ] **CI pipeline and deployment**
+- [ ] Next.js project set up, pushed, and **deployed to Vercel by 1:30** (an empty app that everyone can build on)
+- [ ] **Login** with Supabase Auth, and a **role check on every request** on the server
+- [ ] **APIs:** students (list, read); attendance (save a class for a day, read by date); stock (list items, record in/out); alerts (list, acknowledge, resolve); health cases (list, change status); dashboard summary
+- [ ] Input checks with Zod on everything that is saved
+- [ ] Calls B2's rules after each attendance or stock save
+- [ ] Final deployment, with environment variables set in Vercel and not in git
 
 ### Needs from others
 
 | From | What | By |
 |---|---|---|
-| D | PostgreSQL schema and migrations; weekly time-series tables; synthetic 2–3 year ledgers | Day 2 (schema), Days 3–7 (synthetic data), Week 2 (time series) |
-| B2 | The ML service to host the forecasting models; how runway alerts enter the rules engine | Week 2 |
-| F2 | The fields each entry screen sends | Day 2 |
+| D | Supabase project, tables created, two test logins | 2:00 |
+| B2 | The function to call after each save | Block 2 start |
+| F1, F2 | The fields each screen sends and needs back | Block 0 |
 
 ### Gives to others
 
 | To | What |
 |---|---|
-| F1, F2 | Every web endpoint they call, with stable shapes |
-| B2 | Stock-out risk and spending-anomaly signals for the rules engine; secure API access for the GNN results |
-| Whole team | CI that runs on every pull request; the deployed environments |
+| F1, F2 | Every endpoint they call, with shapes that do not change after Block 0 without warning |
+| Everyone | The running app and the live URL |
 
-**Without B1:** there is no secure access, no core APIs and no resource forecasting.
+**Without B1:** nobody can log in, and the screens have nothing to talk to.
 
 ---
 
 ## B2
 
-**Backend Engineer: Intelligence Engine & Graph ML (GNN).** Everything that finds a pattern.
+**Backend: Rules, Alerts & Testing.**
 
 ### Deliverables
 
-- [ ] **Early-warning rules engine** (all nine rules in [PROJECT_OVERVIEW.md §7](PROJECT_OVERVIEW.md#7-early-warning-rules-b2)): ranks alerts by severity, prevents duplicates, manages each alert's lifecycle, runs daily and after each entry
-- [ ] **Python ML service (FastAPI):** hosts both AI models; scores everything in a nightly batch and writes the results back to PostgreSQL; keeps versioned models
-- [ ] **AI Module: Support Network GNN:** NetworkX baselines (degree, betweenness); GraphSAGE/GAT in PyTorch Geometric; link prediction for mentor and roommate pairs; Louvain communities plus incident concentration; an explanation of each flag for human review
-- [ ] **GNN evaluation:** feature-only baseline vs GNN; precision/recall against caregiver labels; edge-type ablation
-- [ ] **Unit tests for every rule**
+- [ ] **Written rule specifications** (Block 0): exactly when each of the three rules fires and what clears it
+- [ ] **The three rules** as small, separate functions: repeated medical absence, low attendance, low stock or expiring
+- [ ] **No duplicate alerts:** the same rule does not fire again for the same child or item while an alert is open
+- [ ] **Auto-open a health case** when the repeated-illness rule fires
+- [ ] **Unit tests for every rule** (Vitest), including the edge cases: exactly 3 absences, day 30 versus day 31, exactly at the minimum level
+- [ ] **Test lead in Block 3:** runs the manual checklist for both demo flows and the warden security check, and logs the bugs
 
 ### Needs from others
 
 | From | What | By |
 |---|---|---|
-| D | Neo4j schema; synthetic graph with planted patterns and labels; node-feature pipeline; `alerts` and `support_scores` tables | Day 2 (schema, first synthetic graph), Week 2 (features) |
-| B1 | Forecasting models packaged to run inside the ML service; auth for service-to-service calls | Week 2 |
-| F2 | Peer, activity and incident logs in the agreed shape | Week 2 |
+| D | Table shapes for attendance, stock, alerts, health cases; seed data with planted patterns | Block 0 (shapes), 2:00 (seed) |
+| B1 | A hook to run the rules after each save | Block 2 start |
 
 ### Gives to others
 
 | To | What |
 |---|---|
-| F1 | Alerts (shape, severity, lifecycle) for the Alert Centre; support scores, clusters and per-flag explanations for the graph explorer |
-| B1 | A place to deploy and schedule the forecasting models |
-| Whole team | Rule specifications (Day 2) so everyone knows what triggers what |
+| F1 | Alert shape, severities and statuses |
+| B1 | One function to call after a save |
+| D | Which patterns to plant in the seed data so each rule can be shown |
 
-**Without B2:** CareTrack is only a record-keeping app. It never finds a pattern or flags a child.
+**Without B2:** CareTrack is only a record book. It never notices anything.
 
 ---
 
 ## D
 
-**Database & Data Engineer: PostgreSQL, Neo4j & Data Pipelines.** The foundation every module stands on.
+**Database: Schema, Security & Seed Data.**
 
 ### Deliverables
 
-- [ ] **PostgreSQL design:** about 28 tables normalised to 3NF; keys and constraints (one attendance record per child per day; stock can never go negative); indexes; migrations
-- [ ] **Row Level Security:** privacy rules enforced *inside* the database, so even an app bug cannot leak medical, relationship or financial data
-- [ ] **Triggers:** automatic audit entries, stock balance updates, BMI calculation
-- [ ] **Neo4j graph database:** node and relationship schema; edge weights computed from frequency × recency decay; **sync pipeline from PostgreSQL to Neo4j**; Cypher queries for the graph explorer
-- [ ] **Feature pipelines:** node features for the GNN; weekly time-series tables for forecasting
-- [ ] **Synthetic data generators (documented):** stochastic block model graph with planted isolated children and bullying clusters, plus labels; 2–3 years of consumption, donation and expense data with seasonality, festival spikes, noise and planted anomalies; attendance and health data with planted illness patterns
-- [ ] **Backups, retention policy, pseudonymised IDs for ML training** (DPDP Act 2023)
-- [ ] Per-module tables and views: attendance % views; health tables and triggers; academic trend views; stock ledger and triggers
+- [ ] Supabase project created, with keys shared privately with B1 (never in git)
+- [ ] **Nine tables** as a migration file ([PROJECT_OVERVIEW.md §7](PROJECT_OVERVIEW.md#7-data)), with keys and constraints: one attendance row per child per day; stock balance never below zero
+- [ ] **Trigger:** stock balance updates when a stock transaction is added
+- [ ] **View:** attendance percentage per child over the last 30 days
+- [ ] **Row Level Security:** the warden can read students and write attendance and stock, and cannot read alerts or health cases
+- [ ] **Seed script with invented data:** about 30 students in 2 classes; 60 days of attendance; about 15 stock items; two logins (manager, warden)
+- [ ] **Planted patterns in the seed**, so the demo is repeatable: one child with 2 asthma absences (the 3rd is entered live); one child below 85% attendance; one item just above its minimum level; one medicine expiring within 30 days
+- [ ] A one-command **reset and reseed** for the demo
 
 ### Needs from others
 
 | From | What | By |
 |---|---|---|
-| B1 | Which queries the APIs need to be fast | Days 3–7 |
-| B2 | Which node features and edge types the GNN needs; what the rules read | Day 2 |
-| F2 | The fields captured on each entry screen | Day 2 |
+| F2 | The fields each entry screen sends | Block 0 |
+| B2 | What the rules read, and which patterns to plant | Block 0 |
 
 ### Gives to others
 
 | To | What |
 |---|---|
-| Everyone | The schema (ER diagram on Day 2), migrations, and seeded synthetic data to develop against |
-| B1 | Time-series tables and synthetic ledgers |
-| B2 | The graph, node features, labels |
-| F1 | Views for charts; Cypher queries for the explorer |
+| Everyone | The schema (Block 0), working tables and seed data (2:00), a demo reset (Block 3) |
 
-**Without D:** there is no data to store, no graph to learn from, and no privacy enforced by the database.
+**Without D:** there is nowhere to store anything, and nothing stops the warden's login from reading health data.
 
 ---
 
-## Module × role matrix
+## Feature × role matrix
 
-Every module needs all five. Read across a row to see who to talk to.
+Read across a row to see who to talk to.
 
-| Module | D | B1 | B2 | F1 | F2 |
+| Feature | D | B1 | B2 | F1 | F2 |
 |---|---|---|---|---|---|
-| Students & scholarships | Tables, security rules | APIs, uploads | Scholarship deadline rule | Navigation, search | Profile, scholarship screens |
-| Attendance | Table, attendance % views | APIs | Absence rules | Heatmap, trend charts | Offline mobile flow |
-| Health | Health tables, triggers | Check-up workflow | Illness, growth and check-up rules | Cases board, growth charts | Check-up forms |
-| Academics & achievements | Tables, trend views | APIs | Falling-marks rule | Trend charts, achievements wall | Marks entry |
-| Inventory, donations & expenses | Stock ledger, triggers | Ledger, FEFO | Low-stock and expiry rules | Inventory dashboard | Stock and bill entry |
-| **AI: Support Network** | Neo4j, graph features, synthetic graph | Secure API access | **GNN models + evaluation** | **Graph explorer** | Peer/activity logging |
-| **AI: Forecasting** | Time series, synthetic ledgers | **Forecast models + evaluation** | Runway alerts into the engine | **Forecast & what-if planner** | Donation and expense entry |
+| Login and roles | `profiles`, access rules | Login, role checks | | Shell, navigation | |
+| Students | Table, seed | API | | | List and profile |
+| Attendance | Table, constraint, 30-day view | API | Two attendance rules | Chart on dashboard | Entry screen |
+| Stock | Tables, balance trigger | API | Low stock / expiry rule | Stock table | Entry screen |
+| Alerts | Table, access rules | API | Raises them, no duplicates | Alert centre | |
+| Health cases | Table, access rules | API | Opens them automatically | Cases board | |
+| Dashboard | Views | Summary API | | Dashboard | |
 
-## Shared responsibilities (all five)
+## Shared by all five
 
-These belong to everyone, and nobody may leave them to "someone else":
-
-- Keep your worklog current ([TEAM_RULES.md](../TEAM_RULES.md), rule 3).
-- Review pull requests from another layer within one working day.
-- Write your chapter of the project report and present your part in the demo.
-- Take part in real (non-ML) data entry at the trust, the demo rehearsal, and the training session for the warden and manager.
+- Write your worklog entry at the end of every block ([TEAM_RULES.md](../TEAM_RULES.md), rule 3).
+- Review a teammate's pull request within 15 minutes when asked.
+- Be at every check. Present your own part in the demo.
 - Protect the children's data.
 
-## Team coordinator (to be assigned)
+## Coordinator (to be assigned)
 
-The proposal does not name a team lead. We recommend choosing one **coordinator**
-on Day 1. This is a coordination duty on top of a role, not a sixth role and
-not a boss:
+One of the five also keeps the clock. This is a duty on top of a role, not a
+sixth role and not a boss:
 
-- runs the daily check-in and the end-of-phase integration check
-- keeps [EXECUTION_PLAN.md](EXECUTION_PLAN.md) and [DECISIONS.md](DECISIONS.md) current
-- is the single contact with the trust and the faculty guide
-- breaks a tie when a decision is stuck (see [TEAM_RULES.md](../TEAM_RULES.md), rule 9)
+- calls the checks on time and runs them
+- decides what gets cut when the day runs late, using the stretch list
+- keeps [DECISIONS.md](DECISIONS.md) current
+- breaks a tie when a decision is stuck
+
+B2 is the natural choice, since the rules are the smallest build and B2 already
+leads testing.
 
 Coordinator: ______

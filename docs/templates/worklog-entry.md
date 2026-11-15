@@ -1,15 +1,14 @@
 # Worklog entry template
 
 Copy the block below to the top of the "Entries" section of your worklog
-(`docs/worklogs/<ROLE>.md`). One entry per work session. Five minutes is enough.
+(`docs/worklogs/<ROLE>.md`). One entry at the end of each block. Five minutes is enough.
 Leave a heading out if it has nothing under it.
 
 ```markdown
-### YYYY-MM-DD: <short title of what you worked on>
+### Block N: <short title of what you worked on>
 
-**Phase / milestone:** Phase 1, towards M1
-**Time spent:** 2.5 h
-**Branch / PR:** `b1/auth-rbac`, #12
+**Block:** Block 1 (1:00–4:00)
+**Branch / PR:** `b1/login`, #4
 
 **What I did**
 - Concrete things, in past tense. "Added login endpoint with role check", not "worked on auth".
@@ -18,13 +17,13 @@ Leave a heading out if it has nothing under it.
 - Any choice you made and the reason. If others must live with it, also add it to docs/DECISIONS.md.
 
 **How I checked it works**
-- Tests added, commands run, numbers measured (for AI work: metric, baseline, dataset).
+- Tests added, commands run, what you clicked through on the deployed app.
 
 **Problems and what I learned**
 - What went wrong, how you fixed it, what you would tell a teammate to avoid.
 
 **Blocked on / needs from others**
-- Role and what you need, for example "D: weekly time-series table for rice".
+- Role and what you need, for example "B1: endpoint to list absence reasons".
 
 **Next**
 - The next one or two things you will do.
@@ -36,31 +35,30 @@ Leave a heading out if it has nothing under it.
 ## A filled-in example
 
 ```markdown
-### 2026-11-18: Attendance table and one-per-day constraint
+### Block 1: Tables, seed data and the attendance view
 
-**Phase / milestone:** Phase 1, towards M1
-**Time spent:** 2 h
-**Branch / PR:** `d/attendance-table`, #7
+**Block:** Block 1 (1:00–4:00)
+**Branch / PR:** `d/schema`, #2 and `d/seed`, #5
 
 **What I did**
-- Added the `attendance` table migration with a unique constraint on (student_id, date).
+- Created the nine tables, with a unique constraint on (student_id, date) in `attendance`.
 - Added the `attendance_30d` view that B2's low-attendance rule reads.
-- Seeded 60 synthetic students with 90 days of attendance.
+- Seeded 30 invented students with 60 days of attendance and 15 stock items.
 
 **Why / decisions made**
 - Stored the absence reason as a foreign key to `absence_reasons`, not free text, so the rules can group by illness.
 
 **How I checked it works**
-- Pytest: inserting a second record for the same child and day fails. View returns 83.3% for the planted low-attendance student.
+- Inserting a second row for the same child and day is rejected. The view returns 83.3% for the planted low-attendance student.
 
 **Problems and what I learned**
-- Supabase migrations run in filename order; renamed files to use a timestamp prefix.
+- Migrations run in filename order; renamed files to use a number prefix.
 
 **Blocked on / needs from others**
 - F2: confirm whether "half day" is a status the warden needs.
 
 **Next**
-- Row Level Security on `attendance` and `sick_logs`.
+- Row Level Security on every table, tested with both logins.
 
 **Help and tools**
 - B2 reviewed the view definition. Claude drafted the seed script; I checked the planted patterns by hand.

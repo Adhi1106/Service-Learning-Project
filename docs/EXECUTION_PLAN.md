@@ -1,204 +1,171 @@
-# Execution plan
+# Execution plan: one day
 
-Three weeks, five people, five phases. AI work starts on Day 1 using synthetic
-data, so nobody waits for real data.
+Ten working hours, five people, four blocks, three checks. Times are hours
+from the start of the day (0:00 = when all five sit down).
 
-Days are counted from the project start date. **Start date: ______** (fill in
-on kickoff, then add calendar dates to the phase headings).
+**Build date: ______  Start time: ______**
 
-| Phase | When | Goal | Ends with |
+| When | What | Ends with |
+|---|---|---|
+| Evening before | [Setup](#the-evening-before) | Everyone can run a Next.js app and push to the repo |
+| 0:00–1:00 | [Block 0: Agree](#block-0-agree-000100) | Contracts written down |
+| 1:00–4:00 | [Block 1: Foundations](#block-1-foundations-100400) | **Check 1** at 4:00 |
+| 4:30–7:30 | [Block 2: Complete the flows](#block-2-complete-the-flows-430730) | **Check 2** at 7:30, feature freeze |
+| 8:00–9:30 | [Block 3: Fix, test, deploy](#block-3-fix-test-deploy-800930) | **Check 3** at 9:30 |
+| 9:30–10:00 | [Block 4: Rehearse and wrap up](#block-4-rehearse-and-wrap-up-9301000) | Demo-ready |
+
+Breaks: 15 minutes inside each check, and a meal after Check 1.
+
+---
+
+## The evening before
+
+A one-day build cannot afford setup problems on the day.
+
+**Everyone**
+- [ ] Roles assigned and written in [README.md](../README.md) and [ROLES.md](ROLES.md); coordinator chosen
+- [ ] Read [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md), your section of [ROLES.md](ROLES.md), and [TEAM_RULES.md](../TEAM_RULES.md)
+- [ ] Node.js (current LTS) and git installed; a test Next.js app runs on your laptop
+- [ ] Write access to the GitHub repository confirmed by pushing a test branch
+- [ ] One team chat thread created
+
+**D**
+- [ ] Supabase account and an empty project created
+
+**B1**
+- [ ] Vercel account created and linked to the GitHub repository
+- [ ] `main` protected: pull request and one approval required
+
+**F2**
+- [ ] A phone that can open the deployed URL, for testing
+
+---
+
+## Block 0: Agree (0:00–1:00)
+
+All five at one table. No code. The output is [CONTRACTS.md](CONTRACTS.md), filled in.
+
+| Minutes | What | Led by |
+|---|---|---|
+| 0–10 | Walk through the two demo flows so everyone has the same picture | Coordinator |
+| 10–25 | The nine tables: columns, keys, constraints | D |
+| 25–40 | The endpoints and what each screen sends and gets back | B1, with F1 and F2 |
+| 40–50 | The three rules, exactly; the alert format and statuses; which patterns go in the seed data | B2 |
+| 50–60 | Folder layout, branch names, who reviews whom, time of Check 1 | Coordinator |
+
+- [ ] Every row in [CONTRACTS.md](CONTRACTS.md) is marked Agreed
+- [ ] Everyone has written their first worklog entry
+
+## Block 1: Foundations (1:00–4:00)
+
+**Goal:** you can log in, and attendance saved on a phone lands in the database.
+
+| Role | By 1:30 | By 2:00 | By 4:00 |
 |---|---|---|---|
-| [0. Foundations](#phase-0-foundations-days-12) | Days 1–2 | Everyone agrees what to build and how the parts connect | Milestone M0: contracts signed off |
-| [1. Core slice](#phase-1-core-slice-days-37) | Days 3–7 | The health flow works end to end | Milestone M1: first integration check |
-| [2. Intelligence](#phase-2-intelligence-week-2) | Week 2 | Both AI modules are visible on the dashboard | Milestone M2: all three flows run |
-| [3. Hardening](#phase-3-hardening-week-3) | Week 3 | Evaluated, deployed, bilingual, tested with the warden | Milestone M3: release candidate |
-| [4. Handover](#phase-4-handover-end) | End | Trust is using it; report and demo are ready | Final demo |
+| D | Tables created in Supabase | Seed data loaded; two test logins working | Stock balance trigger; 30-day attendance view |
+| B1 | Next.js app scaffolded, merged, **deployed** | Login working | Students and attendance endpoints; role check on every request |
+| B2 | Rule specs committed | Test file with the edge cases listed | All three rules written as functions, unit tests passing |
+| F1 | | Shell, navigation, shared components merged | Dashboard laid out with real numbers where endpoints exist |
+| F2 | Attendance screen sketched on paper | Building on F1's components | Attendance screen saving through B1's endpoint; student list |
 
-The per-role work in each phase comes from the proposal's timeline. The
-milestone checks and the Phase 0 detail are this plan's additions.
+### Check 1 (4:00–4:30)
 
----
+On the **deployed** app, not a laptop:
 
-## Before Day 1: kickoff checklist
+- [ ] Manager and warden can each log in and land on their own area
+- [ ] The warden marks attendance for a class on a phone and the rows are in the database
+- [ ] The student list shows the seed data
+- [ ] `npm test` passes for the three rules
+- [ ] Everyone has merged to `main` at least once
 
-Do these together, in one sitting. Nothing else should start until they are ticked.
+If any of the first three fail, fixing them is everyone's first job in Block 2.
 
-- [ ] Assign the five roles and write the names in [README.md](../README.md) and [ROLES.md](ROLES.md)
-- [ ] Choose the coordinator ([ROLES.md](ROLES.md#team-coordinator-to-be-assigned))
-- [ ] Everyone reads [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md), their section of [ROLES.md](ROLES.md), and [TEAM_RULES.md](../TEAM_RULES.md)
-- [ ] Set the start date above and the daily check-in time
-- [ ] All five have write access to the GitHub repository; protect `main` (require a pull request and one approval)
-- [ ] Create the team chat group
-- [ ] Coordinator confirms with the trust: the date of the warden interview (Days 1–2), and who at the trust is our contact
-- [ ] Coordinator confirms with the trust and the faculty guide what consent is in place for entering real data at the end
-- [ ] Settle the open questions at the bottom of this file
+## Block 2: Complete the flows (4:30–7:30)
 
----
-
-## Phase 0: Foundations (Days 1–2)
-
-**Goal:** by the end of Day 2, every role can build for a week without waiting
-for anyone, because the contracts between roles are agreed.
-
-No feature code is merged in this phase. The output is agreements, written
-down in [CONTRACTS.md](CONTRACTS.md).
-
-### D
-- [ ] ER diagram for the ~28 PostgreSQL tables, with keys and the main constraints
-- [ ] Neo4j node and relationship schema
-- [ ] First cut of the synthetic generators: enough students, attendance and a small graph for others to develop against
-- [ ] Create the Supabase and Neo4j AuraDB projects (free tier)
-
-### B1
-- [ ] Authentication approach and the two roles (manager, warden) with their permissions written as a table
-- [ ] **API contract v0:** every endpoint F1 and F2 need in Phase 1, with request and response shapes
-- [ ] Repository scaffold and a CI pipeline that runs lint and tests on every pull request
-
-### B2
-- [ ] **Rule specifications:** each of the nine rules written precisely (inputs, threshold, severity, de-duplication, what clears it)
-- [ ] Alert format and lifecycle states
-- [ ] Graph baselines (degree, betweenness with NetworkX) running on D's first synthetic graph
-
-### F1
-- [ ] Figma wireframes for: dashboard, alert centre, health cases board, graph explorer, forecast planner
-- [ ] Design system foundation: colour, type and spacing tokens, and the first core components
-
-### F2
-- [ ] **Interview the warden at the trust:** daily routine, class sizes, phone model, connectivity, language preference, current paper records
-- [ ] Interview write-up shared with the team (workflows only, no children's details)
-- [ ] Wireframes for the attendance flow and the entry screens, listing the fields each one sends
-
-### Milestone M0 (end of Day 2): contract sign-off
-
-All five meet for one hour and walk through [CONTRACTS.md](CONTRACTS.md).
-
-- [ ] D's schema covers every field F2's screens capture and every input B2's rules read
-- [ ] B1's API contract covers every screen in F1's and F2's wireframes
-- [ ] B2's alert format is enough for F1's alert centre
-- [ ] The warden interview has not invalidated a core assumption (if it has, adjust the plan now and record it)
-- [ ] Repository structure and tooling choices are recorded in [DECISIONS.md](DECISIONS.md)
-- [ ] Every role has written their first worklog entry
-
----
-
-## Phase 1: Core slice (Days 3–7)
-
-**Goal:** flow 1 (health) works end to end on synthetic data: the warden marks
-a child absent for the same illness a third time, and a critical alert appears
-for the manager.
+**Goal:** both demo flows work end to end.
 
 | Role | Work |
 |---|---|
-| D | Row Level Security rules; triggers (audit, stock balance, BMI); PostgreSQL → Neo4j sync |
-| B1 | Core APIs (students, attendance, academics, health workflow, inventory ledger); forecast baselines |
-| B2 | Rules engine; GraphSAGE first version |
-| F1 | Dashboard; health screens |
-| F2 | Attendance PWA; student profile |
+| D | Row Level Security on every table; test that a warden login cannot read alerts or health cases; one-command reset and reseed |
+| B1 | Stock, alerts, health cases and dashboard endpoints; call B2's rules after each attendance and stock save; Zod checks |
+| B2 | Wire the rules into B1's save path; no duplicate alerts; auto-open a health case; alert statuses |
+| F1 | Alert centre with acknowledge and resolve; health cases board; stock table; attendance chart |
+| F2 | Stock entry screen; reason and illness picker polished; error messages; test on a real phone |
 
-### Milestone M1 (end of Day 7): first integration check
+### Check 2 (7:30–8:00): feature freeze
 
-- [ ] Manager and warden can log in, and each sees only their own screens
-- [ ] Warden marks attendance for a class on a phone; the records are in PostgreSQL
-- [ ] The third absence for the same illness within 30 days raises a critical alert and opens a health case
-- [ ] The alert and the attendance trend are visible on the manager's dashboard
-- [ ] A warden account is refused medical data by the database itself, not only by the screen
-- [ ] CI is green on `main`
-- [ ] Forecast baselines and a first GraphSAGE run have numbers recorded in the B1 and B2 worklogs
+- [ ] **Flow 1:** enter the 3rd asthma absence → critical alert → health case opens → manager moves it to Resolved
+- [ ] **Flow 2:** record stock out → balance drops below minimum → warning alert → item on the low-stock list
+- [ ] Warden login is refused the alert and health pages
+- [ ] All eight must-haves in [PROJECT_OVERVIEW.md §3](PROJECT_OVERVIEW.md#3-what-we-build) are ticked, or the coordinator has cut what is not (recorded in [DECISIONS.md](DECISIONS.md))
 
----
+**After this check, no new features.** If and only if every must-have passed,
+people who are free may take stretch items in the listed order.
 
-## Phase 2: Intelligence (Week 2)
-
-**Goal:** flows 2 (social) and 3 (resources) work end to end on synthetic data,
-and the manager can see and explore both AI modules.
+## Block 3: Fix, test, deploy (8:00–9:30)
 
 | Role | Work |
 |---|---|
-| D | Feature pipelines (GNN node features, weekly time series); indexes |
-| B1 | Prophet / gradient boosting; anomaly detection; scenario API |
-| B2 | Link prediction; Louvain communities; ML service (nightly batch, write-back, versioned models) |
-| F1 | Graph explorer; forecast planner |
-| F2 | Offline sync; peer logs; inventory entry |
+| B2 | **Test lead.** Run both flows and the security check from a clean reseed; log every bug in the chat with who owns it |
+| D | Confirm the warden is blocked by the database itself, not only the screen; final reseed with the planted patterns |
+| B1 | Final deployment; environment variables set in Vercel; confirm no secrets in git |
+| F1 | Fix dashboard and alert bugs; make empty and error states readable |
+| F2 | Time attendance for 30 children on a phone (target under 60 seconds); fix what slows it |
 
-### Milestone M2 (end of Week 2): all three flows run
+### Check 3 (9:30): release
 
-- [ ] **Flow 2:** peer and activity logs → Neo4j → support score → "support-needed" signal with an explanation → suggested mentor pairing, shown in the graph explorer
-- [ ] **Flow 3:** stock use and donations → forecast with a range → runway and stock-out alert → procurement list, shown in the forecast planner
-- [ ] The what-if slider recalculates demand and runway
-- [ ] Attendance entered in airplane mode syncs correctly when the connection returns
-- [ ] The nightly batch scores everything and writes results back to PostgreSQL
-- [ ] **Scope check:** decide now whether anything on the cut list must go (see below)
+- [ ] Both flows pass twice in a row on the deployed app after a reseed
+- [ ] The four tests in [PROJECT_OVERVIEW.md §9](PROJECT_OVERVIEW.md#9-how-we-will-know-it-works) pass
+- [ ] `main` is what is deployed
 
----
+## Block 4: Rehearse and wrap up (9:30–10:00)
 
-## Phase 3: Hardening (Week 3)
+- [ ] Run the demo once, start to finish, each person presenting their part (order below)
+- [ ] Reseed so the demo starts from a known state
+- [ ] Everyone's final worklog entry and status table are complete
+- [ ] README "Current status" updated with the live URL and the two demo logins (invented accounts only)
 
-**Goal:** a release candidate that is evaluated, deployed, accessible, bilingual
-and tested with the real warden.
+### Demo order (about 8 minutes)
 
-| Role | Work |
-|---|---|
-| D | Backups; retention policy; pseudonymised IDs; query tuning |
-| B1 | Backtests and forecast evaluation tables; deployment |
-| B2 | GNN evaluation and edge-type ablation |
-| F1 | Alert Centre polish; PDF reports; accessibility (WCAG 2.1 AA) |
-| F2 | Kannada interface; usability test with the warden |
-
-### Milestone M3 (end of Week 3): release candidate
-
-- [ ] Deployed on Vercel, Supabase, Neo4j AuraDB and the ML host
-- [ ] All five software tests in [PROJECT_OVERVIEW.md §11](PROJECT_OVERVIEW.md#11-how-we-will-know-it-works) pass
-- [ ] GNN table: feature-only baseline vs GNN, precision/recall, edge-type ablation
-- [ ] Forecast table: model ladder with MAPE/MAE/RMSE per category and interval coverage
-- [ ] The warden completes a class's attendance in under 60 seconds; Lighthouse ≥ 90 on a budget phone
-- [ ] Health Card, Doctor's Agenda and Trustee/Donor Report export as PDF
-- [ ] Backups run and a restore has been tried once
+1. **Coordinator:** the trust's problem in three sentences
+2. **D:** the data, the constraints, and that the data is invented
+3. **F2:** warden marks attendance on a phone, including the 3rd asthma absence
+4. **B2:** the rule that just fired, and its tests
+5. **F1:** the alert on the dashboard; move the health case to Resolved
+6. **F2 then F1:** stock out on the phone; low-stock warning on the dashboard
+7. **B1:** log in as the warden and show the alert page is refused
+8. **Coordinator:** what was cut from the proposal and what would come next
 
 ---
 
-## Phase 4: Handover (End)
-
-All five, together.
-
-- [ ] Real (non-ML) data entry at the trust, through the deployed app only
-- [ ] Training session for the warden and the manager
-- [ ] Admin guide and synthetic-data documentation finished
-- [ ] Project report: one chapter per role, written from the worklogs
-- [ ] Demo rehearsal: each member presents their own part; the three flows are the script
-- [ ] Final demo
-
----
-
-## If time runs short
+## If the day runs late
 
 Cut in this order, and record each cut in [DECISIONS.md](DECISIONS.md):
 
-1. The LSTM (forecasting) and the email digest
-2. Roommate link prediction (keep mentor pairing)
+1. All stretch items
+2. The 30-day attendance chart
+3. The manager's stock table (the low-stock list on the dashboard stays)
+4. The low-attendance rule
 
-Never cut: database-level privacy, the human review step on AI signals, the
-three main flows, or the worklogs.
+Never cut: login and roles, attendance entry, the repeated-illness rule, the
+alert centre, database-level access rules.
 
 ## Risks to watch
 
 | Risk | Early sign | Response |
 |---|---|---|
-| A contract changes mid-phase and breaks another role | "It worked yesterday" at check-in | Contract owner announces changes before merging; integration check at every milestone |
-| Three weeks is tight for two AI modules | M1 slips by more than a day | Apply the cut list at M2, not in Week 3 |
-| Staff do not adopt the app | Warden interview shows a mismatch with real routines | F2 adjusts the attendance flow in Phase 1; usability test early in Week 3 |
-| Free-tier limits (database size, ML host sleeping) | Slow first request, quota warnings | Nightly batch instead of live scoring; keep synthetic data small |
-| Too little real history for the models | Known from the start | Synthetic generators, clearly stated in the report and demo |
-| One person becomes the bottleneck (D and B1 early on) | Others blocked at check-in | Build against the contract with mocks; coordinator rebalances |
+| Setup eats the morning | Someone cannot run the app at 1:30 | Do the evening-before checklist properly; pair them with B1 |
+| Frontends wait for the backend | F1 or F2 idle in Block 1 | Build against the agreed shapes with placeholder data |
+| Everything merges at the end and breaks | No merges by 2:30 | Rule 4: merge at least once per block |
+| Works on a laptop, fails when deployed | First deployment happens late | B1 deploys the empty app by 1:30 and every merge deploys |
+| Access rules lock everyone out | Empty lists after Row Level Security goes on | D turns it on table by table in Block 2 and tests with both logins |
+| Scope creep | "It would be quick to add..." | Must-haves first; freeze at Check 2 |
 
-## Open questions to settle at kickoff
+## Questions to settle the evening before
 
-These are not answered by the proposal. Record each answer in [DECISIONS.md](DECISIONS.md).
+Record each answer in [DECISIONS.md](DECISIONS.md).
 
 1. Who takes which role, and who is the coordinator?
-2. What is the start date, and what are the final demo and report submission dates?
-3. Repository layout: one repository holding the web app, the ML service and the database files is recommended (proposed layout in [DECISIONS.md](DECISIONS.md), D-002).
-4. Do F1 and F2 build one Next.js app with a manager area and a warden area (recommended, since they share the design system and login), or two apps?
-5. Authentication: Supabase Auth is the natural fit with Row Level Security. Confirm.
-6. Roughly how many children, classes and caregivers are there? This sizes the synthetic data and the screens.
-7. What consent does the trust hold for the children's data, and who approves entering real data at the end?
-8. Who is our contact at the trust, and when can we visit?
+2. What are the build date and the demo date?
+3. **Has the faculty guide agreed to a reduced, non-AI version?** The approved proposal is titled "AI-Assisted" and promises two AI modules. Confirm before the build day.
+4. Is the demo for the college only, or will the trust see it? (This plan assumes a demo on invented data, with nothing installed at the trust.)
