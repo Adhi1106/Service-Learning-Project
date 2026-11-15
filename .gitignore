@@ -1,31 +1,22 @@
 # Secrets
-.env
-.env.*
+.env*
 !.env.example
 
 # Real data from the trust must NEVER be committed (see TEAM_RULES.md, rule 1)
-data/real/
-*.real.csv
-*.real.json
+data/
 exports/
 
 # Dependencies and builds
-node_modules/
-.next/
-dist/
-build/
-__pycache__/
-*.pyc
-.venv/
-venv/
-
-# ML artefacts (store trained models outside git; document where in the worklog)
-*.pt
-*.pkl
-*.joblib
-.ipynb_checkpoints/
+/node_modules
+/.next/
+/out/
+/build
+/coverage
+*.tsbuildinfo
+next-env.d.ts
 
 # Editor / OS
 .DS_Store
 .vscode/
 .idea/
+npm-debug.log*
