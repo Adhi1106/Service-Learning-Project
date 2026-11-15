@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
-export type NavItem = { href: string; label: string; badge?: number };
+export type NavItem = { href: string; label: string; icon: ReactNode; badge?: number };
 
 /** Navigation links that highlight the page you are on. */
 export function NavLinks({ items, variant }: { items: NavItem[]; variant: "side" | "tabs" }) {
@@ -12,46 +13,48 @@ export function NavLinks({ items, variant }: { items: NavItem[]; variant: "side"
 
   if (variant === "tabs") {
     return (
-      <nav className="fixed inset-x-0 bottom-0 z-10 flex border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={isActive(item.href) ? "page" : undefined}
-            className={`flex-1 py-3.5 text-center text-sm font-medium ${
-              isActive(item.href) ? "border-t-2 border-teal-700 text-teal-800" : "border-t-2 border-transparent text-slate-600"
-            }`}
-          >
-            {item.label}
-          </Link>
-        ))}
+      <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
+        <div className="mx-auto flex max-w-lg">
+          {items.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`flex flex-1 flex-col items-center gap-1 pb-2 pt-2.5 text-[11px] font-medium ${active ? "text-teal-700" : "text-slate-500"}`}
+              >
+                <span className={`rounded-full px-4 py-0.5 ${active ? "bg-teal-50" : ""}`}>{item.icon}</span>
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
       </nav>
     );
   }
 
   return (
-    <nav className="flex gap-1 overflow-x-auto md:flex-col">
-      {items.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          aria-current={isActive(item.href) ? "page" : undefined}
-          className={`flex items-center justify-between gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium ${
-            isActive(item.href) ? "bg-teal-700 text-white" : "text-slate-700 hover:bg-slate-100"
-          }`}
-        >
-          {item.label}
-          {item.badge ? (
-            <span
-              className={`rounded-full px-2 text-xs tabular-nums ${
-                isActive(item.href) ? "bg-white/20 text-white" : "bg-red-100 text-red-800"
-              }`}
-            >
-              {item.badge}
-            </span>
-          ) : null}
-        </Link>
-      ))}
+    <nav className="flex gap-1 overflow-x-auto md:flex-col" aria-label="Main">
+      {items.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            aria-current={active ? "page" : undefined}
+            className={`flex items-center gap-3 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              active ? "bg-teal-50 text-teal-800" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            }`}
+          >
+            <span className={active ? "text-teal-700" : "text-slate-400"}>{item.icon}</span>
+            <span className="flex-1">{item.label}</span>
+            {item.badge ? (
+              <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-semibold tabular-nums text-red-700">{item.badge}</span>
+            ) : null}
+          </Link>
+        );
+      })}
     </nav>
   );
 }

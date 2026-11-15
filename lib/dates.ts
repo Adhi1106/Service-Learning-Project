@@ -46,3 +46,43 @@ export function isDateStr(s: string): boolean {
   const [y, m, d] = parts(s);
   return toDateStr(new Date(y, m - 1, d)) === s;
 }
+
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/** "2026-11-15" -> "Sunday, 15 November 2026" */
+export function formatLongDate(s: string): string {
+  const [y, m, d] = parts(s);
+  const date = new Date(y, m - 1, d);
+  const month = date.toLocaleString("en-IN", { month: "long" });
+  return `${WEEKDAYS[date.getDay()]}, ${d} ${month} ${y}`;
+}
+
+/** The local date of a stored value: a plain date, or an ISO timestamp. */
+export function dayOf(value: string): string {
+  return value.length === 10 ? value : toDateStr(new Date(value));
+}
+
+/** "Today", "Yesterday", "3 days ago", or the date. */
+export function relativeDay(value: string, today: string): string {
+  const days = daysBetween(dayOf(value), today);
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days > 1 && days < 7) return `${days} days ago`;
+  return formatDate(dayOf(value));
+}
+
+/** Second Saturday of the month: a school holiday in Karnataka. */
+export function isSecondSaturday(s: string): boolean {
+  const [y, m, d] = parts(s);
+  return new Date(y, m - 1, d).getDay() === 6 && d >= 8 && d <= 14;
+}
+
+export function isSchoolDay(s: string): boolean {
+  return !isSunday(s) && !isSecondSaturday(s);
+}
+
+/** For use mid-sentence: "today", "yesterday", "3 days ago", "on 6 Nov 2026". */
+export function whenPhrase(value: string, today: string): string {
+  const r = relativeDay(value, today);
+  return /^(Today|Yesterday|\d+ days ago)$/.test(r) ? r.toLowerCase() : `on ${r}`;
+}

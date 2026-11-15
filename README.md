@@ -16,9 +16,9 @@ running low. Three fixed rules raise alerts automatically, for example "absent
 for asthma 3 times in 30 days", and the manager follows each health case until
 it is resolved.
 
-| Warden (phone) | Manager (laptop) |
+| Manager (laptop) | Warden (phone) |
 |---|---|
-| ![Attendance screen](docs/screenshots/warden-attendance.png) | ![Dashboard](docs/screenshots/manager-dashboard.png) |
+| ![Dashboard](docs/screenshots/manager-dashboard.png) | ![Attendance screen](docs/screenshots/warden-attendance.png) |
 
 More screenshots are in [docs/screenshots/](docs/screenshots/). All data shown is invented.
 
@@ -37,8 +37,10 @@ demo data.
 
 | Login | Username | Password |
 |---|---|---|
-| Manager | `manager` | `manager123` |
-| Warden | `warden` | `warden123` |
+| Manager: Anita D'Souza | `anita` | `manager123` |
+| Warden: Manjunath Gowda | `manjunath` | `warden123` |
+
+The sign-in page also has one-tap buttons for both demo accounts.
 
 **To use the warden screens on a real phone:** connect the phone to the same
 Wi-Fi as the laptop, find the laptop's IP address (`ipconfig` on Windows,
@@ -49,12 +51,23 @@ Other commands:
 | Command | What it does |
 |---|---|
 | `npm run dev` | Development mode with live reload (use on the laptop only) |
-| `npm test` | Runs the 44 tests for the rules and the database constraints |
+| `npm test` | Runs the 47 tests for the rules and the database constraints |
 | `npm run db:reset` | Puts the demo data back to its starting state |
 | `npm run lint` | Checks the code style |
 
-The manager's dashboard also has a **Reset demo data** button, which does the
-same as `npm run db:reset`. Use it before every rehearsal and before the demo.
+The manager's sidebar also has a **Reset demo data** link at the bottom, which
+does the same as `npm run db:reset` without signing anyone out. Use it before
+every rehearsal and before the demo.
+
+## The demo data
+
+Three months of invented but realistic history, generated from today's date:
+40 children in Classes 5 to 8 across four dorms and two schools; attendance
+with school holidays, ordinary absences and a fever that went round; a store
+of 20 items with monthly purchases, donations and daily issues; and past
+health cases with doctors' notes. The names are common Karnataka names chosen
+to look real; no record describes a real person. A few situations are planted
+so the demo always tells the same story ([docs/PRESENTATION.md](docs/PRESENTATION.md)).
 
 ## Start here
 
@@ -90,7 +103,7 @@ Fill in the names.
 | `db/` | `schema.sql` (tables, constraints, trigger, view) and `seed.ts` (invented data) | D |
 | `lib/rules/` | The three rules, the code that writes alerts, and their tests | B2 |
 | `lib/auth.ts`, `lib/queries.ts`, `app/api/` | Login, role checks, database queries, API routes | B1 |
-| `app/manager/`, `components/manager/`, `components/ui.tsx` | Manager screens and shared components | F1 |
+| `app/manager/`, `components/manager/`, `components/ui.tsx`, `components/icons.tsx`, `components/Brand.tsx` | Manager screens, shared components, icons and logo | F1 |
 | `app/warden/`, `components/warden/`, `app/login/` | Warden phone screens and the login screen | F2 |
 
 ## The one rule that outranks all others
@@ -102,16 +115,16 @@ or a chat with an AI tool.** Everything here is invented. See
 ## Status
 
 Working and tested. All eight must-have features are built, both demo flows
-pass in a browser test, and 44 unit tests pass. It runs on a laptop; it has
+pass in a browser test, and 47 unit tests pass. It runs on a laptop; it has
 not been deployed to a public server.
 
 ## How this was built
 
-The app was built on 15 November 2026 in a single session using Claude Code,
-an AI coding assistant, directed by the team. The code is organised into five
-areas so each member owns, understands and presents one. Each member is
-expected to read their area, run it, and be able to explain it. This is
-recorded in every worklog. The product itself contains no AI.
+The app was built on 15 November 2026 with Claude Code, an AI coding
+assistant, directed by the team; AI tools are allowed for this project. The
+code is organised into five areas so each member owns, understands and
+presents one, and every worklog records who did what. The product itself
+contains no AI: alerts come from fixed rules.
 
 ## Relation to the original proposal
 

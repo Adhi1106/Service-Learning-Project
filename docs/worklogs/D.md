@@ -28,6 +28,26 @@ To be ticked by the member who owns this area.
 
 <!-- Your entries go here, newest first. Copy docs/templates/worklog-entry.md. -->
 
+### 2026-11-15: Realistic demo data
+
+**Who did this:** Claude (the AI coding assistant), asked by the project owner
+to make the demo data realistic and the app look like a finished product. No
+team member was involved. The owner of this area should read the change and
+note here that they have.
+
+**What was done**
+- Rewrote `db/seed.ts`: two staff accounts (Anita D'Souza, manager; Manjunath Gowda, warden), 40 invented children in Classes 5 to 8 with dorms, schools, birth dates and admission dates.
+- 90 days of attendance with no school on Sundays and second Saturdays, ordinary absences capped so no child triggers a rule by accident, and a fever that went round two weeks ago.
+- A store of 20 realistic items with an opening count, monthly purchases, donations (including near-expiry paracetamol) and regular issues to the kitchen, dorms, sick room and school. Balances end exactly at the planned values.
+- History created by running the real rules on past dates: Arjun Naik's asthma case and Sinchana B's skin infection, both resolved with doctors' notes; Mohammed Irfan's fever case acknowledged and scheduled.
+- Schema: `students` gained `school` and `admitted_on`; `stock_transactions` gained `note`.
+- The seed is deterministic: the same date always produces the same data (tested).
+
+**How it was checked**
+- `npm test`: 47 passing. Lint, type check and build clean.
+- The whole of PRESENTATION.md followed in a browser twice in a row: 30 of 30 checks passed both times.
+
+
 ### 2026-11-15: Reset no longer logs people out
 
 **Who did this:** Claude (the AI coding assistant), during a readiness check

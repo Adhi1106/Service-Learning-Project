@@ -5,7 +5,8 @@
 // Called after every attendance save and every stock entry.
 
 import type { DB } from "../db";
-import { addDays } from "../dates";
+import { addDays, formatDate } from "../dates";
+import { amount } from "../format";
 import type { AlertRule, Severity } from "../types";
 import {
   checkAttendance,
@@ -171,7 +172,7 @@ export function runItemRules(db: DB, itemId: number, today: string): NewAlert[] 
           rule: "low_stock",
           severity: "warning",
           itemId,
-          message: `${item.name}: ${item.balance} ${item.unit} left, below the minimum of ${item.minLevel} ${item.unit}.`,
+          message: `${item.name}: ${amount(item.balance, item.unit)} left, below the minimum of ${amount(item.minLevel, item.unit)}.`,
           dedupeKey: key,
           triggerDate: today,
         }),
@@ -189,7 +190,7 @@ export function runItemRules(db: DB, itemId: number, today: string): NewAlert[] 
           rule: "expiring_stock",
           severity: "warning",
           itemId,
-          message: `${item.name}: the current stock ${when} (${delivery.expiryDate}).`,
+          message: `${item.name}: the current stock ${when} (${formatDate(delivery.expiryDate)}).`,
           dedupeKey: key,
           triggerDate: today,
         }),

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { IconRefresh } from "../icons";
 
-/** Puts the invented demo data back to its starting state. */
+/** Puts the demo data back to its starting state. Logins are kept. */
 export function ResetButton() {
   const [busy, setBusy] = useState(false);
 
@@ -14,7 +15,12 @@ export function ResetButton() {
   }
 
   return (
-    <button onClick={reset} disabled={busy} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-60">
+    <button
+      onClick={reset}
+      disabled={busy}
+      className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-60"
+    >
+      <IconRefresh size={14} />
       {busy ? "Resetting..." : "Reset demo data"}
     </button>
   );

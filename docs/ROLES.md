@@ -43,8 +43,8 @@ What to say in the demo, and the questions to expect, are in
 | `app/manager/cases/page.tsx` | Health cases board with four columns |
 | `app/manager/stock/page.tsx` | Stock table and latest entries |
 | `app/manager/students/` | Student list and profile |
-| `components/manager/` | `AbsenceChart`, `AlertActions`, `CaseCard`, `ResetButton` |
-| `components/ui.tsx`, `components/NavLinks.tsx` | Shared components used by both sets of screens |
+| `components/manager/` | `AbsenceChart`, `AlertActions`, `CaseCard`, `ResetButton`, `StudentsTable` |
+| `components/ui.tsx`, `components/NavLinks.tsx`, `components/icons.tsx`, `components/Brand.tsx` | Shared components, icons and the logo, used by both sets of screens |
 
 ### Understand before you present
 
@@ -67,7 +67,7 @@ What to say in the demo, and the questions to expect, are in
 | File | What it is |
 |---|---|
 | `app/warden/layout.tsx` | The warden's frame: top bar and bottom tabs |
-| `app/warden/page.tsx` | Home: each class with "Marked" or "Not marked" for today |
+| `app/warden/page.tsx` | Today screen: greeting, each class marked or not, shortcuts to the store, recent entries |
 | `app/warden/attendance/page.tsx` | Loads the class and passes it to the form |
 | `components/warden/AttendanceForm.tsx` | The attendance screen itself |
 | `app/warden/stock/page.tsx`, `components/warden/StockForm.tsx` | Stock in and stock out |
@@ -154,7 +154,7 @@ What to say in the demo, and the questions to expect, are in
 | File | What it is |
 |---|---|
 | `db/schema.sql` | Ten tables, one trigger, one view, and the constraints |
-| `db/seed.ts` | The invented data and the four planted patterns |
+| `db/seed.ts` | Three months of invented, realistic history, and the planted demo situations |
 | `lib/db.ts` | Opens the database, creates it on first run, resets it |
 | `scripts/reset-db.ts` | `npm run db:reset` |
 
@@ -164,7 +164,7 @@ What to say in the demo, and the questions to expect, are in
 - [ ] The four rules the database enforces by itself: one attendance row per child per day; an absence must have a reason; stock can never go below zero; the same alert cannot be active twice
 - [ ] How the stock trigger works: adding a transaction updates the item's balance, and if that would go negative the whole entry is rejected
 - [ ] What the `attendance_30d` view calculates
-- [ ] The four planted patterns in the seed, and that the data is generated relative to today's date so the demo works on any day
+- [ ] How the seed builds three months of history (school days, absences, the fever round, purchases and issues), the planted situations, and why the same date always gives the same data
 - [ ] Why SQLite: the whole database is one file, with nothing to install or sign up for
 - [ ] That every name in the seed is invented, and why that matters
 

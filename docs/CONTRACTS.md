@@ -22,12 +22,12 @@ Defined in `db/schema.sql`. SQLite, stored in `data/caretrack.db` (not in git).
 |---|---|---|
 | `users` | id, username, name, password_hash, role | role is `manager` or `warden`; username is unique |
 | `sessions` | token, user_id, expires_at | One row per login; lasts 12 hours |
-| `students` | id, name, dob, class_name, room | |
+| `students` | id, name, dob, class_name, room, school, admitted_on | room is the dorm, e.g. "Boys' Dorm 1" |
 | `absence_reasons` | id, name, is_medical | Medical, Family visit, Festival or function, Other |
-| `illnesses` | id, name | Asthma, Fever, Stomach upset, Cold and cough, Skin infection, Injury |
+| `illnesses` | id, name | Asthma, Fever, Cold and cough, Stomach upset, Skin infection, Eye infection, Injury, Dental problem |
 | `attendance` | id, student_id, date, status, reason_id, illness_id, entered_by | **Unique (student_id, date).** status is `present` or `absent`. An absent row must have a reason; a present row must not |
 | `inventory_items` | id, name, category, unit, min_level, balance | **balance ≥ 0.** category is Food, Medicine, Hygiene or Stationery |
-| `stock_transactions` | id, item_id, type, quantity, date, expiry_date, entered_by | type is `in` or `out`; quantity > 0 |
+| `stock_transactions` | id, item_id, type, quantity, date, expiry_date, note, entered_by | type is `in` or `out`; quantity > 0; note is optional ("Issued to kitchen", "Donation in kind") |
 | `alerts` | id, rule, severity, student_id, item_id, message, dedupe_key, trigger_date, status, created_at, resolved_at | Exactly one of student_id and item_id is set. **Only one non-resolved alert per dedupe_key** |
 | `health_cases` | id, student_id, illness_id, status, notes, alert_id, created_at, updated_at | |
 
@@ -72,12 +72,12 @@ All under `app/api/`. Requests and responses are JSON. Errors are
 | `GET /api/attendance` | Both | `?class=&date=` | `{ date, class, alreadySaved, rows }` |
 | `POST /api/attendance` | Both | `{ date, class, entries: [{ studentId, status, reasonId?, illnessId? }] }` | `{ saved, present, absent }` |
 | `GET /api/stock` | Manager | | `{ items }` |
-| `POST /api/stock` | Both | `{ itemId, type, quantity, expiryDate? }` | `{ item, unit, balance }` |
+| `POST /api/stock` | Both | `{ itemId, type, quantity, expiryDate?, note? }` | `{ item, unit, balance }` |
 | `GET /api/alerts` | Manager | | `{ alerts }` |
 | `PATCH /api/alerts/:id` | Manager | `{ status: "acknowledged" \| "resolved" }` | `{ id, status }` |
 | `GET /api/cases` | Manager | | `{ cases }` |
 | `PATCH /api/cases/:id` | Manager | `{ status?, notes? }` | `{ id, status }` |
-| `POST /api/admin/reset` | Manager | | `{ ok }` |
+| `POST /api/admin/reset` | Manager | | `{ ok }`; nobody is signed out |
 
 Rules the endpoints apply:
 
@@ -145,16 +145,20 @@ when the reason is medical. `illnessId` is sent as null for non-medical reasons.
 **Stock** (`components/warden/StockForm.tsx`):
 
 ```json
-{ "itemId": 1, "type": "out", "quantity": 5, "expiryDate": null }
+{ "itemId": 1, "type": "out", "quantity": 5, "expiryDate": null, "note": "Issued to kitchen" }
 ```
 
-`expiryDate` is only sent for `"type": "in"`, and is optional.
+`expiryDate` is only sent for `"type": "in"`, and is optional. `note` is
+optional, up to 120 characters.
 
 ## C6: Shared components (F1)
 
-In `components/ui.tsx`: `Card`, `PageTitle`, `StatCard`, `Badge`,
-`SeverityBadge`, `AlertStatusBadge`, `CaseStatusBadge`, `Empty`, `qty`.
-In `components/NavLinks.tsx`: side navigation (manager) and bottom tabs (warden).
+In `components/ui.tsx`: `Card`, `CardHeader`, `PageTitle`, `StatCard`,
+`Avatar`, `Badge`, `SeverityBadge`, `AlertStatusBadge`, `CaseStatusBadge`,
+`Empty`. In `components/icons.tsx`: line icons. In `components/Brand.tsx`: the
+logo. In `components/NavLinks.tsx`: side navigation (manager) and bottom tabs
+(warden). Quantity and name formatting (`amount`, `initials`) is in
+`lib/format.ts`.
 
 Colours: teal for actions, red for critical, amber for warnings, green for
 fine. Colour is never the only signal; the text always says it too.

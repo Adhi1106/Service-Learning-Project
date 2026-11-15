@@ -24,15 +24,15 @@ export function AlertActions({ id, status }: { id: number; status: AlertStatus }
   }
 
   if (status === "resolved") return null;
-  const button = "rounded-lg px-3 py-1.5 text-sm font-medium disabled:opacity-60";
+  const button = "rounded-lg px-3 py-1.5 text-sm font-medium transition disabled:opacity-60";
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2 sm:pt-1">
       {status === "open" && (
-        <button disabled={busy} onClick={() => setStatus("acknowledged")} className={`${button} border border-slate-300 text-slate-700 hover:bg-slate-100`}>
+        <button disabled={busy} onClick={() => setStatus("acknowledged")} className={`${button} border border-slate-300 bg-white text-slate-700 hover:bg-slate-50`}>
           Acknowledge
         </button>
       )}
-      <button disabled={busy} onClick={() => setStatus("resolved")} className={`${button} bg-teal-700 text-white hover:bg-teal-800`}>
+      <button disabled={busy} onClick={() => setStatus("resolved")} className={`${button} bg-teal-700 text-white shadow-sm hover:bg-teal-800`}>
         Resolve
       </button>
       {error && <span className="text-sm text-red-700">{error}</span>}

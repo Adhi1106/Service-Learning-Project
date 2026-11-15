@@ -24,6 +24,10 @@ Status: **Proposed** (needs agreement), **Agreed**, **Open question**, **Replace
 | D-013 | 2026-11-15 | Alerts are not raised twice: an active alert blocks a new one; a repeated-illness alert needs a new absence; other alerts wait 7 days after being resolved | Otherwise a resolved alert would return on the next save | B2 | Agreed |
 | D-014 | 2026-11-15 | The app runs on a laptop and is reached from a phone over Wi-Fi. No public deployment. | SQLite needs a disk, which free serverless hosts do not keep. Enough for a demo. | Team | Agreed |
 | D-015 | 2026-11-15 | The app was built in one session with an AI coding assistant. Each member owns one area to read, run, explain and present. Worklogs record this truthfully. | One day to finish; five people must present | Project owner | Agreed |
+| D-016 | 2026-11-15 | Demo data is a realistic, invented three-month history: 40 children with common Karnataka names, two staff accounts (`anita`, `manjunath`), school holidays, purchases, donations and past health cases. Every reset gives the same data for the same date. | So the demo looks and behaves like a system in daily use, while no real person's data is involved | Project owner | Agreed |
+| D-017 | 2026-11-15 | Stock entries carry an optional note (where it went, who supplied it). Students carry school and admission date. | Makes the store ledger and profiles read like real records | D, B1 | Agreed |
+| D-018 | 2026-11-15 | Visual redesign: logo, line icons drawn in-house, initials avatars, sidebar with the signed-in user. Still no UI or chart library. | The first version looked generic | F1, F2 | Agreed |
+| D-019 | 2026-11-15 | AI coding tools are allowed for this project. The rule against AI applies only to the product (no ML features). | Clarified by the project owner | Project owner | Agreed |
 
 ## Template for a longer decision
 

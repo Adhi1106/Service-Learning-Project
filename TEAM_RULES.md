@@ -80,7 +80,7 @@ A piece of work is **done** only when:
 - **The trust and its children** are the reason this exists. Do not use their real names or details anywhere, and do not promise them features we have not built.
 - **Each other.** Criticise code, not people. Say thank you. Credit help in your worklog.
 - **Fair share.** Everyone presents their own part. If someone is overloaded, say so at a check so the team can rebalance.
-- **AI coding assistants** (Claude and others) were used to build this and may be used to change it. The product itself contains no AI. You are responsible for your area: read it, run it, and be able to explain it. If asked how it was built, say so plainly; check your course's rules on AI tools. Rule 1 applies to prompts.
+- **AI coding tools** (Claude and others) are allowed and were used to build this. The product itself contains no AI. You are responsible for your area: read it, run it, and be able to explain it. If asked how it was built, say so plainly. Rule 1 applies to prompts.
 
 ---
 

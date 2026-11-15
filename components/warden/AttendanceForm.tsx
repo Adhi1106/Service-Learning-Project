@@ -6,7 +6,8 @@
 // only taps the children who are absent, picks a reason, and saves.
 
 import { useState } from "react";
-import { formatDate } from "@/lib/dates";
+import { Avatar } from "@/components/ui";
+import { formatLongDate } from "@/lib/dates";
 import type { AbsenceReason, Illness } from "@/lib/types";
 
 type Row = {
@@ -111,22 +112,23 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
   }
 
   const chip = (selected: boolean) =>
-    `rounded-full border px-3.5 py-2 text-sm font-medium ${selected ? "border-teal-700 bg-teal-700 text-white" : "border-slate-300 bg-white text-slate-700"}`;
+    `rounded-full border px-3.5 py-2 text-sm font-medium transition ${selected ? "border-teal-700 bg-teal-700 text-white" : "border-slate-300 bg-white text-slate-700"}`;
 
   return (
     <>
-      <h1 className="text-xl font-semibold text-slate-900">Attendance</h1>
-      <p className="text-sm text-slate-600">{formatDate(today)} · Tap a child who is absent.</p>
+      <p className="text-sm text-slate-500">{formatLongDate(today)}</p>
+      <h1 className="mt-0.5 text-2xl font-semibold tracking-tight text-slate-900">Attendance</h1>
+      <p className="mt-1 text-sm text-slate-500">Everyone starts as present. Tap a child who is absent.</p>
 
-      <div className="mt-4 flex gap-2" role="tablist" aria-label="Class">
+      <div className="mt-4 grid grid-cols-4 gap-1 rounded-xl bg-slate-200/60 p-1" role="tablist" aria-label="Class">
         {classes.map((c) => (
           <button
             key={c}
             role="tab"
             aria-selected={c === className}
             onClick={() => selectClass(c)}
-            className={`flex-1 rounded-lg border px-3 py-2.5 text-base font-semibold ${
-              c === className ? "border-teal-700 bg-teal-700 text-white" : "border-slate-300 bg-white text-slate-700"
+            className={`rounded-lg px-2 py-2 text-sm font-semibold transition ${
+              c === className ? "bg-white text-teal-800 shadow-sm" : "text-slate-600"
             }`}
           >
             {c}
@@ -135,7 +137,7 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
       </div>
 
       {alreadySaved && !loading && (
-        <p className="mt-3 rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-900">
+        <p className="mt-3 rounded-xl bg-sky-50 px-3 py-2 text-sm text-sky-900">
           Already saved for today. You can change it and save again.
         </p>
       )}
@@ -147,22 +149,23 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
           {rows.map((r) => (
             <li
               key={r.studentId}
-              className={`rounded-xl border bg-white ${
-                r.absent ? (showProblems && incomplete(r) ? "border-red-400" : "border-amber-300") : "border-slate-200"
+              className={`overflow-hidden rounded-2xl border bg-white transition ${
+                r.absent ? (showProblems && incomplete(r) ? "border-red-400 ring-2 ring-red-100" : "border-amber-300") : "border-slate-200"
               }`}
             >
               <button
                 onClick={() => change(r.studentId, r.absent ? { absent: false, reasonId: null, illnessId: null } : { absent: true })}
                 aria-pressed={r.absent}
-                className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left"
+                className="flex w-full items-center gap-3 px-3.5 py-3 text-left"
               >
-                <span>
-                  <span className="block text-base font-medium text-slate-900">{r.name}</span>
+                <Avatar name={r.name} size="md" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-base font-medium text-slate-900">{r.name}</span>
                   <span className="block text-xs text-slate-500">{r.room}</span>
                 </span>
                 <span
                   className={`rounded-full px-3 py-1 text-sm font-semibold ${
-                    r.absent ? "bg-amber-100 text-amber-900" : "bg-emerald-50 text-emerald-800"
+                    r.absent ? "bg-amber-100 text-amber-900" : "bg-emerald-50 text-emerald-700"
                   }`}
                 >
                   {r.absent ? "Absent" : "Present"}
@@ -170,7 +173,7 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
               </button>
 
               {r.absent && (
-                <div className="border-t border-slate-100 px-4 pb-4 pt-3">
+                <div className="border-t border-slate-100 bg-slate-50/60 px-4 pb-4 pt-3">
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Reason</p>
                   <div className="flex flex-wrap gap-2">
                     {reasons.map((reason) => (
@@ -209,7 +212,7 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
       )}
 
       {/* Save bar, fixed above the bottom tabs so it is always in reach. */}
-      <div className="fixed inset-x-0 bottom-[52px] z-10 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
+      <div className="fixed inset-x-0 bottom-[68px] z-10 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
         <div className="mx-auto max-w-lg">
           {message && (
             <p role={message.kind === "error" ? "alert" : "status"} className={`mb-2 rounded-lg px-3 py-2 text-sm ${message.kind === "ok" ? "bg-emerald-50 text-emerald-900" : "bg-red-50 text-red-800"}`}>
@@ -224,7 +227,7 @@ export function AttendanceForm({ classes, reasons, illnesses, today, initialClas
             <button
               onClick={save}
               disabled={saving || loading || rows.length === 0}
-              className="rounded-lg bg-teal-700 px-6 py-3 text-base font-semibold text-white active:bg-teal-800 disabled:opacity-60"
+              className="rounded-xl bg-teal-700 px-7 py-3 text-base font-semibold text-white shadow-sm active:bg-teal-800 disabled:opacity-60"
             >
               {saving ? "Saving..." : "Save"}
             </button>

@@ -40,16 +40,16 @@ Leave a heading out if it has nothing under it.
 **What I did**
 - Read `db/schema.sql` and drew the ten tables and their links on paper.
 - Tried inserting a second attendance row for the same child and day with the sqlite3 command line: it was refused.
-- Added "Dettol soap" to `ITEMS` in `db/seed.ts` and ran `npm run db:reset`.
+- Added "Hand wash (refill)" to `ITEMS` in `db/seed.ts` and ran `npm run db:reset`.
 
 **How I checked it works**
-- `npm test`: 44 passing. The new item shows in the manager's stock table.
+- `npm test`: 47 passing. The new item shows in the manager's stock table.
 
 **Problems and what I learned**
 - The stock balance is never written by the app. The `stock_apply` trigger updates it, and the `balance >= 0` check is what rejects a stock-out that is too large.
 
 **Blocked on / needs from others**
-- B2: confirm the seed test that counts 15 items needs updating if I keep the new item.
+- B2: confirm the seed test that counts 20 items needs updating if I keep the new item.
 
 **Next**
 - Be able to explain the trigger without looking at the file.

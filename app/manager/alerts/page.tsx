@@ -1,71 +1,90 @@
 import Link from "next/link";
+import { IconBox, IconCheck } from "@/components/icons";
 import { AlertActions } from "@/components/manager/AlertActions";
-import { AlertStatusBadge, Card, Empty, PageTitle, SeverityBadge } from "@/components/ui";
+import { AlertStatusBadge, Avatar, Card, Empty, PageTitle, SeverityBadge } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
-import { formatDate } from "@/lib/dates";
+import { formatDate, todayStr, whenPhrase } from "@/lib/dates";
+import { withoutSubject } from "@/lib/format";
 import { listAlerts } from "@/lib/queries";
 import { RULE_LABEL } from "@/lib/types";
 
 export default async function AlertsPage({ searchParams }: { searchParams: Promise<{ show?: string }> }) {
   await requireRole("manager");
-  const showResolved = (await searchParams).show === "all";
+  const today = todayStr();
+  const showResolved = (await searchParams).show === "resolved";
   const all = listAlerts();
   const active = all.filter((a) => a.status !== "resolved");
-  const shown = showResolved ? all : active;
+  const resolved = all.filter((a) => a.status === "resolved");
+  const shown = showResolved ? resolved : active;
+
+  const tab = (selected: boolean) =>
+    `rounded-md px-3 py-1.5 text-sm font-medium ${selected ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"}`;
 
   return (
     <>
-      <PageTitle title="Alerts" subtitle={`${active.length} to review. Raised automatically by the three rules.`}>
-        <Link
-          href={showResolved ? "/manager/alerts" : "/manager/alerts?show=all"}
-          className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
-        >
-          {showResolved ? "Hide resolved" : `Show resolved (${all.length - active.length})`}
-        </Link>
-      </PageTitle>
+      <PageTitle title="Alerts" subtitle="Raised automatically when attendance or stock entries match one of the three rules." />
 
-      {shown.length === 0 ? (
-        <Empty>Nothing needs attention right now.</Empty>
-      ) : (
-        <div className="space-y-3">
-          {shown.map((a) => (
-            <Card key={a.id} className={`p-4 ${a.severity === "critical" && a.status !== "resolved" ? "border-l-4 border-l-red-600" : ""}`}>
-              <div className="flex flex-wrap items-start justify-between gap-3">
+      <div className="mb-4 inline-flex rounded-lg bg-slate-100 p-1">
+        <Link href="/manager/alerts" className={tab(!showResolved)}>
+          To review <span className="ml-1 tabular-nums text-slate-500">{active.length}</span>
+        </Link>
+        <Link href="/manager/alerts?show=resolved" className={tab(showResolved)}>
+          Resolved <span className="ml-1 tabular-nums text-slate-500">{resolved.length}</span>
+        </Link>
+      </div>
+
+      <Card>
+        {shown.length === 0 ? (
+          <div className="flex flex-col items-center py-14 text-center">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+              <IconCheck size={20} />
+            </span>
+            <Empty>{showResolved ? "No resolved alerts yet." : "You're all caught up. Nothing needs review."}</Empty>
+          </div>
+        ) : (
+          <ul className="divide-y divide-slate-100">
+            {shown.map((a) => (
+              <li key={a.id} className="relative flex flex-wrap items-start gap-4 px-5 py-4">
+                {a.severity === "critical" && a.status !== "resolved" && <span className="absolute inset-y-0 left-0 w-1 bg-red-500" aria-hidden />}
+                {a.student_name ? (
+                  <Avatar name={a.student_name} size="lg" />
+                ) : (
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+                    <IconBox size={20} />
+                  </span>
+                )}
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <SeverityBadge severity={a.severity} />
-                    <AlertStatusBadge status={a.status} />
-                    <span className="text-sm font-medium text-slate-700">{RULE_LABEL[a.rule]}</span>
-                    <span className="text-sm text-slate-500">· {formatDate(a.created_at)}</span>
-                  </div>
-                  <p className="mt-2 text-slate-900">{a.message}</p>
-                  <p className="mt-2 text-sm">
-                    {a.student_id && (
-                      <Link href={`/manager/students/${a.student_id}`} className="font-medium text-teal-800 hover:underline">
-                        Open {a.student_name}&apos;s profile
+                    {a.student_id ? (
+                      <Link href={`/manager/students/${a.student_id}`} className="font-semibold text-slate-900 hover:underline">
+                        {a.student_name}
+                      </Link>
+                    ) : (
+                      <Link href="/manager/stock" className="font-semibold text-slate-900 hover:underline">
+                        {a.item_name}
                       </Link>
                     )}
-                    {a.rule === "repeated_illness" && (
-                      <>
-                        {" · "}
-                        <Link href="/manager/cases" className="font-medium text-teal-800 hover:underline">
-                          Go to health cases
-                        </Link>
-                      </>
-                    )}
-                    {a.item_id && (
-                      <Link href="/manager/stock" className="font-medium text-teal-800 hover:underline">
-                        Open stock
+                    <SeverityBadge severity={a.severity} />
+                    <span className="text-sm text-slate-500">{RULE_LABEL[a.rule]}</span>
+                  </div>
+                  <p className="mt-1 text-[15px] text-slate-700">{withoutSubject(a.message, a.item_name)}</p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                    <span>Raised {whenPhrase(a.created_at, today)}</span>
+                    {a.status !== "open" && <AlertStatusBadge status={a.status} />}
+                    {a.resolved_at && <span>on {formatDate(a.resolved_at)}</span>}
+                    {a.rule === "repeated_illness" && a.status !== "resolved" && (
+                      <Link href="/manager/cases" className="font-medium text-teal-700 hover:underline">
+                        View health case
                       </Link>
                     )}
                   </p>
                 </div>
                 <AlertActions id={a.id} status={a.status} />
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </Card>
     </>
   );
 }

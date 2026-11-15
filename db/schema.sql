@@ -21,11 +21,13 @@ CREATE TABLE sessions (
 );
 
 CREATE TABLE students (
-  id         INTEGER PRIMARY KEY,
-  name       TEXT NOT NULL,
-  dob        TEXT NOT NULL,
-  class_name TEXT NOT NULL,
-  room       TEXT NOT NULL
+  id          INTEGER PRIMARY KEY,
+  name        TEXT NOT NULL,
+  dob         TEXT NOT NULL,
+  class_name  TEXT NOT NULL,
+  room        TEXT NOT NULL,
+  school      TEXT NOT NULL,
+  admitted_on TEXT NOT NULL
 );
 
 CREATE TABLE absence_reasons (
@@ -69,6 +71,7 @@ CREATE TABLE stock_transactions (
   quantity    REAL NOT NULL CHECK (quantity > 0),
   date        TEXT NOT NULL,
   expiry_date TEXT,
+  note        TEXT,
   entered_by  INTEGER REFERENCES users(id)
 );
 CREATE INDEX stock_by_item ON stock_transactions(item_id);

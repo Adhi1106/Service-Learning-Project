@@ -2,7 +2,15 @@ export type Role = "manager" | "warden";
 
 export type User = { id: number; username: string; name: string; role: Role };
 
-export type Student = { id: number; name: string; dob: string; class_name: string; room: string };
+export type Student = {
+  id: number;
+  name: string;
+  dob: string;
+  class_name: string;
+  room: string;
+  school: string;
+  admitted_on: string;
+};
 
 export type AbsenceReason = { id: number; name: string; is_medical: number };
 export type Illness = { id: number; name: string };

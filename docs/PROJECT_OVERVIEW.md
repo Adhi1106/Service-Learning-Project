@@ -120,7 +120,7 @@ never a judgement about a child.
 | Backend | Next.js API routes; Zod for input checks |
 | Database | SQLite, through the `better-sqlite3` library. One file, nothing to install |
 | Login | Our own: scrypt password hashes and session cookies |
-| Tests | Vitest: 44 tests for the rules and the database constraints |
+| Tests | Vitest: 47 tests for the rules, the demo data and the database constraints |
 | Hosting | Runs on a laptop; the phone connects over the same Wi-Fi. Not deployed publicly |
 
 ## 7. Data
@@ -154,7 +154,7 @@ can never go below zero.
 ## 9. How we will know it works
 
 1. Both demo flows run end to end. **Done:** checked in a real browser.
-2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts. **Done:** 44 tests.
+2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts. **Done:** 47 tests.
 3. A warden login is refused alerts and health cases at both the page and the API. **Done.**
 4. Attendance for a class takes under 60 seconds on a phone. **To be timed by F2 on a real phone.**
 

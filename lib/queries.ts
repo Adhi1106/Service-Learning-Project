@@ -50,7 +50,7 @@ export function attendanceForClass(className: string, date: string): AttendanceR
 
 // --- Stock -----------------------------------------------------------------
 
-export type ItemRow = Item & { expiry_date: string | null; is_low: boolean; is_expiring: boolean };
+export type ItemRow = Item & { expiry_date: string | null; last_in: string | null; is_low: boolean; is_expiring: boolean };
 
 export function listItems(today: string): ItemRow[] {
   const rows = getDb()
@@ -58,10 +58,11 @@ export function listItems(today: string): ItemRow[] {
       `SELECT i.*,
               (SELECT t.expiry_date FROM stock_transactions t
                 WHERE t.item_id = i.id AND t.type = 'in' AND t.expiry_date IS NOT NULL
-                ORDER BY t.date DESC, t.id DESC LIMIT 1) AS expiry_date
+                ORDER BY t.date DESC, t.id DESC LIMIT 1) AS expiry_date,
+              (SELECT MAX(t.date) FROM stock_transactions t WHERE t.item_id = i.id AND t.type = 'in') AS last_in
          FROM inventory_items i ORDER BY i.category, i.name`,
     )
-    .all() as (Item & { expiry_date: string | null })[];
+    .all() as (Item & { expiry_date: string | null; last_in: string | null })[];
   const limit = addDays(today, EXPIRY_WARNING_DAYS);
   return rows.map((r) => ({
     ...r,
@@ -70,17 +71,57 @@ export function listItems(today: string): ItemRow[] {
   }));
 }
 
-export type StockTxRow = { id: number; item: string; unit: string; type: "in" | "out"; quantity: number; date: string; by: string | null };
+export type StockTxRow = {
+  id: number;
+  item: string;
+  category: string;
+  unit: string;
+  type: "in" | "out";
+  quantity: number;
+  date: string;
+  note: string | null;
+  by: string | null;
+};
 
-export function recentStockEntries(limit = 8): StockTxRow[] {
-  return getDb()
+export function recentStockEntries(limit = 8, enteredBy?: number): StockTxRow[] {
+  const where = enteredBy ? "WHERE t.entered_by = ?" : "";
+  const stmt = getDb().prepare(
+    `SELECT t.id, i.name AS item, i.category, i.unit, t.type, t.quantity, t.date, t.note, u.name AS by
+       FROM stock_transactions t JOIN inventory_items i ON i.id = t.item_id
+       LEFT JOIN users u ON u.id = t.entered_by
+       ${where}
+      ORDER BY t.date DESC, t.id DESC LIMIT ?`,
+  );
+  return (enteredBy ? stmt.all(enteredBy, limit) : stmt.all(limit)) as StockTxRow[];
+}
+
+export type ActivityItem =
+  | { kind: "attendance"; key: string; date: string; className: string; by: string | null; total: number; absent: number }
+  | { kind: "stock"; key: string; date: string; entry: StockTxRow };
+
+/** Latest attendance saves (one per class and day) and stock entries, newest first. */
+export function recentActivity(limit = 8): ActivityItem[] {
+  const saves = getDb()
     .prepare(
-      `SELECT t.id, i.name AS item, i.unit, t.type, t.quantity, t.date, u.name AS by
-         FROM stock_transactions t JOIN inventory_items i ON i.id = t.item_id
-         LEFT JOIN users u ON u.id = t.entered_by
-        ORDER BY t.date DESC, t.id DESC LIMIT ?`,
+      `SELECT a.date, s.class_name, u.name AS by, COUNT(*) AS total, SUM(a.status = 'absent') AS absent, MAX(a.id) AS last_id
+         FROM attendance a JOIN students s ON s.id = a.student_id LEFT JOIN users u ON u.id = a.entered_by
+        GROUP BY a.date, s.class_name ORDER BY a.date DESC, last_id DESC LIMIT ?`,
     )
-    .all(limit) as StockTxRow[];
+    .all(limit) as { date: string; class_name: string; by: string | null; total: number; absent: number }[];
+  const items: ActivityItem[] = [
+    ...saves.map((r) => ({
+      kind: "attendance" as const,
+      key: `a-${r.date}-${r.class_name}`,
+      date: r.date,
+      className: r.class_name,
+      by: r.by,
+      total: r.total,
+      absent: r.absent,
+    })),
+    // Stock issues happen several times a day; keep a few so attendance stays visible.
+    ...recentStockEntries(3).map((e) => ({ kind: "stock" as const, key: `s-${e.id}`, date: e.date, entry: e })),
+  ];
+  return items.sort((a, b) => b.date.localeCompare(a.date) || (a.kind === b.kind ? 0 : a.kind === "attendance" ? -1 : 1)).slice(0, limit);
 }
 
 // --- Alerts and health cases (manager only) ----------------------------------
@@ -129,7 +170,9 @@ export type DayPoint = { date: string; present: number; total: number; pct: numb
 
 export type Dashboard = {
   students: number;
+  classes: { total: number; marked: number };
   today: { recorded: number; present: number; absent: number };
+  cases: { open: number; scheduled: number; under_treatment: number };
   openAlerts: { critical: number; warning: number };
   openCases: number;
   lowStock: ItemRow[];
@@ -151,6 +194,15 @@ export function getDashboard(today: string): Dashboard {
     .prepare("SELECT severity, COUNT(*) AS n FROM alerts WHERE status <> 'resolved' GROUP BY severity")
     .all() as { severity: string; n: number }[];
   const openCases = one<{ n: number }>("SELECT COUNT(*) AS n FROM health_cases WHERE status <> 'resolved'").n;
+  const caseCounts = db.prepare("SELECT status, COUNT(*) AS n FROM health_cases GROUP BY status").all() as { status: string; n: number }[];
+  const caseCount = (status: string) => caseCounts.find((c) => c.status === status)?.n ?? 0;
+  const classes = one<{ total: number; marked: number }>(
+    `SELECT COUNT(*) AS total, SUM(marked) AS marked FROM (
+       SELECT s.class_name, COUNT(a.id) = COUNT(s.id) AS marked
+         FROM students s LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+        GROUP BY s.class_name)`,
+    today,
+  );
 
   const from = addDays(today, -29);
   const chart = (
@@ -174,6 +226,8 @@ export function getDashboard(today: string): Dashboard {
 
   return {
     students,
+    classes: { total: classes.total, marked: classes.marked ?? 0 },
+    cases: { open: caseCount("open"), scheduled: caseCount("scheduled"), under_treatment: caseCount("under_treatment") },
     today: { recorded: t.recorded, present: t.present ?? 0, absent: t.recorded - (t.present ?? 0) },
     openAlerts: {
       critical: sev.find((s) => s.severity === "critical")?.n ?? 0,
@@ -189,8 +243,11 @@ export function getDashboard(today: string): Dashboard {
 
 // --- Student profile (manager) -----------------------------------------------
 
+export type CalendarDay = { date: string; status: "present" | "absent" | null; label: string | null };
+
 export type StudentProfile = {
   student: Student;
+  calendar: CalendarDay[];
   attendance: { days_recorded: number; days_present: number; pct: number | null };
   absences: { date: string; reason: string; illness: string | null }[];
   cases: CaseRow[];
@@ -212,7 +269,21 @@ export function getStudentProfile(id: number, today: string): StudentProfile | n
         ORDER BY a.date DESC`,
     )
     .all(id, addDays(today, -59)) as StudentProfile["absences"];
-  return { student, attendance, absences, cases: listCases().filter((c) => c.student_id === id) };
+  const days = db
+    .prepare(
+      `SELECT a.date, a.status, COALESCE(i.name, r.name) AS label
+         FROM attendance a LEFT JOIN absence_reasons r ON r.id = a.reason_id LEFT JOIN illnesses i ON i.id = a.illness_id
+        WHERE a.student_id = ? AND a.date >= ?`,
+    )
+    .all(id, addDays(today, -83)) as { date: string; status: "present" | "absent"; label: string | null }[];
+  const byDate = new Map(days.map((d) => [d.date, d]));
+  const calendar: CalendarDay[] = [];
+  for (let back = 83; back >= 0; back--) {
+    const date = addDays(today, -back);
+    const d = byDate.get(date);
+    calendar.push({ date, status: d?.status ?? null, label: d?.label ?? null });
+  }
+  return { student, calendar, attendance, absences, cases: listCases().filter((c) => c.student_id === id) };
 }
 
 export function attendancePercentages(): Map<number, number | null> {
