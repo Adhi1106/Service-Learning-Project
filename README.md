@@ -49,7 +49,7 @@ Other commands:
 | Command | What it does |
 |---|---|
 | `npm run dev` | Development mode with live reload (use on the laptop only) |
-| `npm test` | Runs the 43 tests for the rules and the database constraints |
+| `npm test` | Runs the 44 tests for the rules and the database constraints |
 | `npm run db:reset` | Puts the demo data back to its starting state |
 | `npm run lint` | Checks the code style |
 
@@ -102,7 +102,7 @@ or a chat with an AI tool.** Everything here is invented. See
 ## Status
 
 Working and tested. All eight must-have features are built, both demo flows
-pass in a browser test, and 43 unit tests pass. It runs on a laptop; it has
+pass in a browser test, and 44 unit tests pass. It runs on a laptop; it has
 not been deployed to a public server.
 
 ## How this was built

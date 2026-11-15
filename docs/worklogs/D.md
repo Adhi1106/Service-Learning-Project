@@ -28,6 +28,22 @@ To be ticked by the member who owns this area.
 
 <!-- Your entries go here, newest first. Copy docs/templates/worklog-entry.md. -->
 
+### 2026-11-15: Reset no longer logs people out
+
+**Who did this:** Claude (the AI coding assistant), during a readiness check
+asked for by the project owner. No team member was involved. The owner of this
+area should read the change and tick it off here.
+
+**What was done**
+- Found while following PRESENTATION.md in a browser: pressing "Reset demo data" on the laptop logged the warden's phone out, because the reset rebuilt every table, including `sessions`.
+- `resetDb` in `lib/db.ts` now saves the current logins before the reset and puts them back afterwards, matched by username.
+- Added `lib/db.test.ts`: after a reset the data is back to its start state and both logins still work.
+
+**How it was checked**
+- `npm test`: 44 passing. Lint, type check and build clean.
+- The whole presentation script ran twice in a row in a browser, with resets between runs: 30 of 30 checks passed both times.
+
+
 ### 2026-11-15: Build record
 
 **Who did this:** the whole app, including this area, was written in a single

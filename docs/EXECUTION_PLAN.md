@@ -24,7 +24,7 @@ Before step 1: assign the five roles and write the names in
 - [ ] `npm install`
 - [ ] `npm run build`, then `npm start`
 - [ ] Open `http://localhost:3000` and log in as `manager` / `manager123`
-- [ ] `npm test` shows 43 tests passing
+- [ ] `npm test` shows 44 tests passing
 
 If `npm install` fails on Windows with an error about `better-sqlite3`, check
 that Node is version 22 with `node -v`, delete the `node_modules` folder, and
@@ -104,8 +104,9 @@ All eight must-haves from [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md#3-what-we-bu
 
 | Check | Result |
 |---|---|
-| Unit tests (`npm test`) | 43 passing |
+| Unit tests (`npm test`) | 44 passing |
 | Browser run of both flows, access checks, bad input and reset | 25 checks passing |
+| Readiness check: the whole of PRESENTATION.md followed in a browser, twice in a row | 30 of 30 checks passing on both runs |
 | Type check and lint | Clean |
 | Production build | Succeeds |
 

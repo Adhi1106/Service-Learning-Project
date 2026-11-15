@@ -43,7 +43,7 @@ Leave a heading out if it has nothing under it.
 - Added "Dettol soap" to `ITEMS` in `db/seed.ts` and ran `npm run db:reset`.
 
 **How I checked it works**
-- `npm test`: 43 passing. The new item shows in the manager's stock table.
+- `npm test`: 44 passing. The new item shows in the manager's stock table.
 
 **Problems and what I learned**
 - The stock balance is never written by the app. The `stock_apply` trigger updates it, and the `balance >= 0` check is what rejects a stock-out that is too large.

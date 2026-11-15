@@ -14,7 +14,9 @@ features.
 - [ ] `db/schema.sql` and `lib/rules/rules.ts` open in an editor
 
 After a reset the system always starts in the same state: 3 warnings, no
-health cases, rice at 22 kg, and Aarav K. with 2 asthma absences.
+health cases, rice at 22 kg, and Aarav K. with 2 asthma absences. A reset does
+not log anyone out, so the phone can stay logged in as the warden between
+rehearsals.
 
 ## Running order
 
@@ -104,7 +106,7 @@ health cases, rice at 22 kg, and Aarav K. with 2 asthma absences.
   3. Stock below its minimum, or expiring within 30 days → warning.
 - The rules run every time attendance or stock is saved.
 - An alert is never raised twice for the same thing, so the manager is not flooded.
-- 43 automated tests, including the exact boundaries: 2 absences does not fire and 3 does; exactly 85% does not fire.
+- 44 automated tests, including the exact boundaries: 2 absences does not fire and 3 does; exactly 85% does not fire.
 - This is deliberately not AI. Every alert can be explained by pointing at the records that caused it, and it never judges a child. It only says what happened.
 
 **Questions to expect**
@@ -182,6 +184,6 @@ health cases, rice at 22 kg, and Aarav K. with 2 asthma absences.
 | Is there AI in it? | No. Alerts come from three fixed rules. |
 | Who built what? | The code was written in one session with an AI coding assistant, directed by the team. Each member owns one area: they have read it, run it and can explain and change it. |
 | Is it deployed? | It runs on a laptop and is used from a phone over Wi-Fi. It is not on a public server. |
-| How is it tested? | 43 automated tests for the rules and database constraints, and a browser run-through of both flows and the access checks. |
+| How is it tested? | 44 automated tests for the rules and database constraints, and a browser run-through of both flows and the access checks. |
 | What does it cost the trust? | Nothing. Every tool used is free, and it needs one laptop. |
 | What was the hardest part? | Answer for your own area, honestly. |
