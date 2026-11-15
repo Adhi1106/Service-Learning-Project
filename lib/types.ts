@@ -4,12 +4,36 @@ export type User = { id: number; username: string; name: string; role: Role };
 
 export type Student = {
   id: number;
+  admission_no: string;
   name: string;
+  gender: "M" | "F";
   dob: string;
   class_name: string;
   room: string;
   school: string;
   admitted_on: string;
+};
+
+export type HealthStatus = "healthy" | "minor" | "frequent" | "ongoing";
+
+export const HEALTH_STATUS_LABEL: Record<HealthStatus, string> = {
+  healthy: "Healthy",
+  minor: "Minor issues",
+  frequent: "Frequent illness",
+  ongoing: "Ongoing condition",
+};
+
+export type HealthRecord = {
+  student_id: number;
+  blood_group: string;
+  height_cm: number | null;
+  weight_kg: number | null;
+  last_checkup: string | null;
+  status: HealthStatus;
+  conditions: string;
+  allergies: string;
+  medication: string;
+  remarks: string;
 };
 
 export type AbsenceReason = { id: number; name: string; is_medical: number };

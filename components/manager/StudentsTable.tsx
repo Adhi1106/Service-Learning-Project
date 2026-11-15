@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { IconSearch } from "@/components/icons";
-import { Avatar, Card } from "@/components/ui";
-import type { Student } from "@/lib/types";
+import { Avatar, Card, HealthBadge } from "@/components/ui";
+import type { HealthStatus, Student } from "@/lib/types";
 
-type Row = Student & { pct: number | null };
+type Row = Student & { pct: number | null; health: HealthStatus | null };
 
 /** The children list, with search and a class filter. */
 export function StudentsTable({ students, classes, minPct }: { students: Row[]; classes: string[]; minPct: number }) {
@@ -41,12 +41,13 @@ export function StudentsTable({ students, classes, minPct }: { students: Row[]; 
       </div>
 
       <Card className="overflow-x-auto">
-        <table className="w-full min-w-[560px] text-left text-sm">
+        <table className="w-full min-w-[680px] text-left text-sm">
           <thead className="border-b border-slate-100 text-xs font-medium text-slate-500">
             <tr>
               <th className="px-5 py-3 font-medium">Name</th>
               <th className="px-3 py-3 font-medium">Class</th>
               <th className="px-3 py-3 font-medium">Dorm</th>
+              <th className="px-3 py-3 font-medium">Health</th>
               <th className="px-5 py-3 font-medium">Attendance (30 days)</th>
             </tr>
           </thead>
@@ -54,13 +55,17 @@ export function StudentsTable({ students, classes, minPct }: { students: Row[]; 
             {shown.map((s) => (
               <tr key={s.id} className="hover:bg-slate-50">
                 <td className="px-5 py-2.5">
-                  <Link href={`/manager/students/${s.id}`} className="flex items-center gap-3 font-medium text-slate-900 hover:text-teal-800">
+                  <Link href={`/manager/students/${s.id}`} className="flex items-center gap-3 hover:text-teal-800">
                     <Avatar name={s.name} size="sm" />
-                    {s.name}
+                    <span>
+                      <span className="block font-medium text-slate-900">{s.name}</span>
+                      <span className="block text-xs text-slate-400">{s.admission_no}</span>
+                    </span>
                   </Link>
                 </td>
                 <td className="px-3 py-2.5 text-slate-600">{s.class_name}</td>
                 <td className="px-3 py-2.5 text-slate-600">{s.room}</td>
+                <td className="px-3 py-2.5">{s.health ? <HealthBadge status={s.health} /> : <span className="text-slate-400">–</span>}</td>
                 <td className="px-5 py-2.5">
                   {s.pct === null ? (
                     <span className="text-slate-400">No records</span>

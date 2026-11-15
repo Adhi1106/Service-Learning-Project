@@ -25,10 +25,10 @@ While working:
 - Stay inside my role's ownership. If something needs to change in another
   role's area, do not change it. List it for me as a request to that role.
 - The app is built and working, with NO AI or machine learning in the
-  product. Keep changes small. Do not break the two demo flows in
-  docs/PRESENTATION.md.
-- Follow TEAM_RULES.md. In particular: invented seed data only, never real
-  children's data or secrets; alerts describe what happened and never judge
+  product. Keep changes small. Do not break the two presentation flows in
+  docs/VIVA_GUIDE.md.
+- Follow TEAM_RULES.md. In particular: never put real children's data or
+  secrets in a chat or a commit; alerts describe what happened and never judge
   a child; the warden must not be able to read alerts or health cases.
 - Use the tech stack in docs/PROJECT_OVERVIEW.md. Do not add a new framework
   or service without asking me.
@@ -54,7 +54,7 @@ When finished:
 My role: B2
 Today's task: Teach me my area. Walk me through each of my files in the order
 they run when the warden saves attendance, then ask me the questions from my
-section of docs/PRESENTATION.md one at a time and correct my answers. Change
+section of docs/VIVA_GUIDE.md one at a time and correct my answers. Change
 no code.
 ```
 
@@ -62,16 +62,17 @@ no code.
 
 ```
 My role: D
-Today's task: Add a "Class 8" with 10 more invented students to the seed
-data, keeping the four planted patterns and all tests passing.
+Today's task: Add a new child to data/records/children.csv and a matching
+row in health_records.csv, reload with npm run db:reset, and check the child
+appears on the Children page with all tests still passing.
 ```
 
 **Check readiness** (coordinator):
 
 ```
 My role: coordinator
-Today's task: Run the tests, the build, and both demo flows from
-docs/PRESENTATION.md in a browser. Tell me anything that does not behave as
+Today's task: Run the tests, the build, and both presentation flows from
+docs/VIVA_GUIDE.md in a browser. Tell me anything that does not behave as
 the script says. Change no code.
 ```
 

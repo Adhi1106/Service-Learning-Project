@@ -2,7 +2,7 @@
 
 Five people, five areas. "Owns" means: you have read every file in your area,
 you can run it and change it, you record what you do in your worklog, and you
-present it in the demo and answer questions on it.
+present it and answer questions on it in the viva.
 
 The code was built in one session with an AI coding assistant
 ([README](../README.md#how-this-was-built)). Owning an area therefore starts
@@ -10,11 +10,11 @@ with **reading and understanding it**, using the checklists below.
 
 | Role | Area | Member | Worklog |
 |---|---|---|---|
-| [F1](#f1) | Manager screens: dashboard, alerts, health cases | ______ | [worklogs/F1.md](worklogs/F1.md) |
-| [F2](#f2) | Warden phone screens: attendance, stock | ______ | [worklogs/F2.md](worklogs/F2.md) |
-| [B1](#b1) | Login, permissions and APIs | ______ | [worklogs/B1.md](worklogs/B1.md) |
-| [B2](#b2) | The three rules, alerts and testing | ______ | [worklogs/B2.md](worklogs/B2.md) |
-| [D](#d) | Database, constraints and seed data | ______ | [worklogs/D.md](worklogs/D.md) |
+| [F1](#f1) | Manager screens: dashboard, alerts, health cases | Adhira Praveen | [worklogs/F1.md](worklogs/F1.md) |
+| [F2](#f2) | Warden phone screens: attendance, stock | Neha S | [worklogs/F2.md](worklogs/F2.md) |
+| [B1](#b1) | Login, permissions and APIs | Ashika Valencia A | [worklogs/B1.md](worklogs/B1.md) |
+| [B2](#b2) | The three rules, alerts and testing | Joseph Mangali | [worklogs/B2.md](worklogs/B2.md) |
+| [D](#d) | Records and database | Joel Thomas Mario | [worklogs/D.md](worklogs/D.md) |
 
 **In one line each**
 
@@ -22,10 +22,10 @@ with **reading and understanding it**, using the checklists below.
 - **F2:** what the warden taps on the phone.
 - **B1:** who is allowed to do what, and the APIs the screens call.
 - **B2:** the three rules that turn records into alerts, and the tests that prove them.
-- **D:** where everything is stored, the constraints that keep it correct, and the invented data.
+- **D:** the home's records, where everything is stored, and the constraints that keep it correct.
 
-What to say in the demo, and the questions to expect, are in
-[PRESENTATION.md](PRESENTATION.md).
+What to say in the presentation, the screenshots to use and the questions to
+expect are in [VIVA_GUIDE.md](VIVA_GUIDE.md).
 
 ---
 
@@ -104,7 +104,6 @@ What to say in the demo, and the questions to expect, are in
 | `app/api/stock/route.ts` | Stock table; record stock in or out (then runs the rules) |
 | `app/api/alerts/`, `app/api/cases/` | List and update alerts and health cases, manager only |
 | `app/api/students/`, `app/api/lookups/` | Lists the screens need |
-| `app/api/admin/reset/route.ts` | Resets the demo data, manager only |
 
 ### Understand before you present
 
@@ -130,7 +129,7 @@ What to say in the demo, and the questions to expect, are in
 | `lib/rules/rules.ts` | The three rules as plain functions, with their thresholds at the top |
 | `lib/rules/engine.ts` | Reads the data, calls the rules, writes alerts and health cases, prevents duplicates |
 | `lib/rules/rules.test.ts` | 24 tests of the rules on their edge cases |
-| `lib/rules/engine.test.ts` | 19 tests against a real database, including both demo flows |
+| `lib/rules/engine.test.ts` | 25 tests against the home's records in a test database, including both presentation flows |
 
 ### Understand before you present
 
@@ -147,26 +146,27 @@ What to say in the demo, and the questions to expect, are in
 
 ## D
 
-**Database, constraints and seed data.**
+**Records and database.**
 
 ### Your files
 
 | File | What it is |
 |---|---|
-| `db/schema.sql` | Ten tables, one trigger, one view, and the constraints |
-| `db/seed.ts` | Three months of invented, realistic history, and the planted demo situations |
+| `data/records/` | The home's registers as CSV files: children, health records, attendance, stock, health cases, staff |
+| `db/schema.sql` | Eleven tables, one trigger, one view, and the constraints |
+| `db/import.ts`, `lib/csv.ts` | Reads the CSV files and loads them into the database |
 | `lib/db.ts` | Opens the database, creates it on first run, resets it |
 | `scripts/reset-db.ts` | `npm run db:reset` |
 
 ### Understand before you present
 
-- [ ] The ten tables and how they link ([CONTRACTS.md](CONTRACTS.md#c1-database-tables-d))
+- [ ] The eleven tables and how they link ([CONTRACTS.md](CONTRACTS.md#c1-database-tables-d))
 - [ ] The four rules the database enforces by itself: one attendance row per child per day; an absence must have a reason; stock can never go below zero; the same alert cannot be active twice
 - [ ] How the stock trigger works: adding a transaction updates the item's balance, and if that would go negative the whole entry is rejected
 - [ ] What the `attendance_30d` view calculates
-- [ ] How the seed builds three months of history (school days, absences, the fever round, purchases and issues), the planted situations, and why the same date always gives the same data
+- [ ] What each record file holds, how `db/import.ts` loads them in order, and what happens when a record is wrong
 - [ ] Why SQLite: the whole database is one file, with nothing to install or sign up for
-- [ ] That every name in the seed is invented, and why that matters
+- [ ] Why real children's records must never be committed to GitHub
 
 **Without D:** there is nowhere to store anything, and nothing stops bad data getting in.
 
@@ -179,7 +179,7 @@ Read across a row to see who to ask.
 | Feature | D | B1 | B2 | F1 | F2 |
 |---|---|---|---|---|---|
 | Login and roles | `users`, `sessions` | Login, role checks | | Manager frame | Login screen, warden frame |
-| Students | Table, seed | Queries, API | | List and profile | List |
+| Students | Table, records | Queries, API | | List and profile | List |
 | Attendance | Table, constraints, 30-day view | Save and load API | Two attendance rules | Chart, reasons | Entry screen |
 | Stock | Tables, balance trigger | API | Low stock and expiry rules | Stock table | Entry screen |
 | Alerts | Table, one-active index | API | Raises them, no duplicates | Alert centre | |
@@ -189,7 +189,7 @@ Read across a row to see who to ask.
 ## Shared by all five
 
 - Read [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) so you can explain the whole system, not only your part.
-- Run the app yourself and do both demo flows by hand.
+- Run the app yourself and do both presentation flows by hand.
 - Tick the review checklist in your worklog and add your own notes.
 - Present your own part and answer the questions on it.
 - Protect the children's data.
@@ -199,4 +199,4 @@ Read across a row to see who to ask.
 One of the five opens and closes the presentation, keeps the time, and is the
 contact for the faculty guide.
 
-Coordinator: ______
+Coordinator: Adhira Praveen

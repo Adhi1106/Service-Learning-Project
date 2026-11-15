@@ -2,8 +2,9 @@
 .env*
 !.env.example
 
-# Real data from the trust must NEVER be committed (see TEAM_RULES.md, rule 1)
-data/
+# The live database is built from data/records on first start; never commit it
+data/*.db
+data/*.db-*
 exports/
 
 # Dependencies and builds

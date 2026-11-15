@@ -1,0 +1,48 @@
+admission_no,blood_group,height_cm,weight_kg,last_checkup,status,conditions,allergies,medication,remarks
+GLT/2025/031,O+,118.2,20.1,2026-07-18,healthy,,None known,,Normal growth and development. No complaints.
+GLT/2025/038,AB+,126.6,20.7,2026-07-18,minor,Dental caries (2 teeth),None known,,Fillings done at the dental camp in August. Brushing twice a day reminded.
+GLT/2025/045,A+,120,18.4,2026-07-25,frequent,Recurrent ear infection (left ear),None known,,Keep ear dry while bathing. ENT check in December.
+GLT/2025/052,B+,116.8,20.7,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2026/059,O+,117.4,17.8,2026-06-24,frequent,Frequent fevers and colds since admission,None known,Multivitamin syrup,"Joined in June, still settling in. Weight improving month by month."
+GLT/2024/066,AB+,127.5,23.4,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2025/073,O+,118.5,21.1,2026-07-18,minor,Short sight (myopia),None known,,Wears spectacles (-1.25 both eyes). Eye check again next year.
+GLT/2025/080,B-,119.1,20.4,2026-07-18,healthy,,None known,,Healthy. Eats well and active in games.
+GLT/2025/087,O-,126.1,22.2,2026-07-25,healthy,,None known,,Normal growth and development. No complaints.
+GLT/2024/094,B+,120.8,20,2026-07-18,minor,Mild vitamin D deficiency,None known,"Vitamin D3 sachet, once a week for 8 weeks",Morning sunlight at assembly encouraged.
+GLT/2024/101,B+,121.2,20.3,2026-07-18,healthy,,None known,,No health concerns. Vision and hearing normal.
+GLT/2023/011,B+,123.4,25.3,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2025/018,A+,130.6,22.6,2026-07-25,frequent,Frequent stomach upsets,None known,,Advised boiled water only and hand washing before meals. Deworming done in August.
+GLT/2023/025,A+,124.6,22.2,2026-07-25,frequent,Recurrent tonsillitis (4 episodes this year),Penicillin (rash),,ENT review advised if it happens again. Warm salt-water gargle at first sign of throat pain.
+GLT/2024/032,A+,132.2,25.1,2026-07-18,minor,Head lice,None known,,Treated with lotion in September; combs not to be shared.
+GLT/2023/039,O+,129.4,27.1,2026-07-18,ongoing,"Heart murmur (innocent, no treatment needed)",None known,,Echo done in 2025 was normal. Yearly check by the paediatrician. Can play all sports.
+GLT/2022/046,O+,128.1,30.1,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2025/053,O+,130,25.3,2026-07-18,healthy,,None known,,Healthy. Teeth and eyes normal at check-up.
+GLT/2025/060,AB+,141.3,26.6,2026-07-18,minor,Mild underweight,None known,,Extra milk and egg at breakfast. Weight checked monthly.
+GLT/2022/067,O-,132.4,25.1,2026-07-18,frequent,Recurrent cold and cough,Dust,Cetirizine syrup when needed,Worse in winter. Keep away from the dusty store room.
+GLT/2023/074,O-,136.7,30,2026-07-18,ongoing,Hearing loss in right ear since birth,None known,,Uses a hearing aid in the right ear. Sits in the front row in class. Batteries replaced monthly.
+GLT/2025/081,A+,138.1,28.1,2026-07-18,healthy,,None known,,Healthy. Eats well and active in games.
+GLT/2023/088,B+,133.3,28.4,2026-07-18,healthy,,None known,,Healthy. Eats well and active in games.
+GLT/2024/095,A+,127.7,28.1,2026-07-18,minor,Allergic rhinitis,"Dust, pollen",Cetirizine tablet when needed,"Sneezing in the mornings, worse in winter."
+GLT/2022/102,B+,138.9,30.9,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2023/012,B-,148.8,33.9,2026-07-18,minor,Fungal skin infection in October (cleared),None known,,Bedding to be sun-dried weekly during the rains.
+GLT/2020/019,AB+,138.6,34.7,2026-07-18,healthy,,None known,,Healthy. Teeth and eyes normal at check-up.
+GLT/2025/026,AB+,141.6,33.6,2026-07-18,ongoing,Hypothyroidism,None known,"Thyroxine 25 mcg, every morning before breakfast",Stable on medicine. Thyroid test every 6 months at the taluk hospital; next due in January.
+GLT/2025/033,O+,135.3,31.3,2026-07-25,minor,Eczema on hands,Detergent,Moisturising cream twice a day,Wears gloves when helping with washing.
+GLT/2024/040,B-,133.2,29.6,2026-07-18,healthy,,None known,,No health concerns. Vision and hearing normal.
+GLT/2025/047,B-,136.3,30.6,2026-07-18,healthy,,None known,,Healthy. Eats well and active in games.
+GLT/2022/054,AB+,139.1,27.7,2026-07-18,minor,Worm infestation (treated),None known,,Albendazole given in August. Repeat deworming in February.
+GLT/2023/061,O+,134.6,29.6,2026-07-25,healthy,,None known,,Healthy. Eats well and active in games.
+GLT/2021/068,B+,139.7,32.6,2026-07-18,ongoing,Mild asthma,Dust,"Salbutamol inhaler (100 mcg), 2 puffs when breathless",Attacks mostly when dorms are swept or in cold mornings. Inhaler kept in the sick room. Review at PHC if attacks become more frequent.
+GLT/2020/075,O-,144,34.5,2026-07-18,healthy,,None known,,Healthy. Teeth and eyes normal at check-up.
+GLT/2019/082,B+,144.5,35.1,2026-07-18,frequent,"Frequent fevers, especially in the rainy season",None known,,Mosquito net checked every night. Blood test if fever lasts more than 2 days.
+GLT/2023/089,O+,144.4,39.6,2026-07-18,minor,Flat feet,None known,,Arch-support insoles given. No restriction on games.
+GLT/2025/096,B+,138.9,36.8,2026-07-18,healthy,,None known,,Healthy. Vaccinations up to date.
+GLT/2022/103,A+,149.4,34.1,2026-07-18,healthy,,None known,,No health concerns. Vision and hearing normal.
+GLT/2024/013,A+,139.8,30.4,2026-07-18,frequent,Frequent colds and throat infections,None known,,Mild underweight. Extra egg at breakfast since August.
+GLT/2019/020,AB+,149.2,34.9,2026-07-18,ongoing,Iron-deficiency anaemia (Hb 9.6 g/dL in July),None known,"Iron and folic acid tablet, once daily after lunch",Gets tired easily. Recheck Hb in January. Jaggery and greens added to her diet.
+GLT/2020/027,O+,152.8,37.1,2026-07-18,minor,Speech delay (mild),None known,,Weekly speech therapy at the district hospital. Improving well.
+GLT/2020/034,B+,153.8,40.5,2026-07-25,healthy,,None known,,Normal growth and development. No complaints.
+GLT/2025/041,B+,155.9,41.7,2026-07-18,healthy,,None known,,No health concerns. Vision and hearing normal.
+GLT/2021/048,A+,151.3,45.1,2026-07-18,minor,Dental caries (2 teeth),None known,,Fillings done at the dental camp in August. Brushing twice a day reminded.
+GLT/2023/055,B+,159.6,44,2026-07-18,ongoing,Vitiligo (white patches on hands and neck),None known,Tacrolimus ointment at night,Not infectious. Dermatology review every 6 months. Use sunscreen on outings.
+GLT/2023/062,B+,149.2,38.2,2026-07-18,healthy,,None known,,Healthy. Eats well and active in games.

@@ -5,6 +5,8 @@ import type { DayPoint } from "@/lib/queries";
 export function AbsenceChart({ days }: { days: DayPoint[] }) {
   if (days.length === 0) return <p className="py-10 text-center text-sm text-slate-500">No attendance recorded yet.</p>;
   const peak = Math.max(...days.map((d) => d.total - d.present));
+  // A day is highlighted when 10% or more of the children were absent.
+  const high = Math.max(3, Math.ceil(Math.max(...days.map((d) => d.total)) * 0.1));
   const top = Math.max(4, Math.ceil(peak / 2) * 2);
   const ticks = [top, top / 2, 0];
   const avgPct = Math.round((10 * days.reduce((s, d) => s + d.pct, 0)) / days.length) / 10;
@@ -35,7 +37,7 @@ export function AbsenceChart({ days }: { days: DayPoint[] }) {
               return (
                 <div key={d.date} className="group relative flex h-full flex-1 items-end">
                   <div
-                    className={`w-full rounded-t-[3px] transition-colors ${absent >= 3 ? "bg-amber-400 group-hover:bg-amber-500" : "bg-teal-500/80 group-hover:bg-teal-600"}`}
+                    className={`w-full rounded-t-[3px] transition-colors ${absent >= high ? "bg-amber-400 group-hover:bg-amber-500" : "bg-teal-500/80 group-hover:bg-teal-600"}`}
                     style={{ height: `${absent === 0 ? 0 : Math.max((absent / top) * 100, 3)}%` }}
                   />
                   <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs text-white shadow group-hover:block">
@@ -56,7 +58,7 @@ export function AbsenceChart({ days }: { days: DayPoint[] }) {
           <span className="h-2.5 w-2.5 rounded-sm bg-teal-500/80" /> Children absent
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-sm bg-amber-400" /> 3 or more absent
+          <span className="h-2.5 w-2.5 rounded-sm bg-amber-400" /> {high} or more absent
         </span>
       </div>
     </div>

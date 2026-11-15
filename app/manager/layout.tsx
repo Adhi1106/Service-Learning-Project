@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Brand } from "@/components/Brand";
 import { IconBell, IconBox, IconDashboard, IconHeart, IconUsers } from "@/components/icons";
 import { LogoutButton } from "@/components/LogoutButton";
-import { ResetButton } from "@/components/manager/ResetButton";
 import { NavLinks } from "@/components/NavLinks";
 import { Avatar } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
@@ -18,7 +17,8 @@ export default async function ManagerLayout({ children }: { children: React.Reac
 
   return (
     <div className="min-h-screen md:flex">
-      <aside className="border-b border-slate-200 bg-white md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col md:border-b-0 md:border-r">
+      <aside className="border-b border-slate-200 bg-white md:w-64 md:shrink-0 md:border-b-0 md:border-r">
+        <div className="md:sticky md:top-0 md:flex md:h-screen md:flex-col">
         <div className="flex items-center justify-between px-4 pb-3 pt-4 md:px-5 md:pb-6 md:pt-6">
           <Link href="/manager">
             <Brand />
@@ -46,10 +46,10 @@ export default async function ManagerLayout({ children }: { children: React.Reac
             </div>
             <LogoutButton iconOnly className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700" />
           </div>
-          <ResetButton />
+        </div>
         </div>
       </aside>
-      <main className="min-w-0 flex-1 md:pl-64">
+      <main className="min-w-0 flex-1">
         <div className="mx-auto max-w-6xl px-4 py-6 md:px-8 md:py-8">{children}</div>
       </main>
     </div>

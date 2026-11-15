@@ -2,10 +2,6 @@
 
 import { useState } from "react";
 
-const DEMO = [
-  { label: "Manager", name: "Anita D'Souza", username: "anita", password: "manager123" },
-  { label: "Warden", name: "Manjunath Gowda", username: "manjunath", password: "warden123" },
-];
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
@@ -65,31 +61,7 @@ export function LoginForm() {
         </button>
       </form>
 
-      <div className="mt-10">
-        <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Demo accounts</p>
-        <div className="mt-3 space-y-2">
-          {DEMO.map((d) => (
-            <button
-              key={d.username}
-              type="button"
-              disabled={busy}
-              onClick={() => login(d.username, d.password)}
-              className="flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-2.5 text-left text-sm transition hover:border-teal-600 hover:bg-teal-50/40 disabled:opacity-60"
-            >
-              <span>
-                <span className="block font-medium text-slate-900">{d.name}</span>
-                <span className="block text-xs text-slate-500">
-                  {d.label} · {d.username} / {d.password}
-                </span>
-              </span>
-              <span className="text-xs font-medium text-teal-700">Sign in</span>
-            </button>
-          ))}
-        </div>
-        <p className="mt-6 text-xs leading-relaxed text-slate-400">
-          Demonstration version. The children, staff and records shown are invented; no real personal data is stored.
-        </p>
-      </div>
+      <p className="mt-8 text-sm text-slate-500">Forgotten your password? Ask the trust office to reset it.</p>
     </>
   );
 }

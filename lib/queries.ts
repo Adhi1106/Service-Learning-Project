@@ -4,7 +4,7 @@
 import { addDays } from "./dates";
 import { getDb } from "./db";
 import { EXPIRY_WARNING_DAYS } from "./rules/rules";
-import type { AbsenceReason, Alert, AlertStatus, CaseStatus, Illness, Item, Student } from "./types";
+import type { AbsenceReason, Alert, AlertStatus, CaseStatus, HealthRecord, HealthStatus, Illness, Item, Student } from "./types";
 
 export function listClasses(): string[] {
   return (getDb().prepare("SELECT DISTINCT class_name FROM students ORDER BY class_name").all() as { class_name: string }[]).map(
@@ -247,6 +247,7 @@ export type CalendarDay = { date: string; status: "present" | "absent" | null; l
 
 export type StudentProfile = {
   student: Student;
+  health: HealthRecord | null;
   calendar: CalendarDay[];
   attendance: { days_recorded: number; days_present: number; pct: number | null };
   absences: { date: string; reason: string; illness: string | null }[];
@@ -283,7 +284,20 @@ export function getStudentProfile(id: number, today: string): StudentProfile | n
     const d = byDate.get(date);
     calendar.push({ date, status: d?.status ?? null, label: d?.label ?? null });
   }
-  return { student, calendar, attendance, absences, cases: listCases().filter((c) => c.student_id === id) };
+  const health = (db.prepare("SELECT * FROM health_records WHERE student_id = ?").get(id) as HealthRecord | undefined) ?? null;
+  return { student, health, calendar, attendance, absences, cases: listCases().filter((c) => c.student_id === id) };
+}
+
+/** Health group of every child, for the manager's list. */
+export function healthStatuses(): Map<number, HealthStatus> {
+  const rows = getDb().prepare("SELECT student_id, status FROM health_records").all() as { student_id: number; status: HealthStatus }[];
+  return new Map(rows.map((r) => [r.student_id, r.status]));
+}
+
+export function healthSummary(): Record<HealthStatus, number> {
+  const out: Record<HealthStatus, number> = { healthy: 0, minor: 0, frequent: 0, ongoing: 0 };
+  for (const s of healthStatuses().values()) out[s]++;
+  return out;
 }
 
 export function attendancePercentages(): Map<number, number | null> {

@@ -40,7 +40,7 @@ export async function startSession(userId: number): Promise<void> {
     sameSite: "lax",
     path: "/",
     expires,
-    // The demo runs over plain http on a local network, so the cookie is not
+    // The app runs over plain http on the home's local network, so the cookie is not
     // marked "secure". Behind https in production this must be set to true.
     secure: false,
   });

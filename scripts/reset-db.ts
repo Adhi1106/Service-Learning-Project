@@ -1,4 +1,4 @@
-// Wipes the database and rebuilds it with the invented seed data.
+// Wipes the database and reloads it from the records in data/records.
 // Run with: npm run db:reset
 import fs from "node:fs";
 import path from "node:path";

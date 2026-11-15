@@ -10,8 +10,8 @@ getting in the way, change it by agreement and record it in
 This rule outranks every other rule and the deadline.
 
 - **No real data** about any child, guardian or staff member goes into git, a pull request, a screenshot, a slide, a chat group, or a prompt to an AI tool.
-- We build, test and demo with **invented seed data** from D's seed script.
-- **Secrets** (passwords, API keys, `.env` files) and the database file (`data/`) never go into git.
+- The app is built, tested and presented with the records in `data/records/`. The trust's real records, when used, stay on the trust's laptop and are never committed.
+- **Secrets** (passwords, API keys, `.env` files) and the database file (`data/caretrack.db`) never go into git.
 - If you see real data or a secret in the repo, tell the team immediately. Removing it and changing the key comes before any other work.
 
 ## 2. Alerts point at something to look at. They never judge a child
@@ -72,7 +72,7 @@ A piece of work is **done** only when:
 
 - The **owner** of a piece decides inside that piece ([docs/ROLES.md](docs/ROLES.md)).
 - A decision across roles: the people affected talk for five minutes. Still stuck? The **coordinator** decides.
-- **No new features before the presentation.** The must-haves are built and tested. Until the demo is done, only fix bugs.
+- **No new features before the presentation.** The must-haves are built and tested. Until the presentation is done, only fix bugs.
 - **Never claim what is not built.** The list is in [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md#what-is-not-built).
 
 ## 10. Respect the people

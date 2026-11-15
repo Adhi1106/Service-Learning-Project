@@ -1,0 +1,22 @@
+item,category,unit,minimum_level
+Rice (Sona Masoori),Food,kg,55
+Ragi flour,Food,kg,15
+Toor dal,Food,kg,12
+Wheat atta,Food,kg,10
+Sunflower oil,Food,L,8
+Sugar,Food,kg,6
+Paracetamol syrup (250 mg/5 ml),Medicine,bottle,4
+ORS sachets,Medicine,sachet,20
+Salbutamol inhaler,Medicine,pcs,2
+Iron and folic acid tablets (strip of 10),Medicine,strip,3
+Thyroxine 25 mcg (strip of 10),Medicine,strip,3
+Povidone-iodine solution,Medicine,bottle,2
+Cetirizine tablets (strip of 10),Medicine,strip,3
+Bath soap,Hygiene,pcs,30
+Toothpaste (150 g),Hygiene,tube,12
+Detergent powder,Hygiene,kg,5
+Coconut oil,Hygiene,L,2
+Sanitary pads (pack of 8),Hygiene,pack,8
+Notebooks (172 pages),Stationery,pcs,35
+Pencils (box of 10),Stationery,box,5
+Ball pens,Stationery,pcs,20

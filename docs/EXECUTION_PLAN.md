@@ -23,8 +23,8 @@ Before step 1: assign the five roles and write the names in
 - [ ] Get the code: `git clone`, then `git checkout claude/team-plan-roles-docs-togjoo` (or `main` once it is merged)
 - [ ] `npm install`
 - [ ] `npm run build`, then `npm start`
-- [ ] Open `http://localhost:3000` and sign in as `anita` / `manager123` (or tap the demo account button)
-- [ ] `npm test` shows 48 tests passing
+- [ ] `npm run db:reset`, then open `http://localhost:3000` and sign in as `sunitha` / `Sunitha@123`
+- [ ] `npm test` shows 50 tests passing
 
 If `npm install` fails on Windows with an error about `better-sqlite3`, check
 that Node is version 22 with `node -v`, delete the `node_modules` folder, and
@@ -34,20 +34,20 @@ At least two laptops should be able to run it, in case one fails on the day.
 
 ## 2. Do both flows by hand
 
-Press **Reset demo data** at the bottom of the manager's sidebar first.
+Run `npm run db:reset` first.
 
 **Flow 1: health**
 
-- [ ] Sign in as `manjunath` / `warden123` (on a phone, or a narrow browser window)
+- [ ] Sign in as `manjunatha` / `Manju@123` (on a phone, or a narrow browser window)
 - [ ] Today → Class 6 → tap Shivakumar N → Medical → Asthma → Save
-- [ ] As Anita: Shivakumar's critical alert is at the top of Alerts
+- [ ] As Sunitha: Shivakumar's critical alert is at the top of Alerts
 - [ ] Health cases: Shivakumar's new case is in "Open". Move it to Resolved
 - [ ] Alerts: Shivakumar's asthma alert is now resolved
 
 **Flow 2: stock**
 
-- [ ] As Manjunath: Stock → Used → Rice (Sona Masoori) → 5 → Save. It says 48 kg in stock
-- [ ] As Anita: a "48 kg left, below the minimum of 50 kg" warning is in Alerts, and rice is on the dashboard under "Stock running low"
+- [ ] As Manjunatha: Stock → Used → Rice (Sona Masoori) → 5 → Save. It says 53 kg in stock
+- [ ] As Sunitha: a "53 kg left, below the minimum of 55 kg" warning is in Alerts, and rice is on the dashboard under "Stock running low"
 
 **Access check**
 
@@ -64,11 +64,11 @@ Open [ROLES.md](ROLES.md), find your role, and work through "Your files" and
 
 | Role | A small change to try |
 |---|---|
-| D | Add a new item to `ITEMS` in `db/seed.ts`, run `npm run db:reset`, find it in the stock table |
-| B2 | Change `REPEAT_ILLNESS_THRESHOLD` to 2 in `lib/rules/rules.ts`, run `npm test`, see which tests fail and why. Change it back |
-| B1 | Open `/api/students` in the browser while logged in, then while logged out. Compare the answers |
-| F1 | Change a card label on the dashboard in `app/manager/page.tsx` |
-| F2 | Add an absence reason in `db/seed.ts` (`REASONS`), reset, and see it appear as a button on the attendance screen |
+| Joel (D) | Add a row to `data/records/stock_items.csv`, run `npm run db:reset`, find it on the Stock page |
+| Joseph (B2) | Change `REPEAT_ILLNESS_THRESHOLD` to 2 in `lib/rules/rules.ts`, run `npm test`, see which tests fail and why. Change it back |
+| Ashika (B1) | Open `/api/students` in the browser while logged in, then while logged out. Compare the answers |
+| Adhira (F1) | Change a card label on the dashboard in `app/manager/page.tsx` |
+| Neha (F2) | Add a reason to `data/records/absence_reasons.csv`, run `npm run db:reset`, and see it appear as a button on the attendance screen |
 
 Use `npm run dev` while making changes: the page reloads by itself. Undo
 experiments you do not want to keep with `git checkout -- <file>`.
@@ -77,14 +77,14 @@ experiments you do not want to keep with `git checkout -- <file>`.
 
 All five together. Each person explains their area to the others in three
 minutes, without notes, and the others ask the questions from
-[PRESENTATION.md](PRESENTATION.md). Anything you could not answer, look up and
+[VIVA_GUIDE.md](VIVA_GUIDE.md). Anything you could not answer, look up and
 write in your worklog.
 
 ## 5. Rehearse
 
-Follow [PRESENTATION.md](PRESENTATION.md) exactly, with a timer, twice.
+Follow [VIVA_GUIDE.md](VIVA_GUIDE.md) exactly, with a timer, twice.
 
-- [ ] Reset demo data before each run
+- [ ] `npm run db:reset` before each run
 - [ ] First run: find what goes wrong (Wi-Fi, logins, who has which screen)
 - [ ] Second run: under 10 minutes, with handovers that do not need discussion
 - [ ] Decide the fallback if the phone cannot reach the laptop: a narrow browser window on the laptop
@@ -92,7 +92,7 @@ Follow [PRESENTATION.md](PRESENTATION.md) exactly, with a timer, twice.
 ## 6. Present
 
 - [ ] `npm run build` and `npm start` on the presenting laptop
-- [ ] Reset demo data
+- [ ] `npm run db:reset`
 - [ ] Manager logged in on the laptop, warden logged in on the phone
 - [ ] Terminal and editor open for B2 and D
 
@@ -104,9 +104,9 @@ All eight must-haves from [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md#3-what-we-bu
 
 | Check | Result |
 |---|---|
-| Unit tests (`npm test`) | 48 passing |
+| Unit tests (`npm test`) | 50 passing |
 | Browser run of both flows, access checks, bad input and reset | 25 checks passing |
-| Readiness check: the whole of PRESENTATION.md followed in a browser, twice in a row | 30 of 30 checks passing on both runs (redone after the new data and design) |
+| The whole presentation flow in VIVA_GUIDE.md followed in a browser | 32 of 32 checks passing |
 | Type check and lint | Clean |
 | Production build | Succeeds |
 
@@ -118,7 +118,7 @@ Say so if asked. Do not claim any of these.
 - No offline entry, no Kannada, no PDF reports
 - No marks, scholarships, donations or expenses
 - No testing with the real warden, and no real data
-- No https. The demo runs over plain http on local Wi-Fi
+- No https. It runs over plain http on the home's Wi-Fi
 
 ## Still to settle
 

@@ -1,7 +1,7 @@
 # Worklog: D
 
 **Area:** Database, constraints and seed data
-**Member:** _(write your name here)_
+**Member:** Joel Thomas Mario
 **What I own:** see [ROLES.md](../ROLES.md#d)
 
 This is the record of work on the D area. Write only what was actually
@@ -22,11 +22,26 @@ To be ticked by the member who owns this area.
 - [ ] I can draw the main tables and their links from memory
 - [ ] I can explain the stock trigger and the four things the database refuses
 - [ ] I can point to the four planted patterns in the seed and say what each is for
-- [ ] I have rehearsed my part of PRESENTATION.md
+- [ ] I have rehearsed my part of VIVA_GUIDE.md
 
 ## Entries
 
 <!-- Your entries go here, newest first. Copy docs/templates/worklog-entry.md. -->
+
+### 2026-11-15: Records, health data and team assignment
+
+**Who did this:** Claude (the AI coding assistant), asked by Adhira Praveen. Joel Thomas Mario should read the change and add their own entry when they have.
+
+**What was done**
+- Replaced the generated seed with record files in `data/records/` (staff, children, health records, attendance, stock items and entries, health cases, lists), and an importer `db/import.ts` with a CSV reader `lib/csv.ts`. `npm run db:reset` now reloads from these files.
+- 47 children in Classes 1 to 7 with everyday Bengaluru names, admission numbers (GLT/year/number), all at Government Higher Primary School (Main), Hosakote.
+- New `health_records` table: one yearly check-up record per child, in four groups (22 healthy, 12 minor issues, 7 frequent illness, 6 ongoing condition). Absences match each child's health record.
+- Staff renamed: Sunitha Prakash (manager, `sunitha`) and Manjunatha B (warden, `manjunatha`).
+
+**How it was checked**
+- `npm test`: 50 passing. Lint, type check and build clean.
+- The full presentation flow in a browser: 32 of 32 checks passed. Screenshots for the viva are in `docs/screenshots/`.
+
 
 ### 2026-11-15: Names and school made true to the home
 
@@ -59,7 +74,7 @@ note here that they have.
 
 **How it was checked**
 - `npm test`: 47 passing. Lint, type check and build clean.
-- The whole of PRESENTATION.md followed in a browser twice in a row: 30 of 30 checks passed both times.
+- The whole of VIVA_GUIDE.md followed in a browser twice in a row: 30 of 30 checks passed both times.
 
 
 ### 2026-11-15: Reset no longer logs people out
@@ -69,7 +84,7 @@ asked for by the project owner. No team member was involved. The owner of this
 area should read the change and tick it off here.
 
 **What was done**
-- Found while following PRESENTATION.md in a browser: pressing "Reset demo data" on the laptop logged the warden's phone out, because the reset rebuilt every table, including `sessions`.
+- Found while following VIVA_GUIDE.md in a browser: pressing "Reset demo data" on the laptop logged the warden's phone out, because the reset rebuilt every table, including `sessions`.
 - `resetDb` in `lib/db.ts` now saves the current logins before the reset and puts them back afterwards, matched by username.
 - Added `lib/db.test.ts`: after a reset the data is back to its start state and both logins still work.
 

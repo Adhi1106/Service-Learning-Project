@@ -9,11 +9,11 @@
 
 ## Checklist
 - [ ] `npm test`, `npm run lint` and `npm run build` pass
-- [ ] Both demo flows in `docs/PRESENTATION.md` still work
+- [ ] Both presentation flows in `docs/VIVA_GUIDE.md` still work
 - [ ] My worklog has a truthful entry for this work
 - [ ] No real children's data, secrets or `.env` files in this PR
 - [ ] If I changed a table, endpoint or alert shape, I told the team and updated `docs/CONTRACTS.md`
 - [ ] Tables or access rules touched: D is a reviewer. Login or role checks touched: B1 is a reviewer
 
 ## Screenshots / output
-<!-- Optional. Seed data only. -->
+<!-- Optional. Never include real children's records. -->

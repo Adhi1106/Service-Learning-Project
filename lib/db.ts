@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
-import { seed } from "../db/seed";
+import { RECORDS_DIR, importRecords } from "../db/import";
 import { todayStr } from "./dates";
 
 export type DB = Database.Database;
@@ -20,7 +20,7 @@ export function applySchema(db: DB): void {
   db.exec(fs.readFileSync(SCHEMA_FILE, "utf8"));
 }
 
-/** Wipes everything and rebuilds the schema and the invented seed data.
+/** Wipes everything and reloads the home's records from data/records.
  *  Anyone who is logged in stays logged in, so a reset on the laptop does not
  *  throw the warden's phone back to the login screen. */
 export function resetDb(db: DB, today: string = todayStr()): void {
@@ -42,7 +42,7 @@ export function resetDb(db: DB, today: string = todayStr()): void {
   }
   db.pragma("foreign_keys = ON");
   applySchema(db);
-  seed(db, today);
+  importRecords(db, RECORDS_DIR, today);
 
   // Put the logins back, matched by username (user ids may change).
   const restore = db.prepare(
@@ -70,7 +70,7 @@ export function getDb(): DB {
     const hasTables = db.prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'users'").get();
     if (!hasTables) {
       applySchema(db);
-      seed(db, todayStr());
+      importRecords(db, RECORDS_DIR, todayStr());
     }
     g.__caretrackDb = db;
   }

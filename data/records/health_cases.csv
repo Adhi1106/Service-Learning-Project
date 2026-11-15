@@ -1,0 +1,5 @@
+admission_no,illness,status,opened_on,updated_on,notes
+GLT/2021/068,Asthma,resolved,2026-09-09,2026-09-25,"Seen at the Primary Health Centre, Hosakote on 11 Sep. Mild asthma. Salbutamol inhaler prescribed and kept in the sick room. Avoid dust when dorms are swept. Review if attacks come back."
+GLT/2023/025,Throat infection,resolved,2026-09-23,2026-10-02,Tonsillitis. Antibiotics for 5 days (not penicillin; she is allergic). Better by 30 Sep. ENT review if it happens again.
+GLT/2023/012,Skin infection,resolved,2026-10-06,2026-10-20,"Fungal skin infection, probably from damp bedding during the rains. Ointment for two weeks. All bedding in her room washed and sun-dried. Cleared at follow-up."
+GLT/2019/082,Fever,scheduled,2026-11-06,2026-11-07,"Fever on and off for three days, settled with paracetamol. Blood test booked at the Primary Health Centre for 16 Nov to rule out dengue."

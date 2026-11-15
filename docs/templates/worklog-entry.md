@@ -35,21 +35,21 @@ Leave a heading out if it has nothing under it.
 ## A filled-in example
 
 ```markdown
-### 2026-11-15: Read the schema and added an item to the seed
+### 2026-11-15: Read the schema and added an item to the store records
 
 **What I did**
-- Read `db/schema.sql` and drew the ten tables and their links on paper.
+- Read `db/schema.sql` and drew the eleven tables and their links on paper.
 - Tried inserting a second attendance row for the same child and day with the sqlite3 command line: it was refused.
-- Added "Hand wash (refill)" to `ITEMS` in `db/seed.ts` and ran `npm run db:reset`.
+- Added "Hand wash (refill)" to `data/records/stock_items.csv` and ran `npm run db:reset`.
 
 **How I checked it works**
-- `npm test`: 47 passing. The new item shows in the manager's stock table.
+- `npm test`: 50 passing. The new item shows in the manager's stock table.
 
 **Problems and what I learned**
 - The stock balance is never written by the app. The `stock_apply` trigger updates it, and the `balance >= 0` check is what rejects a stock-out that is too large.
 
 **Blocked on / needs from others**
-- B2: confirm the seed test that counts 20 items needs updating if I keep the new item.
+- Joseph: the test that counts 21 store items needs updating if I keep the new item.
 
 **Next**
 - Be able to explain the trigger without looking at the file.

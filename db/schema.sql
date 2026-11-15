@@ -1,6 +1,6 @@
 -- CareTrack database schema (SQLite).
 -- Owner: D (Database: Schema, Security & Seed Data).
--- Ten tables, one view, one trigger. The database itself refuses bad data:
+-- Eleven tables, one view, one trigger. The database itself refuses bad data:
 --   * one attendance row per child per day
 --   * an absence must have a reason; a present row must not
 --   * stock balance can never go below zero
@@ -21,13 +21,29 @@ CREATE TABLE sessions (
 );
 
 CREATE TABLE students (
-  id          INTEGER PRIMARY KEY,
-  name        TEXT NOT NULL,
+  id           INTEGER PRIMARY KEY,
+  admission_no TEXT NOT NULL UNIQUE,
+  name         TEXT NOT NULL,
+  gender       TEXT NOT NULL CHECK (gender IN ('M', 'F')),
   dob         TEXT NOT NULL,
   class_name  TEXT NOT NULL,
   room        TEXT NOT NULL,
   school      TEXT NOT NULL,
   admitted_on TEXT NOT NULL
+);
+
+-- One health record per child, from the yearly check-up.
+CREATE TABLE health_records (
+  student_id   INTEGER PRIMARY KEY REFERENCES students(id),
+  blood_group  TEXT NOT NULL,
+  height_cm    REAL,
+  weight_kg    REAL,
+  last_checkup TEXT,
+  status       TEXT NOT NULL CHECK (status IN ('healthy', 'minor', 'frequent', 'ongoing')),
+  conditions   TEXT NOT NULL DEFAULT '',
+  allergies    TEXT NOT NULL DEFAULT '',
+  medication   TEXT NOT NULL DEFAULT '',
+  remarks      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE absence_reasons (

@@ -41,8 +41,8 @@ scholarships. Those are out of scope for the one-day build.
 | 7 | **Health cases:** opened automatically by the illness rule; moved through Open → Scheduled → Under treatment → Resolved | Manager |
 | 8 | **Dashboard:** today's attendance, open alerts, open health cases, low-stock items, a 30-day attendance chart | Manager |
 
-Also built: the absence-reason breakdown on the dashboard, and a "Reset demo
-data" button for the manager.
+Also built: the absence-reason breakdown on the dashboard, a health record for
+every child, and a searchable children list.
 
 ### Not built (possible next steps)
 
@@ -84,7 +84,7 @@ usability testing at the trust · real data entry and staff training.
    ================================================================
 ```
 
-### The two flows we demo
+### The two flows we present
 
 If these two work end to end, the project works.
 
@@ -120,12 +120,12 @@ never a judgement about a child.
 | Backend | Next.js API routes; Zod for input checks |
 | Database | SQLite, through the `better-sqlite3` library. One file, nothing to install |
 | Login | Our own: scrypt password hashes and session cookies |
-| Tests | Vitest: 48 tests for the rules, the demo data and the database constraints |
+| Tests | Vitest: 50 tests for the rules, the records and the database constraints |
 | Hosting | Runs on a laptop; the phone connects over the same Wi-Fi. Not deployed publicly |
 
 ## 7. Data
 
-Ten tables. The exact definition is in `db/schema.sql` and
+Eleven tables, loaded from the CSV records in `data/records/`. The exact definition is in `db/schema.sql` and
 [CONTRACTS.md](CONTRACTS.md#c1-database-tables-d).
 
 | Table | Holds |
@@ -146,21 +146,21 @@ can never go below zero.
 
 ## 8. Privacy
 
-- **No real children's data** in the repository, the demo or any AI tool. The seed data is invented.
+- **Real children's records** are never committed to the repository or pasted into an AI tool.
 - The warden cannot read alerts, health cases or a child's history. The server checks the role on every page and every API route, not only in the menus.
 - Passwords are stored only as salted hashes.
 - The database file and any secrets are kept out of git.
 
 ## 9. How we will know it works
 
-1. Both demo flows run end to end. **Done:** checked in a real browser.
-2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts. **Done:** 48 tests.
+1. Both presentation flows run end to end. **Done:** checked in a real browser.
+2. Every rule has unit tests, and the home's records raise exactly the expected alerts. **Done:** 50 tests.
 3. A warden login is refused alerts and health cases at both the page and the API. **Done.**
 4. Attendance for a class takes under 60 seconds on a phone. **To be timed by F2 on a real phone.**
 
 ## 10. What we hand in
 
-1. The working app, with a manager login and a warden login, on invented data.
+1. The working app, with a manager login and a warden login, loaded with the home's records.
 2. The source code on GitHub with this documentation.
 3. Five worklogs, one per role.
-4. A live demo where each member presents their own part.
+4. A live presentation where each member presents their own part.

@@ -1,133 +1,120 @@
 # CareTrack
 
-A child attendance, health and stock tracking system for **Grace and Light
-Trust**, a children's home in Hoskote, Karnataka.
+Attendance, health and stores for the children of **Grace and Light Trust**,
+a children's home in Hoskote, Bengaluru Rural, Karnataka.
 
 Service Learning Project, team of five. There is **no AI or machine learning**
 in the product: alerts come from three simple, fixed rules.
 
 ## What it does
 
-The **warden** opens CareTrack on a phone and records the day's school
-attendance (with the reason for each absence) and what stock was used. The
-**manager** opens it on a laptop and sees a dashboard: who is missing school
-and why, which children have been ill repeatedly, and which supplies are
-running low. Three fixed rules raise alerts automatically, for example "absent
-for asthma 3 times in 30 days", and the manager follows each health case until
-it is resolved.
+The home looks after 47 children in Classes 1 to 7, who all attend
+**Government Higher Primary School (Main), Hosakote**. The **warden**,
+Manjunatha B, uses CareTrack on a phone to record each day's school attendance
+(with the reason for every absence) and what is issued from the store. The
+**manager**, Sunitha Prakash, uses it on the office laptop to see who is
+missing school and why, which children keep falling ill, each child's health
+record, and which supplies are running low. Three fixed rules raise alerts on
+their own, for example "absent with asthma 3 times in 30 days", and the
+manager follows each health case until it is resolved.
 
 | Manager (laptop) | Warden (phone) |
 |---|---|
-| ![Dashboard](docs/screenshots/manager-dashboard.png) | ![Attendance screen](docs/screenshots/warden-attendance.png) |
-
-More screenshots are in [docs/screenshots/](docs/screenshots/). All data shown is invented.
+| ![Dashboard](docs/screenshots/adhira-manager/01-dashboard-before.jpg) | ![Attendance](docs/screenshots/neha-warden/03-attendance-marking.jpg) |
 
 ## Run it
 
-You need [Node.js](https://nodejs.org) 22 (LTS). Then, in this folder:
+You need [Node.js](https://nodejs.org) 22 (LTS). In this folder:
 
 ```bash
-npm install        # once
-npm run build      # once, and again after any code change
-npm start          # starts the app on http://localhost:3000
+npm install          # once
+npm run db:reset     # loads the home's records into the database
+npm run build        # once, and again after any code change
+npm start            # http://localhost:3000
 ```
 
-The database is created automatically on first start, filled with invented
-demo data.
+| Person | Role | Username | Password |
+|---|---|---|---|
+| Sunitha Prakash | Manager | `sunitha` | `Sunitha@123` |
+| Manjunatha B | Warden | `manjunatha` | `Manju@123` |
 
-| Login | Username | Password |
-|---|---|---|
-| Manager: Anita D'Souza | `anita` | `manager123` |
-| Warden: Manjunath Gowda | `manjunath` | `warden123` |
-
-The sign-in page also has one-tap buttons for both demo accounts.
-
-**To use the warden screens on a real phone:** connect the phone to the same
-Wi-Fi as the laptop, find the laptop's IP address (`ipconfig` on Windows,
-`ifconfig` on Mac/Linux), and open `http://<that-address>:3000` on the phone.
-
-Other commands:
+**On the warden's phone:** connect it to the same Wi-Fi as the laptop, find
+the laptop's IP address (`ipconfig` on Windows, `ifconfig` on Mac/Linux), and
+open `http://<that-address>:3000`.
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | Development mode with live reload (use on the laptop only) |
-| `npm test` | Runs the 48 tests for the rules and the database constraints |
-| `npm run db:reset` | Puts the demo data back to its starting state |
+| `npm run db:reset` | Rebuilds the database from the records in `data/records/` (nobody is signed out) |
+| `npm test` | Runs the 50 automated tests |
+| `npm run dev` | Development mode with live reload |
 | `npm run lint` | Checks the code style |
 
-The manager's sidebar also has a **Reset demo data** link at the bottom, which
-does the same as `npm run db:reset` without signing anyone out. Use it before
-every rehearsal and before the demo.
+## The records
 
-## The demo data
+The home's registers are kept as CSV files in [`data/records/`](data/records/),
+the format any spreadsheet can save:
 
-Three months of invented but realistic history, generated from today's date:
-40 children from poor families in and around Bangalore, in Classes 5 to 8 across four dorms, all at one government school; attendance
-with school holidays, ordinary absences and a fever that went round; a store
-of 20 items with monthly purchases, donations and daily issues; and past
-health cases with doctors' notes. The names are everyday names written the way a
-government school register writes them; no record describes a real person. A few situations are planted
-so the demo always tells the same story ([docs/PRESENTATION.md](docs/PRESENTATION.md)).
+| File | Holds |
+|---|---|
+| `children.csv` | Admission register: 47 children, admission number, date of birth, class, dorm, school |
+| `health_records.csv` | Yearly check-up for each child: blood group, height, weight, conditions, allergies, medication, remarks |
+| `attendance.csv` | Daily school attendance since August |
+| `stock_items.csv`, `stock_entries.csv` | Store items, and every purchase, donation and issue |
+| `health_cases.csv` | Health follow-ups with the doctor's notes |
+| `staff.csv`, `absence_reasons.csv`, `illnesses.csv` | Sign-in accounts and the lists the warden chooses from |
+
+`npm run db:reset` loads them into the database file `data/caretrack.db`,
+which the app uses and which is never committed. Details:
+[docs/VIVA_GUIDE.md](docs/VIVA_GUIDE.md#3-joel-thomas-mario-records-and-database-d).
+
+## The team
+
+| Member | Part | Role | Worklog |
+|---|---|---|---|
+| Adhira Praveen | Manager screens (laptop) | F1 | [F1](docs/worklogs/F1.md) |
+| Neha S | Warden screens (phone) | F2 | [F2](docs/worklogs/F2.md) |
+| Joel Thomas Mario | Records and database | D | [D](docs/worklogs/D.md) |
+| Ashika Valencia A | Sign-in, permissions and APIs | B1 | [B1](docs/worklogs/B1.md) |
+| Joseph Mangali | Alert rules and testing | B2 | [B2](docs/worklogs/B2.md) |
 
 ## Start here
 
 | If you want to... | Read |
 |---|---|
+| Prepare for the presentation and viva | [docs/VIVA_GUIDE.md](docs/VIVA_GUIDE.md) |
 | Understand the whole project | [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md) |
-| Know what you own and which files to read | [docs/ROLES.md](docs/ROLES.md) |
-| Know what to say in the demo, and the questions to expect | [docs/PRESENTATION.md](docs/PRESENTATION.md) |
-| Know what to do today | [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md) |
+| Know what each person owns | [docs/ROLES.md](docs/ROLES.md) |
 | See the tables, endpoints and rules precisely | [docs/CONTRACTS.md](docs/CONTRACTS.md) |
-| See why something was decided or cut | [docs/DECISIONS.md](docs/DECISIONS.md) |
-| Record your own work | [docs/worklogs/](docs/worklogs/) (one file per role) |
-| Know the rules we work by | [TEAM_RULES.md](TEAM_RULES.md) |
+| See why something was decided | [docs/DECISIONS.md](docs/DECISIONS.md) |
+| Know the rules the team works by | [TEAM_RULES.md](TEAM_RULES.md) |
 | Change the app with Claude | [docs/PROMPT.md](docs/PROMPT.md) |
-| Read the original (larger) proposal | [docs/proposal/CareTrack_Project_Proposal.pdf](docs/proposal/CareTrack_Project_Proposal.pdf) |
-
-## The team
-
-Fill in the names.
-
-| Role | Area | Member | Worklog |
-|---|---|---|---|
-| F1 | Manager screens: dashboard, alerts, health cases | ______ | [F1](docs/worklogs/F1.md) |
-| F2 | Warden phone screens: attendance, stock | ______ | [F2](docs/worklogs/F2.md) |
-| B1 | Login, permissions and APIs | ______ | [B1](docs/worklogs/B1.md) |
-| B2 | The three rules, alerts and testing | ______ | [B2](docs/worklogs/B2.md) |
-| D | Database, constraints and seed data | ______ | [D](docs/worklogs/D.md) |
+| Read the original proposal | [docs/proposal/CareTrack_Project_Proposal.pdf](docs/proposal/CareTrack_Project_Proposal.pdf) |
 
 ## Where the code is
 
 | Folder | What is in it | Owner |
 |---|---|---|
-| `db/` | `schema.sql` (tables, constraints, trigger, view) and `seed.ts` (invented data) | D |
-| `lib/rules/` | The three rules, the code that writes alerts, and their tests | B2 |
-| `lib/auth.ts`, `lib/queries.ts`, `app/api/` | Login, role checks, database queries, API routes | B1 |
-| `app/manager/`, `components/manager/`, `components/ui.tsx`, `components/icons.tsx`, `components/Brand.tsx` | Manager screens, shared components, icons and logo | F1 |
-| `app/warden/`, `components/warden/`, `app/login/` | Warden phone screens and the login screen | F2 |
+| `data/records/`, `db/`, `lib/db.ts`, `lib/csv.ts` | The records, database design, import | Joel |
+| `lib/auth.ts`, `lib/password.ts`, `lib/api.ts`, `lib/queries.ts`, `app/api/` | Sign-in, role checks, queries, API routes | Ashika |
+| `lib/rules/` | The three rules, alert writing, and the tests | Joseph |
+| `app/manager/`, `components/manager/`, `components/ui.tsx`, `components/icons.tsx`, `components/Brand.tsx` | Manager screens, shared components, icons, logo | Adhira |
+| `app/warden/`, `components/warden/`, `app/login/` | Warden phone screens and sign-in | Neha |
 
-## The one rule that outranks all others
+## Privacy
 
-**No real children's data ever goes into this repository, a demo, a screenshot
-or a chat with an AI tool.** Everything here is invented. See
+Children's records never go to GitHub or into a chat with an AI tool when real
+records are used, and health information is shown only to the manager. See
 [TEAM_RULES.md](TEAM_RULES.md).
 
 ## Status
 
-Working and tested. All eight must-have features are built, both demo flows
-pass in a browser test, and 48 unit tests pass. It runs on a laptop; it has
-not been deployed to a public server.
+Working and tested: 50 automated tests pass, and the full presentation flow
+passes in a browser. It runs on the office laptop and is used from the phone
+over Wi-Fi; it is not on a public server.
 
 ## How this was built
 
-The app was built on 15 November 2026 with Claude Code, an AI coding
-assistant, directed by the team; AI tools are allowed for this project. The
-code is organised into five areas so each member owns, understands and
-presents one, and every worklog records who did what. The product itself
-contains no AI: alerts come from fixed rules.
-
-## Relation to the original proposal
-
-The proposal describes a three-week, AI-assisted system. This is a one-day,
-rule-based subset. What was cut, and why, is in
-[docs/DECISIONS.md](docs/DECISIONS.md) (D-006).
+Built in November 2026 with the help of Claude Code, an AI coding assistant,
+directed by the team; AI tools are allowed for this project. The code is split
+into five parts so each member owns, understands and presents one. The product
+itself contains no AI.

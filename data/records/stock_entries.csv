@@ -1,0 +1,514 @@
+date,item,type,quantity,expiry_date,note,entered_by
+2026-08-17,Rice (Sona Masoori),in,393,2027-02-13,Opening stock count,sunitha
+2026-08-18,Rice (Sona Masoori),out,20,,Issued to kitchen,manjunatha
+2026-08-20,Rice (Sona Masoori),out,21,,Issued to kitchen,manjunatha
+2026-08-22,Rice (Sona Masoori),out,19,,Issued to kitchen,manjunatha
+2026-08-24,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-08-26,Rice (Sona Masoori),out,24,,Issued to kitchen,manjunatha
+2026-08-28,Rice (Sona Masoori),out,20,,Issued to kitchen,manjunatha
+2026-08-30,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-01,Rice (Sona Masoori),out,24,,Issued to kitchen,manjunatha
+2026-09-03,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-05,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-09-07,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-09,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-11,Rice (Sona Masoori),out,21,,Issued to kitchen,manjunatha
+2026-09-13,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-15,Rice (Sona Masoori),in,320,2027-03-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-17,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-09-19,Rice (Sona Masoori),out,19,,Issued to kitchen,manjunatha
+2026-09-21,Rice (Sona Masoori),out,24,,Issued to kitchen,manjunatha
+2026-09-23,Rice (Sona Masoori),out,16,,Issued to kitchen,manjunatha
+2026-09-25,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-09-27,Rice (Sona Masoori),out,24,,Issued to kitchen,manjunatha
+2026-09-29,Rice (Sona Masoori),out,20,,Issued to kitchen,manjunatha
+2026-10-01,Rice (Sona Masoori),out,20,,Issued to kitchen,manjunatha
+2026-10-03,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-10-05,Rice (Sona Masoori),out,17,,Issued to kitchen,manjunatha
+2026-10-07,Rice (Sona Masoori),out,17,,Issued to kitchen,manjunatha
+2026-10-09,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-10-11,Rice (Sona Masoori),out,21,,Issued to kitchen,manjunatha
+2026-10-13,Rice (Sona Masoori),out,17,,Issued to kitchen,manjunatha
+2026-10-15,Rice (Sona Masoori),out,23,,Issued to kitchen,manjunatha
+2026-10-16,Rice (Sona Masoori),in,103,2027-04-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Rice (Sona Masoori),out,21,,Issued to kitchen,manjunatha
+2026-10-19,Rice (Sona Masoori),out,24,,Issued to kitchen,manjunatha
+2026-10-21,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-10-23,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-10-25,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-10-26,Rice (Sona Masoori),in,183,2027-04-24,"Donation in kind, rice bags from a church group",manjunatha
+2026-10-27,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-10-29,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-10-31,Rice (Sona Masoori),out,20,,Issued to kitchen,manjunatha
+2026-11-02,Rice (Sona Masoori),out,21,,Issued to kitchen,manjunatha
+2026-11-04,Rice (Sona Masoori),out,19,,Issued to kitchen,manjunatha
+2026-11-06,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-11-08,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-11-10,Rice (Sona Masoori),out,18,,Issued to kitchen,manjunatha
+2026-11-12,Rice (Sona Masoori),out,16,,Issued to kitchen,manjunatha
+2026-11-14,Rice (Sona Masoori),out,23,,Issued to kitchen,manjunatha
+2026-11-14,Rice (Sona Masoori),out,22,,Issued to kitchen,manjunatha
+2026-08-17,Ragi flour,in,124,2026-11-15,Opening stock count,sunitha
+2026-08-18,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-08-20,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-08-22,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-08-24,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-08-26,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-08-28,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-08-30,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-09-01,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-09-03,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-09-05,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-07,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-09,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-09-11,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-13,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-09-15,Ragi flour,in,112,2026-12-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-09-17,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-19,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-21,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-09-23,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-09-25,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-09-27,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-09-29,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-01,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-10-03,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-05,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-07,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-09,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-11,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-10-13,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-15,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-16,Ragi flour,in,122,2027-01-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-19,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-21,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-10-23,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-10-25,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-27,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-29,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-10-31,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-11-02,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-11-04,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-11-06,Ragi flour,out,8,,Issued to kitchen,manjunatha
+2026-11-08,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-11-10,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-11-12,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-11-14,Ragi flour,out,7,,Issued to kitchen,manjunatha
+2026-11-14,Ragi flour,out,6,,Issued to kitchen,manjunatha
+2026-08-17,Toor dal,in,70,2027-02-13,Opening stock count,sunitha
+2026-08-18,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-08-20,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-08-22,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-08-24,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-08-26,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-08-28,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-08-30,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-01,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-03,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-05,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-07,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-09,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-11,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-13,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-15,Toor dal,in,79,2027-03-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-17,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-19,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-09-21,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-09-23,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-09-25,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-09-27,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-09-29,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-01,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-10-03,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-10-05,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-07,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-09,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-11,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-13,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-15,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-16,Toor dal,in,76,2027-04-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-19,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-21,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-23,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-25,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-10-27,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-10-29,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-10-31,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-11-02,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-11-04,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-11-06,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-11-08,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-11-10,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-11-12,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-11-14,Toor dal,out,5,,Issued to kitchen,manjunatha
+2026-11-14,Toor dal,out,4,,Issued to kitchen,manjunatha
+2026-08-17,Wheat atta,in,64,2026-11-15,Opening stock count,sunitha
+2026-08-18,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-08-20,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-08-22,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-08-24,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-08-26,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-08-28,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-08-30,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-01,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-09-03,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-05,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-09-07,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-09-09,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-09-11,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-13,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-15,Wheat atta,in,50,2026-12-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-09-17,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-19,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-21,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-23,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-25,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-27,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-09-29,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-10-01,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-03,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-05,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-07,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-09,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-11,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-13,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-15,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-16,Wheat atta,in,57,2027-01-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-19,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-21,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-23,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-25,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-10-27,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-29,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-10-31,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-11-02,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-11-04,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-11-06,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-11-08,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-11-10,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-11-12,Wheat atta,out,3,,Issued to kitchen,manjunatha
+2026-11-14,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-11-14,Wheat atta,out,4,,Issued to kitchen,manjunatha
+2026-08-17,Sunflower oil,in,44,2027-02-13,Opening stock count,sunitha
+2026-08-18,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-08-20,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-08-22,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-08-24,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-08-26,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-08-28,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-08-30,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-01,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-03,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-05,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-07,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-09,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-11,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-13,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-15,Sunflower oil,in,43,2027-03-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-17,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-19,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-21,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-23,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-25,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-09-27,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-09-29,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-01,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-03,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-05,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-07,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-09,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-11,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-13,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-15,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-10-16,Sunflower oil,in,49,2027-04-14,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-19,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-21,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-23,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-25,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-27,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-29,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-10-31,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-02,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-04,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-06,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-08,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-11-10,Sunflower oil,out,2,,Issued to kitchen,manjunatha
+2026-11-12,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-14,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-11-14,Sunflower oil,out,3,,Issued to kitchen,manjunatha
+2026-08-17,Sugar,in,40,2027-08-17,Opening stock count,sunitha
+2026-08-18,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-20,Sugar,out,3,,Issued to kitchen,manjunatha
+2026-08-22,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-24,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-26,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-28,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-30,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-01,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-03,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-05,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-07,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-09,Sugar,out,3,,Issued to kitchen,manjunatha
+2026-09-11,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-13,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-15,Sugar,in,33,2027-09-15,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-09-15,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-17,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-19,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-21,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-23,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-25,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-27,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-09-29,Sugar,out,3,,Issued to kitchen,manjunatha
+2026-10-01,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-03,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-05,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-07,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-09,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-11,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-13,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-15,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-16,Sugar,in,36,2027-10-16,"Monthly purchase, APMC yard Hosakote",sunitha
+2026-10-17,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-19,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-21,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-23,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-25,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-27,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-29,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-10-31,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-02,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-04,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-06,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-08,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-10,Sugar,out,3,,Issued to kitchen,manjunatha
+2026-11-12,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-14,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-11-14,Sugar,out,2,,Issued to kitchen,manjunatha
+2026-08-17,Paracetamol syrup (250 mg/5 ml),in,19,2028-02-08,Opening stock count,sunitha
+2026-08-18,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-08-23,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-08-28,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-09-02,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-09-07,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-09-12,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-09-17,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-09-22,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-09-27,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-01,Paracetamol syrup (250 mg/5 ml),in,11,2028-03-24,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-02,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-07,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-12,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-10-17,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-22,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-27,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-10-31,Paracetamol syrup (250 mg/5 ml),in,9,2026-12-05,"Donation in kind, medicines",manjunatha
+2026-11-01,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-11-06,Paracetamol syrup (250 mg/5 ml),out,1,,Issued from sick room,manjunatha
+2026-11-11,Paracetamol syrup (250 mg/5 ml),out,2,,Issued from sick room,manjunatha
+2026-08-17,ORS sachets,in,56,2028-02-08,Opening stock count,sunitha
+2026-08-18,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-08-23,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-08-28,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-09-02,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-09-07,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-09-12,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-09-17,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-09-22,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-09-27,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-10-01,ORS sachets,in,51,2028-03-24,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-02,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-10-07,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-10-12,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-10-17,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-10-22,ORS sachets,out,3,,Issued from sick room,manjunatha
+2026-10-27,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-11-01,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-11-06,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-11-11,ORS sachets,out,4,,Issued from sick room,manjunatha
+2026-08-17,Salbutamol inhaler,in,3,2027-09-21,Opening stock count,sunitha
+2026-10-01,Salbutamol inhaler,in,1,2027-11-05,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-11-14,Salbutamol inhaler,out,1,,Issued from sick room,manjunatha
+2026-08-17,Iron and folic acid tablets (strip of 10),in,9,2028-04-08,Opening stock count,sunitha
+2026-08-18,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-23,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-02,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-17,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-22,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-01,Iron and folic acid tablets (strip of 10),in,5,2028-05-23,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-07,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-12,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-27,Iron and folic acid tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-17,Thyroxine 25 mcg (strip of 10),in,8,2028-04-08,Opening stock count,sunitha
+2026-08-18,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-28,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-22,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-27,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-01,Thyroxine 25 mcg (strip of 10),in,4,2028-05-23,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-07,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-17,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-27,Thyroxine 25 mcg (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-17,Povidone-iodine solution,in,10,2028-07-17,Opening stock count,sunitha
+2026-08-23,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-08-28,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-09-07,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-09-12,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-09-17,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-09-22,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-09-27,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-10-01,Povidone-iodine solution,in,8,2028-08-31,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-07,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-10-12,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-10-17,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-10-27,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-11-01,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-11-06,Povidone-iodine solution,out,1,,Issued from sick room,manjunatha
+2026-08-17,Cetirizine tablets (strip of 10),in,13,2028-04-08,Opening stock count,sunitha
+2026-08-18,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-23,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-28,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-02,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-07,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-12,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-17,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-22,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-09-27,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-01,Cetirizine tablets (strip of 10),in,12,2028-05-23,"Purchase, Sri Lakshmi Medicals",sunitha
+2026-10-02,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-07,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-12,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-17,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-22,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-10-27,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-11-01,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-11-06,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-11-11,Cetirizine tablets (strip of 10),out,1,,Issued from sick room,manjunatha
+2026-08-17,Bath soap,in,92,,Opening stock count,sunitha
+2026-08-18,Bath soap,out,12,,Issued to dorms,manjunatha
+2026-08-25,Bath soap,out,10,,Issued to dorms,manjunatha
+2026-09-01,Bath soap,out,11,,Issued to dorms,manjunatha
+2026-09-08,Bath soap,out,9,,Issued to dorms,manjunatha
+2026-09-15,Bath soap,in,43,,"Monthly purchase, wholesale store",sunitha
+2026-09-15,Bath soap,out,11,,Issued to dorms,manjunatha
+2026-09-22,Bath soap,out,9,,Issued to dorms,manjunatha
+2026-09-29,Bath soap,out,11,,Issued to dorms,manjunatha
+2026-10-06,Bath soap,in,22,,"Donation in kind, hygiene kits",manjunatha
+2026-10-06,Bath soap,out,12,,Issued to dorms,manjunatha
+2026-10-13,Bath soap,out,10,,Issued to dorms,manjunatha
+2026-10-16,Bath soap,in,31,,"Monthly purchase, wholesale store",sunitha
+2026-10-20,Bath soap,out,13,,Issued to dorms,manjunatha
+2026-10-27,Bath soap,out,13,,Issued to dorms,manjunatha
+2026-11-03,Bath soap,out,12,,Issued to dorms,manjunatha
+2026-11-10,Bath soap,out,11,,Issued to dorms,manjunatha
+2026-11-14,Bath soap,out,23,,Issued to dorms,manjunatha
+2026-08-17,Toothpaste (150 g),in,42,2028-07-17,Opening stock count,sunitha
+2026-08-18,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-08-25,Toothpaste (150 g),out,4,,Issued to dorms,manjunatha
+2026-09-01,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-09-08,Toothpaste (150 g),out,6,,Issued to dorms,manjunatha
+2026-09-15,Toothpaste (150 g),in,27,2028-08-15,"Monthly purchase, wholesale store",sunitha
+2026-09-15,Toothpaste (150 g),out,6,,Issued to dorms,manjunatha
+2026-09-22,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-09-29,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-10-06,Toothpaste (150 g),out,6,,Issued to dorms,manjunatha
+2026-10-13,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-10-16,Toothpaste (150 g),in,31,2028-09-15,"Monthly purchase, wholesale store",sunitha
+2026-10-20,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-10-27,Toothpaste (150 g),out,6,,Issued to dorms,manjunatha
+2026-11-03,Toothpaste (150 g),out,5,,Issued to dorms,manjunatha
+2026-11-10,Toothpaste (150 g),out,7,,Issued to dorms,manjunatha
+2026-11-14,Toothpaste (150 g),out,6,,Issued to dorms,manjunatha
+2026-08-17,Detergent powder,in,30,,Opening stock count,sunitha
+2026-08-18,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-08-25,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-09-01,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-09-08,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-09-15,Detergent powder,in,20,,"Monthly purchase, wholesale store",sunitha
+2026-09-15,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-09-22,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-09-29,Detergent powder,out,3,,Issued to dorms,manjunatha
+2026-10-06,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-10-13,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-10-16,Detergent powder,in,22,,"Monthly purchase, wholesale store",sunitha
+2026-10-20,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-10-27,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-11-03,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-11-10,Detergent powder,out,4,,Issued to dorms,manjunatha
+2026-11-14,Detergent powder,out,5,,Issued to dorms,manjunatha
+2026-08-17,Coconut oil,in,11,2027-08-17,Opening stock count,sunitha
+2026-08-18,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-08-25,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-09-01,Coconut oil,out,1,,Issued to dorms,manjunatha
+2026-09-08,Coconut oil,out,1,,Issued to dorms,manjunatha
+2026-09-15,Coconut oil,in,10,2027-09-15,"Monthly purchase, wholesale store",sunitha
+2026-09-15,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-09-22,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-09-29,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-10-06,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-10-13,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-10-16,Coconut oil,in,10,2027-10-16,"Monthly purchase, wholesale store",sunitha
+2026-10-20,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-10-27,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-11-03,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-11-10,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-11-14,Coconut oil,out,2,,Issued to dorms,manjunatha
+2026-08-17,Sanitary pads (pack of 8),in,23,,Opening stock count,sunitha
+2026-08-18,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-08-25,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-09-01,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-09-08,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-09-15,Sanitary pads (pack of 8),in,12,,"Monthly purchase, wholesale store",sunitha
+2026-09-15,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-09-22,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-09-29,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-10-06,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-10-13,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-10-16,Sanitary pads (pack of 8),in,18,,"Monthly purchase, wholesale store",sunitha
+2026-10-20,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-10-27,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-11-03,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-11-10,Sanitary pads (pack of 8),out,3,,Issued to dorms,manjunatha
+2026-11-14,Sanitary pads (pack of 8),out,2,,Issued to dorms,manjunatha
+2026-08-17,Notebooks (172 pages),in,98,,Opening stock count,sunitha
+2026-08-18,Notebooks (172 pages),out,14,,Issued for school,manjunatha
+2026-08-28,Notebooks (172 pages),out,20,,Issued for school,manjunatha
+2026-09-07,Notebooks (172 pages),out,18,,Issued for school,manjunatha
+2026-09-15,Notebooks (172 pages),in,15,,"Purchase, stationery shop",sunitha
+2026-09-17,Notebooks (172 pages),out,15,,Issued for school,manjunatha
+2026-09-26,Notebooks (172 pages),in,115,,"Donation in kind, school kit drive",manjunatha
+2026-09-27,Notebooks (172 pages),out,18,,Issued for school,manjunatha
+2026-10-07,Notebooks (172 pages),out,17,,Issued for school,manjunatha
+2026-10-17,Notebooks (172 pages),out,14,,Issued for school,manjunatha
+2026-10-27,Notebooks (172 pages),out,20,,Issued for school,manjunatha
+2026-11-06,Notebooks (172 pages),out,20,,Issued for school,manjunatha
+2026-08-17,Pencils (box of 10),in,13,,Opening stock count,sunitha
+2026-08-18,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-08-28,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-09-07,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-09-15,Pencils (box of 10),in,20,,"Purchase, stationery shop",sunitha
+2026-09-17,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-09-27,Pencils (box of 10),out,3,,Issued for school,manjunatha
+2026-10-07,Pencils (box of 10),out,3,,Issued for school,manjunatha
+2026-10-17,Pencils (box of 10),out,3,,Issued for school,manjunatha
+2026-10-27,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-11-06,Pencils (box of 10),out,2,,Issued for school,manjunatha
+2026-08-17,Ball pens,in,50,,Opening stock count,sunitha
+2026-08-18,Ball pens,out,8,,Issued for school,manjunatha
+2026-08-28,Ball pens,out,8,,Issued for school,manjunatha
+2026-09-07,Ball pens,out,8,,Issued for school,manjunatha
+2026-09-15,Ball pens,in,60,,"Purchase, stationery shop",sunitha
+2026-09-17,Ball pens,out,9,,Issued for school,manjunatha
+2026-09-27,Ball pens,out,7,,Issued for school,manjunatha
+2026-10-07,Ball pens,out,7,,Issued for school,manjunatha
+2026-10-17,Ball pens,out,7,,Issued for school,manjunatha
+2026-10-27,Ball pens,out,9,,Issued for school,manjunatha
+2026-11-06,Ball pens,out,6,,Issued for school,manjunatha

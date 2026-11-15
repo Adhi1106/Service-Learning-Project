@@ -5,8 +5,8 @@ import { Avatar, Badge, Card, CardHeader, Empty, SeverityBadge, StatCard, amount
 import { withoutSubject } from "@/lib/format";
 import { requireRole } from "@/lib/auth";
 import { formatDate, formatLongDate, relativeDay, todayStr, whenPhrase } from "@/lib/dates";
-import { getDashboard, listCases, recentActivity } from "@/lib/queries";
-import { CASE_STATUS_LABEL, type CaseStatus } from "@/lib/types";
+import { getDashboard, healthSummary, listCases, recentActivity } from "@/lib/queries";
+import { CASE_STATUS_LABEL, HEALTH_STATUS_LABEL, type CaseStatus, type HealthStatus } from "@/lib/types";
 
 function greeting(): string {
   const hour = new Date().getHours();
@@ -243,12 +243,32 @@ export default async function DashboardPage() {
             }
           />
           <HealthCaseList today={today} />
+          <HealthOverview />
         </Card>
       </div>
     </>
   );
 }
 
+
+function HealthOverview() {
+  const summary = healthSummary();
+  const dot: Record<HealthStatus, string> = { healthy: "bg-emerald-500", minor: "bg-sky-500", frequent: "bg-amber-500", ongoing: "bg-rose-500" };
+  return (
+    <div className="border-t border-slate-100 px-5 py-4">
+      <p className="mb-2 text-xs font-medium text-slate-500">Children by health record</p>
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+        {(Object.keys(summary) as HealthStatus[]).map((s) => (
+          <li key={s} className="flex items-center gap-2">
+            <span className={`h-2 w-2 rounded-full ${dot[s]}`} />
+            <span className="flex-1 text-slate-600">{HEALTH_STATUS_LABEL[s]}</span>
+            <span className="font-medium tabular-nums text-slate-900">{summary[s]}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function HealthCaseList({ today }: { today: string }) {
   const active = listCases().filter((c) => c.status !== "resolved");

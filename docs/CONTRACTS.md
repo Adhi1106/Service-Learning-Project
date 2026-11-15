@@ -16,15 +16,16 @@ tell the areas that use it ([TEAM_RULES.md](../TEAM_RULES.md), rule 5).
 
 ## C1: Database tables (D)
 
-Defined in `db/schema.sql`. SQLite, stored in `data/caretrack.db` (not in git).
+Defined in `db/schema.sql`. SQLite, stored in `data/caretrack.db` (not in git), loaded from the CSV files in `data/records/` by `db/import.ts`.
 
 | Table | Columns | Notes |
 |---|---|---|
 | `users` | id, username, name, password_hash, role | role is `manager` or `warden`; username is unique |
 | `sessions` | token, user_id, expires_at | One row per login; lasts 12 hours |
-| `students` | id, name, dob, class_name, room, school, admitted_on | room is the dorm, e.g. "Boys' Dorm 1" |
+| `students` | id, admission_no, name, gender, dob, class_name, room, school, admitted_on | admission_no is unique, e.g. GLT/2021/068; | room is the dorm, e.g. "Boys' Dorm 1" |
+| `health_records` | student_id, blood_group, height_cm, weight_kg, last_checkup, status, conditions, allergies, medication, remarks | One per child. status is `healthy`, `minor`, `frequent` or `ongoing`. Manager only |
 | `absence_reasons` | id, name, is_medical | Medical, Family visit, Festival or function, Other |
-| `illnesses` | id, name | Asthma, Fever, Cold and cough, Stomach upset, Skin infection, Eye infection, Injury, Dental problem |
+| `illnesses` | id, name | Fever, Cold and cough, Throat infection, Stomach upset, Asthma, Ear infection, Eye infection, Skin infection, Dental problem, Injury |
 | `attendance` | id, student_id, date, status, reason_id, illness_id, entered_by | **Unique (student_id, date).** status is `present` or `absent`. An absent row must have a reason; a present row must not |
 | `inventory_items` | id, name, category, unit, min_level, balance | **balance ≥ 0.** category is Food, Medicine, Hygiene or Stationery |
 | `stock_transactions` | id, item_id, type, quantity, date, expiry_date, note, entered_by | type is `in` or `out`; quantity > 0; note is optional ("Issued to kitchen", "Donation in kind") |
@@ -42,7 +43,7 @@ Checked on the server for every page (`requireRole`) and every API route (`apiUs
 | Data | Manager | Warden |
 |---|---|---|
 | Students: name, class, room | read | read |
-| Student profile: attendance history, health cases | read | none |
+| Student profile: attendance history, health record, health cases | read | none |
 | Absence reasons, illnesses, item list | read | read |
 | Attendance | read, write | read and write for a class and a day |
 | Stock entries | read, write | write; sees the current balance of the chosen item |
@@ -50,7 +51,6 @@ Checked on the server for every page (`requireRole`) and every API route (`apiUs
 | Alerts | read, acknowledge, resolve | none |
 | Health cases | read, update | none |
 | Dashboard | read | none |
-| Reset demo data | yes | no |
 
 A request with no login gets **401**. A logged-in user with the wrong role gets
 **403** from an API route, or is redirected to their own home page.
@@ -77,7 +77,6 @@ All under `app/api/`. Requests and responses are JSON. Errors are
 | `PATCH /api/alerts/:id` | Manager | `{ status: "acknowledged" \| "resolved" }` | `{ id, status }` |
 | `GET /api/cases` | Manager | | `{ cases }` |
 | `PATCH /api/cases/:id` | Manager | `{ status?, notes? }` | `{ id, status }` |
-| `POST /api/admin/reset` | Manager | | `{ ok }`; nobody is signed out |
 
 Rules the endpoints apply:
 
@@ -103,7 +102,7 @@ minimum is not low; expiry in exactly 30 days fires.
 
 **When they run:** after every attendance save (for each child in it) and after
 every stock entry (for that item). Also once over everything when the database
-is seeded.
+is loaded from `data/records/`.
 
 **No duplicates:**
 

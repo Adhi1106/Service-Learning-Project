@@ -1,23 +1,25 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { IconChevronLeft } from "@/components/icons";
-import { Avatar, Badge, Card, CardHeader, CaseStatusBadge, Empty } from "@/components/ui";
+import { Avatar, Badge, Card, CardHeader, CaseStatusBadge, Empty, HealthBadge } from "@/components/ui";
 import { requireRole } from "@/lib/auth";
 import { dayOf, daysBetween, formatDate, todayStr } from "@/lib/dates";
 import { getStudentProfile, type CalendarDay } from "@/lib/queries";
 import { MIN_ATTENDANCE_PCT } from "@/lib/rules/rules";
+import type { HealthRecord } from "@/lib/types";
 
 export default async function StudentProfilePage({ params }: { params: Promise<{ id: string }> }) {
   await requireRole("manager");
   const today = todayStr();
   const profile = getStudentProfile(Number((await params).id), today);
   if (!profile) notFound();
-  const { student, attendance, absences, cases, calendar } = profile;
+  const { student, health, attendance, absences, cases, calendar } = profile;
   const age = Math.floor(daysBetween(student.dob, today) / 365.25);
   const low = attendance.pct !== null && attendance.pct < MIN_ATTENDANCE_PCT;
 
   const facts: [string, string][] = [
-    ["Age", `${age} years`],
+    ["Admission no.", student.admission_no],
+    ["Age", `${age} years (${student.gender === "M" ? "boy" : "girl"})`],
     ["Date of birth", formatDate(student.dob)],
     ["School", student.school],
     ["Dorm", student.room],
@@ -49,7 +51,7 @@ export default async function StudentProfilePage({ params }: { params: Promise<{
             </p>
           </div>
         </div>
-        <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-slate-100 pt-5 sm:grid-cols-3 lg:grid-cols-5">
+        <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-slate-100 pt-5 sm:grid-cols-3 lg:grid-cols-6">
           {facts.map(([k, v]) => (
             <div key={k}>
               <dt className="text-xs font-medium text-slate-500">{k}</dt>
@@ -58,6 +60,8 @@ export default async function StudentProfilePage({ params }: { params: Promise<{
           ))}
         </dl>
       </Card>
+
+      {health && <HealthRecordCard health={health} today={today} />}
 
       <Card className="mt-6">
         <CardHeader title="Attendance, last 12 weeks" subtitle="Hover a day for details" />
@@ -120,6 +124,53 @@ export default async function StudentProfilePage({ params }: { params: Promise<{
         </Card>
       </div>
     </>
+  );
+}
+
+function HealthRecordCard({ health, today }: { health: HealthRecord; today: string }) {
+  const bmi = health.height_cm && health.weight_kg ? Math.round((10 * health.weight_kg) / (health.height_cm / 100) ** 2) / 10 : null;
+  const rows: [string, string][] = [
+    ["Blood group", health.blood_group],
+    ["Height", health.height_cm ? `${health.height_cm} cm` : "–"],
+    ["Weight", health.weight_kg ? `${health.weight_kg} kg` : "–"],
+    ["BMI", bmi ? String(bmi) : "–"],
+    ["Last check-up", health.last_checkup ? formatDate(health.last_checkup) : "–"],
+    ["Allergies", health.allergies || "None known"],
+  ];
+  const due = health.last_checkup && daysBetween(health.last_checkup, today) > 365;
+  return (
+    <Card className="mt-6">
+      <CardHeader title="Health record" subtitle="From the yearly check-up, updated after each doctor's visit" action={<HealthBadge status={health.status} />} />
+      <div className="grid gap-6 px-5 py-5 lg:grid-cols-5">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:col-span-3">
+          {rows.map(([k, v]) => (
+            <div key={k}>
+              <dt className="text-xs font-medium text-slate-500">{k}</dt>
+              <dd className="mt-0.5 text-sm text-slate-900">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="space-y-3 text-sm lg:col-span-2 lg:border-l lg:border-slate-100 lg:pl-6">
+          <div>
+            <p className="text-xs font-medium text-slate-500">Conditions</p>
+            <p className="mt-0.5 text-slate-900">{health.conditions || "None"}</p>
+          </div>
+          {health.medication && (
+            <div>
+              <p className="text-xs font-medium text-slate-500">Medication</p>
+              <p className="mt-0.5 text-slate-900">{health.medication}</p>
+            </div>
+          )}
+          {health.remarks && (
+            <div>
+              <p className="text-xs font-medium text-slate-500">Doctor&apos;s remarks</p>
+              <p className="mt-0.5 leading-relaxed text-slate-700">{health.remarks}</p>
+            </div>
+          )}
+          {due && <Badge tone="amber">Yearly check-up overdue</Badge>}
+        </div>
+      </div>
+    </Card>
   );
 }
 

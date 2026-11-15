@@ -104,8 +104,12 @@ export function runStudentRules(db: DB, studentId: number, today: string): NewAl
     created.push(alert);
 
     const openCase = db
-      .prepare("SELECT 1 FROM health_cases WHERE student_id = ? AND illness_id = ? AND status <> 'resolved'")
-      .get(studentId, hit.illnessId);
+      .prepare("SELECT id, alert_id FROM health_cases WHERE student_id = ? AND illness_id = ? AND status <> 'resolved'")
+      .get(studentId, hit.illnessId) as { id: number; alert_id: number | null } | undefined;
+    if (openCase && openCase.alert_id === null) {
+      // A case was already opened by hand: link it, so closing it closes the alert too.
+      db.prepare("UPDATE health_cases SET alert_id = ? WHERE id = ?").run(alert.id, openCase.id);
+    }
     if (!openCase) {
       const stamp = nowStamp();
       db.prepare(

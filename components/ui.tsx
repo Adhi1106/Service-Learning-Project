@@ -3,8 +3,8 @@
 
 import type { ReactNode } from "react";
 import { initials } from "@/lib/format";
-import type { AlertStatus, CaseStatus, Severity } from "@/lib/types";
-import { CASE_STATUS_LABEL } from "@/lib/types";
+import type { AlertStatus, CaseStatus, HealthStatus, Severity } from "@/lib/types";
+import { CASE_STATUS_LABEL, HEALTH_STATUS_LABEL } from "@/lib/types";
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`rounded-xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] ${className}`}>{children}</div>;
@@ -89,6 +89,11 @@ export function AlertStatusBadge({ status }: { status: AlertStatus }) {
 export function CaseStatusBadge({ status }: { status: CaseStatus }) {
   const tone: Tone = status === "resolved" ? "green" : status === "open" ? "red" : "amber";
   return <Badge tone={tone}>{CASE_STATUS_LABEL[status]}</Badge>;
+}
+
+export function HealthBadge({ status }: { status: HealthStatus }) {
+  const tone: Tone = { healthy: "green", minor: "blue", frequent: "amber", ongoing: "red" }[status] as Tone;
+  return <Badge tone={tone}>{HEALTH_STATUS_LABEL[status]}</Badge>;
 }
 
 export function StatCard({
