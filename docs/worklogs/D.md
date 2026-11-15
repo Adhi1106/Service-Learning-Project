@@ -28,6 +28,20 @@ To be ticked by the member who owns this area.
 
 <!-- Your entries go here, newest first. Copy docs/templates/worklog-entry.md. -->
 
+### 2026-11-15: Names and school made true to the home
+
+**Who did this:** Claude (the AI coding assistant), asked by the project
+owner. No team member was involved.
+
+**What was done**
+- Replaced all 40 children's names with everyday names of poor families in and around Bangalore (for example Yallappa H, Muniraju S, Shabana Banu, Murugan S, Selvi P), written as name and initial.
+- The planted demo children are now Shivakumar N (asthma), Imran Pasha (fever case), Lakshmi K (low attendance) and Bhagya S (past skin infection). Their histories are unchanged.
+- Every child now attends one school, Govt. Model Higher Primary School, Hoskote (`SCHOOL` in `db/seed.ts`), with a test for it. The school column was removed from the manager's children list, since it is the same for everyone; it still shows on each profile.
+
+**How it was checked**
+- `npm test`: 48 passing. The full presentation script passed in a browser.
+
+
 ### 2026-11-15: Realistic demo data
 
 **Who did this:** Claude (the AI coding assistant), asked by the project owner

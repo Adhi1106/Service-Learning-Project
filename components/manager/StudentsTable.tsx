@@ -41,13 +41,12 @@ export function StudentsTable({ students, classes, minPct }: { students: Row[]; 
       </div>
 
       <Card className="overflow-x-auto">
-        <table className="w-full min-w-[640px] text-left text-sm">
+        <table className="w-full min-w-[560px] text-left text-sm">
           <thead className="border-b border-slate-100 text-xs font-medium text-slate-500">
             <tr>
               <th className="px-5 py-3 font-medium">Name</th>
               <th className="px-3 py-3 font-medium">Class</th>
               <th className="px-3 py-3 font-medium">Dorm</th>
-              <th className="hidden px-3 py-3 font-medium lg:table-cell">School</th>
               <th className="px-5 py-3 font-medium">Attendance (30 days)</th>
             </tr>
           </thead>
@@ -62,7 +61,6 @@ export function StudentsTable({ students, classes, minPct }: { students: Row[]; 
                 </td>
                 <td className="px-3 py-2.5 text-slate-600">{s.class_name}</td>
                 <td className="px-3 py-2.5 text-slate-600">{s.room}</td>
-                <td className="hidden px-3 py-2.5 text-slate-600 lg:table-cell">{s.school}</td>
                 <td className="px-5 py-2.5">
                   {s.pct === null ? (
                     <span className="text-slate-400">No records</span>

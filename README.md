@@ -51,7 +51,7 @@ Other commands:
 | Command | What it does |
 |---|---|
 | `npm run dev` | Development mode with live reload (use on the laptop only) |
-| `npm test` | Runs the 47 tests for the rules and the database constraints |
+| `npm test` | Runs the 48 tests for the rules and the database constraints |
 | `npm run db:reset` | Puts the demo data back to its starting state |
 | `npm run lint` | Checks the code style |
 
@@ -62,11 +62,11 @@ every rehearsal and before the demo.
 ## The demo data
 
 Three months of invented but realistic history, generated from today's date:
-40 children in Classes 5 to 8 across four dorms and two schools; attendance
+40 children from poor families in and around Bangalore, in Classes 5 to 8 across four dorms, all at one government school; attendance
 with school holidays, ordinary absences and a fever that went round; a store
 of 20 items with monthly purchases, donations and daily issues; and past
-health cases with doctors' notes. The names are common Karnataka names chosen
-to look real; no record describes a real person. A few situations are planted
+health cases with doctors' notes. The names are everyday names written the way a
+government school register writes them; no record describes a real person. A few situations are planted
 so the demo always tells the same story ([docs/PRESENTATION.md](docs/PRESENTATION.md)).
 
 ## Start here
@@ -115,7 +115,7 @@ or a chat with an AI tool.** Everything here is invented. See
 ## Status
 
 Working and tested. All eight must-have features are built, both demo flows
-pass in a browser test, and 47 unit tests pass. It runs on a laptop; it has
+pass in a browser test, and 48 unit tests pass. It runs on a laptop; it has
 not been deployed to a public server.
 
 ## How this was built

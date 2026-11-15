@@ -2,7 +2,7 @@
 // data's planted patterns and the two flows shown in the demo.
 
 import { beforeEach, describe, expect, it } from "vitest";
-import { DEMO, seed } from "../../db/seed";
+import { DEMO, SCHOOL, seed } from "../../db/seed";
 import { addDays } from "../dates";
 import { createEmptyDb, type DB } from "../db";
 import type { Alert } from "../types";
@@ -88,6 +88,10 @@ describe("seed data", () => {
     expect(snapshot(other)).toEqual(snapshot(db));
   });
 
+  it("sends every child to the same government school", () => {
+    expect(db.prepare("SELECT DISTINCT school FROM students").all()).toEqual([{ school: SCHOOL }]);
+  });
+
   it("only records attendance on school days (no Sundays or second Saturdays)", () => {
     const dates = (db.prepare("SELECT DISTINCT date FROM attendance").all() as { date: string }[]).map((r) => r.date);
     for (const d of dates) {
@@ -107,7 +111,7 @@ describe("demo flow 1: third asthma absence", () => {
     expect(created).toHaveLength(1);
     expect(created[0]).toMatchObject({ rule: "repeated_illness", severity: "critical" });
     expect(created[0].message).toBe(
-      "Arjun Naik was absent for asthma 3 times in the last 30 days (limit: 3). A doctor's visit is recommended.",
+      "Shivakumar N was absent for asthma 3 times in the last 30 days (limit: 3). A doctor's visit is recommended.",
     );
     const cases = db.prepare("SELECT status, alert_id FROM health_cases WHERE student_id = ? ORDER BY id").all(arjun);
     expect(cases).toEqual([

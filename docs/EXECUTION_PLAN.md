@@ -24,7 +24,7 @@ Before step 1: assign the five roles and write the names in
 - [ ] `npm install`
 - [ ] `npm run build`, then `npm start`
 - [ ] Open `http://localhost:3000` and sign in as `anita` / `manager123` (or tap the demo account button)
-- [ ] `npm test` shows 47 tests passing
+- [ ] `npm test` shows 48 tests passing
 
 If `npm install` fails on Windows with an error about `better-sqlite3`, check
 that Node is version 22 with `node -v`, delete the `node_modules` folder, and
@@ -39,10 +39,10 @@ Press **Reset demo data** at the bottom of the manager's sidebar first.
 **Flow 1: health**
 
 - [ ] Sign in as `manjunath` / `warden123` (on a phone, or a narrow browser window)
-- [ ] Today → Class 6 → tap Arjun Naik → Medical → Asthma → Save
-- [ ] As Anita: Arjun's critical alert is at the top of Alerts
-- [ ] Health cases: Arjun's new case is in "Open". Move it to Resolved
-- [ ] Alerts: Arjun's asthma alert is now resolved
+- [ ] Today → Class 6 → tap Shivakumar N → Medical → Asthma → Save
+- [ ] As Anita: Shivakumar's critical alert is at the top of Alerts
+- [ ] Health cases: Shivakumar's new case is in "Open". Move it to Resolved
+- [ ] Alerts: Shivakumar's asthma alert is now resolved
 
 **Flow 2: stock**
 
@@ -104,7 +104,7 @@ All eight must-haves from [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md#3-what-we-bu
 
 | Check | Result |
 |---|---|
-| Unit tests (`npm test`) | 47 passing |
+| Unit tests (`npm test`) | 48 passing |
 | Browser run of both flows, access checks, bad input and reset | 25 checks passing |
 | Readiness check: the whole of PRESENTATION.md followed in a browser, twice in a row | 30 of 30 checks passing on both runs (redone after the new data and design) |
 | Type check and lint | Clean |

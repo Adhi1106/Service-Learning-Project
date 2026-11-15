@@ -6,7 +6,11 @@
 // date, and the same date always gives the same data.
 //
 // What it contains:
-//   * 2 staff logins, 40 children in Classes 5 to 8, four dorms, two schools
+//   * 2 staff logins, 40 children in Classes 5 to 8 and four dorms. The
+//     children come from poor families in and around Bangalore, so the names
+//     are the everyday Kannada, Tamil, Telugu and Urdu names written the way a
+//     government school register writes them (name and initial). They all go
+//     to the same government school.
 //   * 90 days of attendance (no school on Sundays or second Saturdays),
 //     ordinary absences, and a fever that went round about two weeks ago
 //   * 90 days of stock: opening count, monthly purchases, donations, and
@@ -14,15 +18,15 @@
 //   * past health cases that the rules raised and the manager resolved
 //
 // Patterns planted for the demo (see docs/PRESENTATION.md):
-//   1. Arjun Naik (Class 6) has 2 asthma absences in the last 30 days, and an
+//   1. Shivakumar N (Class 6) has 2 asthma absences in the last 30 days, and an
 //      asthma case from two months ago. Marking a 3rd asthma absence live
 //      raises a CRITICAL alert and opens a new health case.
 //   2. Rice is 3 kg above its minimum. Recording 5 kg used live raises a
 //      low-stock WARNING.
 //   Already active at the start:
-//   3. Mohammed Irfan (Class 6): 3 fever absences. Critical alert
+//   3. Imran Pasha (Class 6): 3 fever absences. Critical alert
 //      acknowledged; health case "Scheduled" for a blood test.
-//   4. Keerthana M (Class 7): attendance below 85%. Warning.
+//   4. Lakshmi K (Class 7): attendance below 85%. Warning.
 //   5. Paracetamol syrup from a donation expires in 20 days. Warning.
 //   6. Bath soap is below its minimum. Warning.
 
@@ -39,10 +43,10 @@ export const DEMO_LOGINS = [
 
 /** Names used by the demo script and the tests. */
 export const DEMO = {
-  asthmaChild: "Arjun Naik",
-  feverChild: "Mohammed Irfan",
-  lowAttendanceChild: "Keerthana M",
-  skinChild: "Sinchana B",
+  asthmaChild: "Shivakumar N",
+  feverChild: "Imran Pasha",
+  lowAttendanceChild: "Lakshmi K",
+  skinChild: "Bhagya S",
   rice: "Rice (Sona Masoori)",
   riceStart: 53,
   riceMinimum: 50,
@@ -50,24 +54,26 @@ export const DEMO = {
 
 // name, class, boy or girl
 const CHILDREN: [string, string, "B" | "G"][] = [
-  ["Gagan D", "Class 5", "B"], ["Bhoomika N", "Class 5", "G"], ["Rohith Gowda", "Class 5", "B"],
-  ["Sinchana B", "Class 5", "G"], ["Akash Raju", "Class 5", "B"], ["Ayesha Banu", "Class 5", "G"],
-  ["Tejas Kulkarni", "Class 5", "B"], ["Spoorthi K", "Class 5", "G"], ["Vinay Kumar", "Class 5", "B"],
+  ["Yallappa H", "Class 5", "B"], ["Gowri M", "Class 5", "G"], ["Muniraju S", "Class 5", "B"],
+  ["Bhagya S", "Class 5", "G"], ["Nagesh K", "Class 5", "B"], ["Shabana Banu", "Class 5", "G"],
+  ["Hanumantha R", "Class 5", "B"], ["Renuka D", "Class 5", "G"], ["Ravi Kumar M", "Class 5", "B"],
 
-  ["Arjun Naik", "Class 6", "B"], ["Ananya Bhat", "Class 6", "G"], ["Darshan Gowda", "Class 6", "B"],
-  ["Chinmayi R", "Class 6", "G"], ["Mohammed Irfan", "Class 6", "B"], ["Kavya Patil", "Class 6", "G"],
-  ["Harsha V", "Class 6", "B"], ["Meghana S", "Class 6", "G"], ["Nikhil Shetty", "Class 6", "B"],
-  ["Pavithra S", "Class 6", "G"], ["Yashas Hegde", "Class 6", "B"],
+  ["Shivakumar N", "Class 6", "B"], ["Kaveri L", "Class 6", "G"], ["Darshan K", "Class 6", "B"],
+  ["Chaitra R", "Class 6", "G"], ["Imran Pasha", "Class 6", "B"], ["Pavithra M", "Class 6", "G"],
+  ["Santhosh Kumar V", "Class 6", "B"], ["Sowmya B", "Class 6", "G"], ["Venkatesh P", "Class 6", "B"],
+  ["Ramya N", "Class 6", "G"], ["Anand Raj S", "Class 6", "B"],
 
-  ["Keerthana M", "Class 7", "G"], ["Abhishek P", "Class 7", "B"], ["Lavanya Reddy", "Class 7", "G"],
-  ["Joseph Antony", "Class 7", "B"], ["Rakshitha L", "Class 7", "G"], ["Santhosh M", "Class 7", "B"],
-  ["Shreya Kamath", "Class 7", "G"], ["Sameer Khan", "Class 7", "B"], ["Divya Shree", "Class 7", "G"],
-  ["Mithun Kumar", "Class 7", "B"], ["Nithya Prakash", "Class 7", "G"],
+  ["Lakshmi K", "Class 7", "G"], ["Prakash M", "Class 7", "B"], ["Asha D", "Class 7", "G"],
+  ["Joseph Raj", "Class 7", "B"], ["Mamatha S", "Class 7", "G"], ["Mahesh B", "Class 7", "B"],
+  ["Nandini R", "Class 7", "G"], ["Syed Salman", "Class 7", "B"], ["Divya N", "Class 7", "G"],
+  ["Mallesh H", "Class 7", "B"], ["Rekha T", "Class 7", "G"],
 
-  ["Varun Naidu", "Class 8", "B"], ["Sneha Murthy", "Class 8", "G"], ["Kiran Raj", "Class 8", "B"],
-  ["Priya Fernandes", "Class 8", "G"], ["Ganesh Babu", "Class 8", "B"], ["Bindu H", "Class 8", "G"],
-  ["Manoj Naik", "Class 8", "B"], ["Deepika Rao", "Class 8", "G"], ["Sagar Patil", "Class 8", "B"],
+  ["Murugan S", "Class 8", "B"], ["Anitha Mary", "Class 8", "G"], ["Kiran Kumar R", "Class 8", "B"],
+  ["Selvi P", "Class 8", "G"], ["Ganesh M", "Class 8", "B"], ["Bindu N", "Class 8", "G"],
+  ["Raghu N", "Class 8", "B"], ["Shilpa K", "Class 8", "G"], ["Nagaraj T", "Class 8", "B"],
 ];
+
+export const SCHOOL = "Govt. Model Higher Primary School, Hoskote";
 
 const REASONS = [
   { name: "Medical", medical: 1 },
@@ -194,7 +200,7 @@ export function seed(db: DB, today: string): void {
       const age = grade + 5 + (rand() < 0.2 ? 1 : 0);
       const dob = `${year - age}-${String(1 + Math.floor(rand() * 12)).padStart(2, "0")}-${String(1 + Math.floor(rand() * 28)).padStart(2, "0")}`;
       const room = sex === "B" ? `Boys' Dorm ${(boys++ % 2) + 1}` : `Girls' Dorm ${(girls++ % 2) + 1}`;
-      const school = grade <= 7 ? "Govt. Higher Primary School, Hoskote" : "Govt. High School, Hoskote";
+      const school = SCHOOL;
       const admitted = `${year - 1 - Math.floor(rand() * Math.min(6, grade - 1))}-06-${String(1 + Math.floor(rand() * 20)).padStart(2, "0")}`;
       insStudent.run(name, dob, className, room, school, admitted);
     }
@@ -230,7 +236,7 @@ export function seed(db: DB, today: string): void {
     const planted = new Set([arjun, irfan, keerthana]);
 
     // A fever went round about two weeks ago.
-    const feverRound: [string, number][] = [["Darshan Gowda", 9], ["Kavya Patil", 10], ["Lavanya Reddy", 10], ["Gagan D", 11], ["Varun Naidu", 12]];
+    const feverRound: [string, number][] = [["Darshan K", 9], ["Kaveri L", 10], ["Asha D", 10], ["Yallappa H", 11], ["Murugan S", 12]];
     const feverKids = new Map(feverRound.map(([name, k]) => [studentId(name), k]));
 
     for (let id = 1; id <= CHILDREN.length; id++) {
@@ -259,7 +265,7 @@ export function seed(db: DB, today: string): void {
       }
     }
 
-    // Planted 1: Arjun. Asthma case two months ago, and 2 asthma absences now.
+    // Planted 1: Shivakumar. Asthma case two months ago, and 2 asthma absences now.
     absent(arjun, 62, "Medical", "Asthma");
     absent(arjun, 58, "Medical", "Asthma");
     absent(arjun, 55, "Medical", "Asthma");
@@ -267,13 +273,13 @@ export function seed(db: DB, today: string): void {
     absent(arjun, 10, "Medical", "Asthma");
     absent(arjun, 4, "Medical", "Asthma");
 
-    // Planted 3: Irfan. Three days of fever in a row, a week ago.
+    // Planted 3: Imran. Three days of fever in a row, a week ago.
     absent(irfan, 9, "Medical", "Fever");
     absent(irfan, 8, "Medical", "Fever");
     absent(irfan, 7, "Medical", "Fever");
     absent(irfan, 47, "Family visit");
 
-    // Planted 4: Keerthana. Six absences in the last month.
+    // Planted 4: Lakshmi. Six absences in the last month.
     absent(keerthana, 3, "Family visit");
     absent(keerthana, 7, "Medical", "Fever");
     absent(keerthana, 11, "Festival or function");
@@ -282,7 +288,7 @@ export function seed(db: DB, today: string): void {
     absent(keerthana, 23, "Other");
     absent(keerthana, 52, "Family visit");
 
-    // Sinchana: skin infection five weeks ago (a resolved case).
+    // Bhagya: skin infection five weeks ago (a resolved case).
     absent(sinchana, 38, "Medical", "Skin infection");
     absent(sinchana, 35, "Medical", "Skin infection");
     absent(sinchana, 33, "Medical", "Skin infection");
@@ -424,13 +430,13 @@ export function seed(db: DB, today: string): void {
       sinchana,
       sinchanaRaised,
       14,
-      "Fungal skin infection, probably from damp bedding during the rains. Ointment for two weeks. All bedding in Girls' Dorm 1 washed and sun-dried. Cleared at follow-up.",
+      "Fungal skin infection, probably from damp bedding during the rains. Ointment for two weeks. All bedding in her dorm washed and sun-dried. Cleared at follow-up.",
     );
 
     // --- Today: let the rules look at everything ----------------------------
     runAllRules(db, today);
 
-    // Irfan's alert was raised a week ago and the manager has acted on it.
+    // Imran's alert was raised a week ago and the manager has acted on it.
     const irfanRaised = dayBack(7);
     const irfanAlert = db.prepare("SELECT id FROM alerts WHERE student_id = ? AND rule = 'repeated_illness' AND status = 'open'").get(irfan) as { id: number };
     db.prepare("UPDATE alerts SET status = 'acknowledged', created_at = ? WHERE id = ?").run(stamp(irfanRaised, "16:05"), irfanAlert.id);

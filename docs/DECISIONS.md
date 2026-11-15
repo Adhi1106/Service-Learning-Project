@@ -28,6 +28,7 @@ Status: **Proposed** (needs agreement), **Agreed**, **Open question**, **Replace
 | D-017 | 2026-11-15 | Stock entries carry an optional note (where it went, who supplied it). Students carry school and admission date. | Makes the store ledger and profiles read like real records | D, B1 | Agreed |
 | D-018 | 2026-11-15 | Visual redesign: logo, line icons drawn in-house, initials avatars, sidebar with the signed-in user. Still no UI or chart library. | The first version looked generic | F1, F2 | Agreed |
 | D-019 | 2026-11-15 | AI coding tools are allowed for this project. The rule against AI applies only to the product (no ML features). | Clarified by the project owner | Project owner | Agreed |
+| D-020 | 2026-11-15 | Children's names changed to everyday names of poor Bangalore families (Kannada, Tamil, Telugu, Urdu), written as name and initial like a government school register. All children attend one school: Govt. Model Higher Primary School, Hoskote. | The first names sounded middle-class and fake; the real children are orphans from poor local families | Project owner | Agreed |
 
 ## Template for a longer decision
 
