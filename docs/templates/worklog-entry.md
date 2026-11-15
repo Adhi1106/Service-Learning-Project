@@ -1,23 +1,23 @@
 # Worklog entry template
 
 Copy the block below to the top of the "Entries" section of your worklog
-(`docs/worklogs/<ROLE>.md`). One entry at the end of each block. Five minutes is enough.
+(`docs/worklogs/<ROLE>.md`), above the build record. One entry each time you work on your area.
+Five minutes is enough. Write only what you actually did.
 Leave a heading out if it has nothing under it.
 
 ```markdown
-### Block N: <short title of what you worked on>
+### YYYY-MM-DD: <short title of what you worked on>
 
-**Block:** Block 1 (1:00–4:00)
-**Branch / PR:** `b1/login`, #4
+**Branch / PR:** `b1/login`, #4 (if you changed code)
 
 **What I did**
-- Concrete things, in past tense. "Added login endpoint with role check", not "worked on auth".
+- Concrete things, in past tense: read, ran, tested, changed. "Read lib/auth.ts and traced a login", not "worked on auth".
 
 **Why / decisions made**
 - Any choice you made and the reason. If others must live with it, also add it to docs/DECISIONS.md.
 
 **How I checked it works**
-- Tests added, commands run, what you clicked through on the deployed app.
+- Commands run, what you clicked through in the app, tests added.
 
 **Problems and what I learned**
 - What went wrong, how you fixed it, what you would tell a teammate to avoid.
@@ -35,31 +35,25 @@ Leave a heading out if it has nothing under it.
 ## A filled-in example
 
 ```markdown
-### Block 1: Tables, seed data and the attendance view
-
-**Block:** Block 1 (1:00–4:00)
-**Branch / PR:** `d/schema`, #2 and `d/seed`, #5
+### 2026-11-15: Read the schema and added an item to the seed
 
 **What I did**
-- Created the nine tables, with a unique constraint on (student_id, date) in `attendance`.
-- Added the `attendance_30d` view that B2's low-attendance rule reads.
-- Seeded 30 invented students with 60 days of attendance and 15 stock items.
-
-**Why / decisions made**
-- Stored the absence reason as a foreign key to `absence_reasons`, not free text, so the rules can group by illness.
+- Read `db/schema.sql` and drew the ten tables and their links on paper.
+- Tried inserting a second attendance row for the same child and day with the sqlite3 command line: it was refused.
+- Added "Dettol soap" to `ITEMS` in `db/seed.ts` and ran `npm run db:reset`.
 
 **How I checked it works**
-- Inserting a second row for the same child and day is rejected. The view returns 83.3% for the planted low-attendance student.
+- `npm test`: 43 passing. The new item shows in the manager's stock table.
 
 **Problems and what I learned**
-- Migrations run in filename order; renamed files to use a number prefix.
+- The stock balance is never written by the app. The `stock_apply` trigger updates it, and the `balance >= 0` check is what rejects a stock-out that is too large.
 
 **Blocked on / needs from others**
-- F2: confirm whether "half day" is a status the warden needs.
+- B2: confirm the seed test that counts 15 items needs updating if I keep the new item.
 
 **Next**
-- Row Level Security on every table, tested with both logins.
+- Be able to explain the trigger without looking at the file.
 
 **Help and tools**
-- B2 reviewed the view definition. Claude drafted the seed script; I checked the planted patterns by hand.
+- Asked Claude to explain the `attendance_30d` view line by line.
 ```

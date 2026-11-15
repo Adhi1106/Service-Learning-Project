@@ -1,6 +1,6 @@
 # Project overview: what CareTrack is
 
-The plain-language explanation of what we build in one day. Everyone on the
+The plain-language explanation of what CareTrack is and does. Everyone on the
 team should be able to explain all of it, not only their own part.
 
 This is a reduced version of the [original proposal](proposal/CareTrack_Project_Proposal.pdf).
@@ -28,7 +28,7 @@ scholarships. Those are out of scope for the one-day build.
 
 ## 3. What we build
 
-### Must have (the day is a failure without these)
+### Built (all eight must-haves)
 
 | # | Feature | Who uses it |
 |---|---|---|
@@ -41,14 +41,17 @@ scholarships. Those are out of scope for the one-day build.
 | 7 | **Health cases:** opened automatically by the illness rule; moved through Open → Scheduled → Under treatment → Resolved | Manager |
 | 8 | **Dashboard:** today's attendance, open alerts, open health cases, low-stock items, a 30-day attendance chart | Manager |
 
-### Stretch (only after Check 2, in this order)
+Also built: the absence-reason breakdown on the dashboard, and a "Reset demo
+data" button for the manager.
 
-1. Absence-reason breakdown chart
-2. Marks entry and a "falling marks" rule
-3. Donations and expenses log
-4. Installable on the phone's home screen (PWA)
-5. Kannada labels on the warden screens
-6. PDF health card
+### Not built (possible next steps)
+
+1. Marks entry and a "falling marks" rule
+2. Donations and expenses log
+3. Installable on the phone's home screen (PWA), with offline entry
+4. Kannada labels on the warden screens
+5. PDF health card
+6. Deployment to a public server with https
 
 ### Cut from the proposal
 
@@ -63,7 +66,7 @@ usability testing at the trust · real data entry and staff training.
 ```
      MANAGER (laptop)                    WARDEN (phone)
             |                                  |
-     LOGIN + ROLE CHECK ON EVERY REQUEST              (B1, D)
+     LOGIN + ROLE CHECK ON EVERY REQUEST              (B1)
             |                                  |
    Dashboard, alerts,                 Attendance entry,
    health cases (F1)                  stock entry, students (F2)
@@ -76,8 +79,8 @@ usability testing at the trust · real data entry and staff training.
         and write alerts and health cases
                             |
    ================================================================
-   PostgreSQL (Supabase): students, attendance, stock, alerts,
-   health cases. Access rules enforced inside the database.   (D)
+   SQLite database: students, attendance, stock, alerts, health
+   cases. Constraints and a trigger keep the data correct.    (D)
    ================================================================
 ```
 
@@ -89,7 +92,7 @@ If these two work end to end, the project works.
 2. **Stock.** The warden records rice being used → the balance drops below the item's minimum level → a warning alert appears → the item shows on the dashboard's low-stock list.
 
 Plus one security check to show: logged in as the warden, the alert and health
-pages are refused, and so is a direct database query for them.
+pages are refused, and so are the API routes behind them.
 
 ## 5. The rules
 
@@ -101,8 +104,9 @@ Plain if-then checks on the data. No model, no training, no prediction.
 | Low attendance | Below 85% over the last 30 days, or 3 or more absences in a row | Warning | Alert |
 | Low stock / expiring | Balance below the item's minimum level, or expiry within 30 days | Warning | Alert + show on low-stock list |
 
-Each rule must not raise the same alert twice for the same child or item while
-the first one is still open.
+A rule never raises the same alert twice for the same child or item while the
+first one is still active. The exact conditions are in
+[CONTRACTS.md](CONTRACTS.md#c4-rules-and-alert-format-b2).
 
 Alerts are prompts for the manager to look at a child or an item. They are
 never a judgement about a child.
@@ -111,20 +115,23 @@ never a judgement about a child.
 
 | Layer | Technology |
 |---|---|
-| App | One Next.js (React) app in TypeScript, with a manager area and a warden area |
-| Styling | Tailwind CSS + shadcn/ui components; Recharts for the charts |
-| Backend | Next.js server routes; Zod for input checks |
-| Database and login | PostgreSQL on Supabase, Supabase Auth, Row Level Security |
-| Tests | Vitest for the rules; a manual checklist for the two flows |
-| Hosting | Vercel + Supabase free tiers |
+| App | One Next.js 16 (React 19) app in TypeScript, with a manager area and a warden area |
+| Styling | Tailwind CSS 4; charts drawn with plain HTML and CSS |
+| Backend | Next.js API routes; Zod for input checks |
+| Database | SQLite, through the `better-sqlite3` library. One file, nothing to install |
+| Login | Our own: scrypt password hashes and session cookies |
+| Tests | Vitest: 43 tests for the rules and the database constraints |
+| Hosting | Runs on a laptop; the phone connects over the same Wi-Fi. Not deployed publicly |
 
 ## 7. Data
 
-Nine tables. D owns the exact definition ([CONTRACTS.md](CONTRACTS.md), C1).
+Ten tables. The exact definition is in `db/schema.sql` and
+[CONTRACTS.md](CONTRACTS.md#c1-database-tables-d).
 
 | Table | Holds |
 |---|---|
-| `profiles` | One row per login, with the role (manager or warden) |
+| `users` | One row per login, with the role (manager or warden) |
+| `sessions` | Who is currently logged in |
 | `students` | Name, date of birth, class, room |
 | `absence_reasons` | Medical, family, other... |
 | `illnesses` | Asthma, fever, stomach... |
@@ -140,19 +147,20 @@ can never go below zero.
 ## 8. Privacy
 
 - **No real children's data** in the repository, the demo or any AI tool. The seed data is invented.
-- The warden cannot read alerts or health cases. The database enforces this, not only the screens.
-- No secrets in git.
+- The warden cannot read alerts, health cases or a child's history. The server checks the role on every page and every API route, not only in the menus.
+- Passwords are stored only as salted hashes.
+- The database file and any secrets are kept out of git.
 
 ## 9. How we will know it works
 
-1. Both demo flows run end to end on the deployed app.
-2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts.
-3. A warden login is refused alerts and health cases at both the screen and the database.
-4. Attendance for a class of 30 takes under 60 seconds on a phone.
+1. Both demo flows run end to end. **Done:** checked in a real browser.
+2. Every rule has unit tests, and the planted patterns in the seed data raise exactly the expected alerts. **Done:** 43 tests.
+3. A warden login is refused alerts and health cases at both the page and the API. **Done.**
+4. Attendance for a class takes under 60 seconds on a phone. **To be timed by F2 on a real phone.**
 
 ## 10. What we hand in
 
-1. The deployed app, with a manager login and a warden login, on seed data.
+1. The working app, with a manager login and a warden login, on invented data.
 2. The source code on GitHub with this documentation.
-3. Five worklogs, one per role, as the record of who did what.
+3. Five worklogs, one per role.
 4. A live demo where each member presents their own part.

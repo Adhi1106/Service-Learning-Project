@@ -1,54 +1,58 @@
 # Roles: who owns what
 
-Five people, five roles, one day. "Owns" means: you build it, test it, write it
-up in your worklog, and present it in the demo. Nothing in your area changes
-without you knowing.
+Five people, five areas. "Owns" means: you have read every file in your area,
+you can run it and change it, you record what you do in your worklog, and you
+present it in the demo and answer questions on it.
 
-| Role | Title | Member | Worklog |
+The code was built in one session with an AI coding assistant
+([README](../README.md#how-this-was-built)). Owning an area therefore starts
+with **reading and understanding it**, using the checklists below.
+
+| Role | Area | Member | Worklog |
 |---|---|---|---|
-| [F1](#f1) | Frontend: Manager Dashboard & Alerts | ______ | [worklogs/F1.md](worklogs/F1.md) |
-| [F2](#f2) | Frontend: Warden Mobile Screens | ______ | [worklogs/F2.md](worklogs/F2.md) |
-| [B1](#b1) | Backend: Login, Permissions & APIs | ______ | [worklogs/B1.md](worklogs/B1.md) |
-| [B2](#b2) | Backend: Rules, Alerts & Testing | ______ | [worklogs/B2.md](worklogs/B2.md) |
-| [D](#d) | Database: Schema, Security & Seed Data | ______ | [worklogs/D.md](worklogs/D.md) |
+| [F1](#f1) | Manager screens: dashboard, alerts, health cases | ______ | [worklogs/F1.md](worklogs/F1.md) |
+| [F2](#f2) | Warden phone screens: attendance, stock | ______ | [worklogs/F2.md](worklogs/F2.md) |
+| [B1](#b1) | Login, permissions and APIs | ______ | [worklogs/B1.md](worklogs/B1.md) |
+| [B2](#b2) | The three rules, alerts and testing | ______ | [worklogs/B2.md](worklogs/B2.md) |
+| [D](#d) | Database, constraints and seed data | ______ | [worklogs/D.md](worklogs/D.md) |
 
 **In one line each**
 
-- **F1** builds what the manager sees on the laptop.
-- **F2** builds what the warden taps on the phone.
-- **B1** builds login, permissions and the APIs both frontends call, and deploys the app.
-- **B2** builds the three rules that raise alerts, and leads testing.
-- **D** builds the database, its access rules and the made-up data everyone develops against.
+- **F1:** what the manager sees and does on the laptop.
+- **F2:** what the warden taps on the phone.
+- **B1:** who is allowed to do what, and the APIs the screens call.
+- **B2:** the three rules that turn records into alerts, and the tests that prove them.
+- **D:** where everything is stored, the constraints that keep it correct, and the invented data.
 
-Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
+What to say in the demo, and the questions to expect, are in
+[PRESENTATION.md](PRESENTATION.md).
 
 ---
 
 ## F1
 
-**Frontend: Manager Dashboard & Alerts.**
+**Manager screens: dashboard, alerts, health cases.**
 
-### Deliverables
+### Your files
 
-- [ ] App shell: layout, navigation, and the shared components both frontends use (buttons, cards, tables, forms, badges from shadcn/ui)
-- [ ] **Dashboard:** today's attendance count, open alerts, open health cases, low-stock items, 30-day attendance chart
-- [ ] **Alert centre:** alerts listed by severity, with acknowledge and resolve
-- [ ] **Health cases board:** four columns (Open, Scheduled, Under treatment, Resolved) with a button to move a case forward
-- [ ] Stock table for the manager, with low and expiring items marked
-
-### Needs from others
-
-| From | What | By |
-|---|---|---|
-| B1 | Running app with login; endpoints for dashboard numbers, alerts, health cases | Scaffold by 1:30, endpoints during Block 1 |
-| B2 | Alert shape and statuses | Block 0 |
-| D | Seed data to show on screen | 2:00 |
-
-### Gives to others
-
-| To | What |
+| File | What it is |
 |---|---|
-| F2 | Shared components and layout, by 2:00 |
+| `app/manager/layout.tsx` | The manager's frame: side navigation with alert and case counts |
+| `app/manager/page.tsx` | Dashboard: four number cards, absence chart, absence reasons, alerts, low stock |
+| `app/manager/alerts/page.tsx` | Alert centre, sorted by status then severity |
+| `app/manager/cases/page.tsx` | Health cases board with four columns |
+| `app/manager/stock/page.tsx` | Stock table and latest entries |
+| `app/manager/students/` | Student list and profile |
+| `components/manager/` | `AbsenceChart`, `AlertActions`, `CaseCard`, `ResetButton` |
+| `components/ui.tsx`, `components/NavLinks.tsx` | Shared components used by both sets of screens |
+
+### Understand before you present
+
+- [ ] Which pages are server components (they read the database directly) and which parts are client components (`"use client"`: the buttons)
+- [ ] How a button changes data: it calls an API route with `fetch`, then `router.refresh()` reloads the page's data
+- [ ] How the absence chart is drawn (plain `div` bars, no chart library) and why days with 3 or more absences are highlighted
+- [ ] Why the case card saves notes when you leave the box, and moves one column at a time
+- [ ] Where colour carries meaning (red = critical, amber = warning, green = fine) and that the text always says it too
 
 **Without F1:** alerts are raised but the manager has nowhere to see or act on them.
 
@@ -56,30 +60,28 @@ Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
 ## F2
 
-**Frontend: Warden Mobile Screens.**
+**Warden phone screens: attendance, stock.**
 
-### Deliverables
+### Your files
 
-- [ ] **Attendance screen:** pick a class; everyone starts as present; tap the absent ones; pick a reason, and the illness when the reason is medical; save. Under 60 seconds for 30 children
-- [ ] **Stock entry screen:** pick an item; stock in (with expiry date) or stock out; quantity; save
-- [ ] **Student list and profile** (used by both roles)
-- [ ] Everything works on a real phone screen with one thumb
-- [ ] Clear messages when a save fails or an entry already exists for today
-
-### Needs from others
-
-| From | What | By |
-|---|---|---|
-| F1 | Shared components and layout | 2:00 |
-| B1 | Endpoints for students, attendance, stock | Block 1 |
-| D | Lists of absence reasons, illnesses and items | 2:00 |
-
-### Gives to others
-
-| To | What |
+| File | What it is |
 |---|---|
-| B1, D | The exact fields each screen sends, agreed in Block 0 |
-| B2 | Real entries flowing in, so the rules have something to check |
+| `app/warden/layout.tsx` | The warden's frame: top bar and bottom tabs |
+| `app/warden/page.tsx` | Home: each class with "Marked" or "Not marked" for today |
+| `app/warden/attendance/page.tsx` | Loads the class and passes it to the form |
+| `components/warden/AttendanceForm.tsx` | The attendance screen itself |
+| `app/warden/stock/page.tsx`, `components/warden/StockForm.tsx` | Stock in and stock out |
+| `app/warden/students/page.tsx` | Student list (name, class, room only) |
+| `app/login/` | The login screen |
+
+### Understand before you present
+
+- [ ] The speed idea: everyone starts as present, so the warden only taps the absent children
+- [ ] How the form checks that every absence has a reason, and a medical absence has an illness, before it sends anything
+- [ ] What happens when attendance was already saved today (it loads what was saved and lets the warden correct it)
+- [ ] Why the Save bar is fixed at the bottom, and why the buttons are large (one thumb, cheap phone)
+- [ ] What the warden is told after saving (only "Saved"), and why alerts are not shown to the warden
+- [ ] Time yourself marking a class of 15 on a real phone, and write the number in your worklog
 
 **Without F2:** no data gets into the system, so nothing can ever be flagged.
 
@@ -87,31 +89,31 @@ Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
 ## B1
 
-**Backend: Login, Permissions & APIs.**
+**Login, permissions and APIs.**
 
-### Deliverables
+### Your files
 
-- [ ] Next.js project set up, pushed, and **deployed to Vercel by 1:30** (an empty app that everyone can build on)
-- [ ] **Login** with Supabase Auth, and a **role check on every request** on the server
-- [ ] **APIs:** students (list, read); attendance (save a class for a day, read by date); stock (list items, record in/out); alerts (list, acknowledge, resolve); health cases (list, change status); dashboard summary
-- [ ] Input checks with Zod on everything that is saved
-- [ ] Calls B2's rules after each attendance or stock save
-- [ ] Final deployment, with environment variables set in Vercel and not in git
-
-### Needs from others
-
-| From | What | By |
-|---|---|---|
-| D | Supabase project, tables created, two test logins | 2:00 |
-| B2 | The function to call after each save | Block 2 start |
-| F1, F2 | The fields each screen sends and needs back | Block 0 |
-
-### Gives to others
-
-| To | What |
+| File | What it is |
 |---|---|
-| F1, F2 | Every endpoint they call, with shapes that do not change after Block 0 without warning |
-| Everyone | The running app and the live URL |
+| `lib/auth.ts` | Login check, sessions, `requireRole` (pages), `apiUser` (API routes) |
+| `lib/password.ts` | Password hashing (salted scrypt) |
+| `lib/api.ts` | Reads a request body and validates it with Zod |
+| `lib/queries.ts` | Every read query the pages and routes use |
+| `app/api/auth/` | Login and logout |
+| `app/api/attendance/route.ts` | Load a class; save a class (then runs the rules) |
+| `app/api/stock/route.ts` | Stock table; record stock in or out (then runs the rules) |
+| `app/api/alerts/`, `app/api/cases/` | List and update alerts and health cases, manager only |
+| `app/api/students/`, `app/api/lookups/` | Lists the screens need |
+| `app/api/admin/reset/route.ts` | Resets the demo data, manager only |
+
+### Understand before you present
+
+- [ ] What happens at login: password checked against a hash, random token stored in `sessions`, token sent as an http-only cookie
+- [ ] That every page calls `requireRole` and every API route calls `apiUser`, so the check is on the server
+- [ ] The three answers a request can get: 401 (not logged in), 403 (wrong role), 400 (bad input)
+- [ ] How attendance is saved: every entry is checked first, then all rows are written in one transaction, then the rules run
+- [ ] What "upsert" means here: saving the same class twice updates the rows instead of duplicating them
+- [ ] The endpoint table in [CONTRACTS.md](CONTRACTS.md#c3-api-endpoints-b1)
 
 **Without B1:** nobody can log in, and the screens have nothing to talk to.
 
@@ -119,31 +121,25 @@ Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
 ## B2
 
-**Backend: Rules, Alerts & Testing.**
+**The three rules, alerts and testing.**
 
-### Deliverables
+### Your files
 
-- [ ] **Written rule specifications** (Block 0): exactly when each of the three rules fires and what clears it
-- [ ] **The three rules** as small, separate functions: repeated medical absence, low attendance, low stock or expiring
-- [ ] **No duplicate alerts:** the same rule does not fire again for the same child or item while an alert is open
-- [ ] **Auto-open a health case** when the repeated-illness rule fires
-- [ ] **Unit tests for every rule** (Vitest), including the edge cases: exactly 3 absences, day 30 versus day 31, exactly at the minimum level
-- [ ] **Test lead in Block 3:** runs the manual checklist for both demo flows and the warden security check, and logs the bugs
-
-### Needs from others
-
-| From | What | By |
-|---|---|---|
-| D | Table shapes for attendance, stock, alerts, health cases; seed data with planted patterns | Block 0 (shapes), 2:00 (seed) |
-| B1 | A hook to run the rules after each save | Block 2 start |
-
-### Gives to others
-
-| To | What |
+| File | What it is |
 |---|---|
-| F1 | Alert shape, severities and statuses |
-| B1 | One function to call after a save |
-| D | Which patterns to plant in the seed data so each rule can be shown |
+| `lib/rules/rules.ts` | The three rules as plain functions, with their thresholds at the top |
+| `lib/rules/engine.ts` | Reads the data, calls the rules, writes alerts and health cases, prevents duplicates |
+| `lib/rules/rules.test.ts` | 24 tests of the rules on their edge cases |
+| `lib/rules/engine.test.ts` | 19 tests against a real database, including both demo flows |
+
+### Understand before you present
+
+- [ ] Each rule's exact condition and threshold ([CONTRACTS.md](CONTRACTS.md#c4-rules-and-alert-format-b2))
+- [ ] Why the rules are split in two files: `rules.ts` decides, `engine.ts` reads and writes. The split is what makes them easy to test
+- [ ] The three ways a duplicate alert is prevented: an active alert with the same key blocks a new one; a repeated-illness alert needs a new absence; other alerts wait 7 days after being resolved
+- [ ] The edge cases the tests pin down: exactly 3 absences fires, 2 does not; day 29 counts, day 30 does not; exactly 85% does not fire; balance equal to the minimum is not low
+- [ ] Run `npm test` and be able to show it passing live
+- [ ] Why this is not AI: nothing is learned or predicted; every alert can be explained by pointing at the records that caused it
 
 **Without B2:** CareTrack is only a record book. It never notices anything.
 
@@ -151,68 +147,56 @@ Times below refer to the blocks in [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
 ## D
 
-**Database: Schema, Security & Seed Data.**
+**Database, constraints and seed data.**
 
-### Deliverables
+### Your files
 
-- [ ] Supabase project created, with keys shared privately with B1 (never in git)
-- [ ] **Nine tables** as a migration file ([PROJECT_OVERVIEW.md §7](PROJECT_OVERVIEW.md#7-data)), with keys and constraints: one attendance row per child per day; stock balance never below zero
-- [ ] **Trigger:** stock balance updates when a stock transaction is added
-- [ ] **View:** attendance percentage per child over the last 30 days
-- [ ] **Row Level Security:** the warden can read students and write attendance and stock, and cannot read alerts or health cases
-- [ ] **Seed script with invented data:** about 30 students in 2 classes; 60 days of attendance; about 15 stock items; two logins (manager, warden)
-- [ ] **Planted patterns in the seed**, so the demo is repeatable: one child with 2 asthma absences (the 3rd is entered live); one child below 85% attendance; one item just above its minimum level; one medicine expiring within 30 days
-- [ ] A one-command **reset and reseed** for the demo
-
-### Needs from others
-
-| From | What | By |
-|---|---|---|
-| F2 | The fields each entry screen sends | Block 0 |
-| B2 | What the rules read, and which patterns to plant | Block 0 |
-
-### Gives to others
-
-| To | What |
+| File | What it is |
 |---|---|
-| Everyone | The schema (Block 0), working tables and seed data (2:00), a demo reset (Block 3) |
+| `db/schema.sql` | Ten tables, one trigger, one view, and the constraints |
+| `db/seed.ts` | The invented data and the four planted patterns |
+| `lib/db.ts` | Opens the database, creates it on first run, resets it |
+| `scripts/reset-db.ts` | `npm run db:reset` |
 
-**Without D:** there is nowhere to store anything, and nothing stops the warden's login from reading health data.
+### Understand before you present
+
+- [ ] The ten tables and how they link ([CONTRACTS.md](CONTRACTS.md#c1-database-tables-d))
+- [ ] The four rules the database enforces by itself: one attendance row per child per day; an absence must have a reason; stock can never go below zero; the same alert cannot be active twice
+- [ ] How the stock trigger works: adding a transaction updates the item's balance, and if that would go negative the whole entry is rejected
+- [ ] What the `attendance_30d` view calculates
+- [ ] The four planted patterns in the seed, and that the data is generated relative to today's date so the demo works on any day
+- [ ] Why SQLite: the whole database is one file, with nothing to install or sign up for
+- [ ] That every name in the seed is invented, and why that matters
+
+**Without D:** there is nowhere to store anything, and nothing stops bad data getting in.
 
 ---
 
 ## Feature × role matrix
 
-Read across a row to see who to talk to.
+Read across a row to see who to ask.
 
 | Feature | D | B1 | B2 | F1 | F2 |
 |---|---|---|---|---|---|
-| Login and roles | `profiles`, access rules | Login, role checks | | Shell, navigation | |
-| Students | Table, seed | API | | | List and profile |
-| Attendance | Table, constraint, 30-day view | API | Two attendance rules | Chart on dashboard | Entry screen |
-| Stock | Tables, balance trigger | API | Low stock / expiry rule | Stock table | Entry screen |
-| Alerts | Table, access rules | API | Raises them, no duplicates | Alert centre | |
-| Health cases | Table, access rules | API | Opens them automatically | Cases board | |
-| Dashboard | Views | Summary API | | Dashboard | |
+| Login and roles | `users`, `sessions` | Login, role checks | | Manager frame | Login screen, warden frame |
+| Students | Table, seed | Queries, API | | List and profile | List |
+| Attendance | Table, constraints, 30-day view | Save and load API | Two attendance rules | Chart, reasons | Entry screen |
+| Stock | Tables, balance trigger | API | Low stock and expiry rules | Stock table | Entry screen |
+| Alerts | Table, one-active index | API | Raises them, no duplicates | Alert centre | |
+| Health cases | Table | API, one step at a time | Opens them automatically | Cases board | |
+| Dashboard | View | Dashboard query | | Dashboard | |
 
 ## Shared by all five
 
-- Write your worklog entry at the end of every block ([TEAM_RULES.md](../TEAM_RULES.md), rule 3).
-- Review a teammate's pull request within 15 minutes when asked.
-- Be at every check. Present your own part in the demo.
+- Read [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) so you can explain the whole system, not only your part.
+- Run the app yourself and do both demo flows by hand.
+- Tick the review checklist in your worklog and add your own notes.
+- Present your own part and answer the questions on it.
 - Protect the children's data.
 
-## Coordinator (to be assigned)
+## Coordinator
 
-One of the five also keeps the clock. This is a duty on top of a role, not a
-sixth role and not a boss:
-
-- calls the checks on time and runs them
-- decides what gets cut when the day runs late, using the stretch list
-- keeps [DECISIONS.md](DECISIONS.md) current
-- breaks a tie when a decision is stuck
-
-B2 is the natural choice, since the rules are the smallest build and B2 already
-leads testing.
+One of the five opens and closes the presentation, keeps the time, and is the
+contact for the faculty guide.
 
 Coordinator: ______

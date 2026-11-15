@@ -1,27 +1,51 @@
 # Worklog: D
 
-**Role:** Database: Schema, Security & Seed Data
+**Area:** Database, constraints and seed data
 **Member:** _(write your name here)_
 **What I own:** see [ROLES.md](../ROLES.md#d)
 
-This file is the record of everything D does on the build day. It is how
-the team, and anyone marking the project, knows who did what.
+This is the record of work on the D area. Write only what was actually
+done, and by whom.
 
 ## How to use this file
 
-1. Add one entry at the **end of each block** (Block 0, 1, 2, 3), newest at the top, directly under "Entries".
-2. Copy the block from [the entry template](../templates/worklog-entry.md). Five minutes is enough.
+1. Tick the review checklist below as you complete each item.
+2. Add an entry each time you work on your area, **newest first**, under "Entries" and above the build record. Use [the entry template](../templates/worklog-entry.md).
 3. Never paste real children's data, passwords or keys here.
 
-## Status at a glance
+## My review checklist
 
-Copy your deliverables from ROLES.md into this table and update it at each
-check (Not started / In progress / Done / Cut).
+To be ticked by the member who owns this area.
 
-| Deliverable | Status | PR / link | Notes |
-|---|---|---|---|
-| | Not started | | |
+- [ ] I have run `npm run db:reset` and looked at the result in the app
+- [ ] I have read `db/schema.sql` and `db/seed.ts` in full
+- [ ] I can draw the main tables and their links from memory
+- [ ] I can explain the stock trigger and the four things the database refuses
+- [ ] I can point to the four planted patterns in the seed and say what each is for
+- [ ] I have rehearsed my part of PRESENTATION.md
 
 ## Entries
 
-<!-- Newest entry first. Copy docs/templates/worklog-entry.md below this line. -->
+<!-- Your entries go here, newest first. Copy docs/templates/worklog-entry.md. -->
+
+### 2026-11-15: Build record
+
+**Who did this:** the whole app, including this area, was written in a single
+session using Claude Code (an AI coding assistant), directed by the project
+owner. No team member wrote this code by hand. The member who owns this area
+is responsible for reading it, running it and being able to explain it, and
+records that work in their own entries above.
+
+**What was built in this area**
+
+- Ten tables with keys, foreign keys and CHECK constraints (`db/schema.sql`)
+- Trigger `stock_apply` that keeps each item's balance, and rejects a stock-out below zero
+- View `attendance_30d` for per-child attendance percentage
+- Unique index so the same alert cannot be active twice
+- Seed data generated relative to today: 30 invented students, 60 days of attendance, 15 items, 2 logins, and four planted patterns (`db/seed.ts`)
+- Automatic database creation on first run, and reset by command or button (`lib/db.ts`, `scripts/reset-db.ts`)
+
+**How it was checked**
+
+- Tests: a second attendance row for the same child and day is refused; an absence without a reason is refused; a stock-out larger than the balance is refused and the balance is unchanged; a second active alert with the same key is refused; the seed raises exactly the three expected warnings.
+- Decision: SQLite instead of the PostgreSQL in the proposal (DECISIONS.md, D-011). Access by role is enforced in the server code, not inside the database.
